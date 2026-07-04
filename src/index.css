@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* --- Colors (Black / White / Gray with IKB) --- */
+  --color-klein: #002FA7;
+  --color-klein-hover: #0A3AC4;
+  --color-klein-active: #001F6B;
+  --color-klein-tint: #E9EDF8;
+  --color-klein-ghost: rgba(0, 47, 167, 0.08);
+
+  --color-ink-900: #0A0A0A;
+  --color-ink-800: #171717;
+  --color-ink-700: #2A2A2A;
+  --color-ink-600: #444444;
+  --color-ink-500: #6B6B6B;
+  --color-ink-400: #949494;
+  --color-ink-300: #BDBDBD;
+  --color-ink-200: #DCDCDC;
+  --color-ink-150: #E7E7E5;
+  --color-ink-100: #EFEFED;
+
+  --color-paper-0: #FFFFFF;
+  --color-paper-50: #F6F6F4;
+  --color-paper-100: #EEEEEB;
+
+  /* --- Semantic Aliases --- */
+  --color-bg: var(--color-paper-50);
+  --color-surface: var(--color-paper-0);
+  --color-surface-recessed: var(--color-paper-100);
+  --color-text: var(--color-ink-900);
+  --color-text-muted: var(--color-ink-500);
+  --color-text-faint: var(--color-ink-400);
+  --color-border-hairline: var(--color-ink-150);
+  --color-border-strong: var(--color-ink-900);
+
+  /* --- Typography --- */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif;
+  --font-mono: "Helvetica Neue", Helvetica, Arial, "Nimbus Sans L", sans-serif;
+
+  /* --- Custom Transitions and Motion --- */
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-inout: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Base style setups */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #F6F6F4; /* paper-50 */
+  color: #0A0A0A; /* ink-900 */
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* custom selection */
+::selection {
+  background-color: #002FA7;
+  color: #FFFFFF;
+}
+
+/* Custom dossier folder tab curves */
+.dossier-tab {
+  clip-path: polygon(0 0, 80px 0, 96px 100%, 0 100%);
+}
+
+/* Custom line height overrides */
+.leading-tight-custom {
+  line-height: 1.08;
+}
+
+/* custom text reveal styles */
+.rx-reveal {
+  overflow: hidden;
+  display: block;
+}
+
+.rx-reveal-inner {
+  display: block;
+  transform: translateY(110%);
+  animation: rx-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rx-rise {
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rx-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes rx-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: rx-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-scale-in {
+  animation: rx-scale-in 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Smooth custom transitions */
+.transition-editorial {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.transition-fast {
+  transition: all 0.16s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Remove default lists decoration */
+ul, ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+

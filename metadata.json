@@ -1,0 +1,6 @@
+{
+  "name": "Roy Xiang Portfolio",
+  "description": "An archival, contemporary-art-style portfolio showcasing the brand growth, product operations, GTM strategy, and AI creative workflows of Roy Xiang.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
