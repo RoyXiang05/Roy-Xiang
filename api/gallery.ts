@@ -7,6 +7,7 @@ function isAdmin(request: VercelRequest) {
 }
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
+  try {
   const sql = getSql();
   await ensureSchema();
   if (request.method === 'GET') {
@@ -37,4 +38,8 @@ export default async function handler(request: VercelRequest, response: VercelRe
     return response.status(200).json({ success: true });
   }
   return response.status(405).json({ error: 'Method not allowed' });
+  } catch (error) {
+    console.error('Gallery API failed', error);
+    return response.status(500).json({ error: error instanceof Error ? error.message : 'Gallery database error' });
+  }
 }
