@@ -103,7 +103,7 @@ async function startServer() {
         console.error('[Fallback] Failed to find valid fallback video:', err);
       }
     } else {
-      const recommendedDir = path.join(process.cwd(), 'portfolio_mapping', 'recommended_assets');
+      const recommendedDir = path.join(process.cwd(), 'public', 'portfolio_mapping', 'recommended_assets');
       
       // 1. Try recommended_assets directory first
       if (fs.existsSync(recommendedDir)) {
@@ -126,7 +126,7 @@ async function startServer() {
       }
       
       // 2. Otherwise use the guaranteed local pdf_pages_contact_sheet.jpg
-      const contactSheetPath = path.join(process.cwd(), 'portfolio_mapping', 'pdf_pages_contact_sheet.jpg');
+      const contactSheetPath = path.join(process.cwd(), 'public', 'portfolio_mapping', 'pdf_pages_contact_sheet.jpg');
       if (fs.existsSync(contactSheetPath)) {
         console.log(`[Fallback] Serving dynamic fallback image from contact sheet: ${filename}`);
         return res.sendFile(contactSheetPath);
@@ -137,7 +137,7 @@ async function startServer() {
   });
 
   app.use('/uploads', express.static(uploadsDir, staticOptions));
-  app.use('/portfolio_mapping', express.static(path.join(process.cwd(), 'portfolio_mapping'), staticOptions));
+  app.use('/portfolio_mapping', express.static(path.join(process.cwd(), 'public', 'portfolio_mapping'), staticOptions));
 
   // --- API ROUTES ---
 
