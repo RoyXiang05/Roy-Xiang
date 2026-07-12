@@ -742,6 +742,11 @@ WORKS.forEach(work => {
   (work as any).originalGalleryLinks = { ...((work as any).galleryLinks || {}) };
 });
 
+export const cleanMediaUrl = (url: string | null | undefined): string => {
+  if (!url) return '';
+  return url.split('#')[0];
+};
+
 export const isBrokenUrl = (url: string): boolean => {
   if (!url) return false;
   // Check if the URL is or contains specific legacy broken patterns without timestamp prefixes

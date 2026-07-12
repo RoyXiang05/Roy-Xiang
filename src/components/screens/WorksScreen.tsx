@@ -6,7 +6,7 @@ import Tag from '../core/Tag';
 import FolderCover from '../archive/FolderCover';
 import WorkCard, { renderSchematic } from '../archive/WorkCard';
 import WorkRow from '../archive/WorkRow';
-import { WORKS, Work, isBrokenUrl } from '../../data';
+import { WORKS, Work, isBrokenUrl, cleanMediaUrl } from '../../data';
 import { ArrowLeft, FolderOpen, Calendar, Shield, Cpu, Tag as TagIcon, Barcode, Scissors } from 'lucide-react';
 import LogoCropper from '../core/LogoCropper';
 import { apiFetch } from '../../lib/api';
@@ -650,8 +650,8 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
                                 return (
                                   <video
                                     key={firstMediaUrl}
-                                    src={firstMediaUrl}
-                                    poster={(work as any).videoPosters?.[firstMediaUrl] || work.galleryImages?.find(img => !isVideoUrl(img)) || undefined}
+                                    src={cleanMediaUrl(firstMediaUrl)}
+                                    poster={cleanMediaUrl((work as any).videoPosters?.[firstMediaUrl] || work.galleryImages?.find(img => !isVideoUrl(img)) || undefined)}
                                     autoPlay
                                     loop
                                     muted
@@ -662,7 +662,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
                               } else {
                                 return (
                                   <img
-                                    src={firstMediaUrl}
+                                    src={cleanMediaUrl(firstMediaUrl)}
                                     alt={work.title}
                                     className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.02]"
                                   />

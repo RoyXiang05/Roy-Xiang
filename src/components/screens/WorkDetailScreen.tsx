@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Work, WORKS, isBrokenUrl } from '../../data';
+import { Work, WORKS, isBrokenUrl, cleanMediaUrl } from '../../data';
 import { ArrowUp, ArrowDown, Trash2, Plus, Sliders, Image as ImageIcon, Video as VideoIcon, Link as LinkIcon, Upload, Crop, Check, X, RotateCw, Maximize } from 'lucide-react';
 import { apiFetch } from '../../lib/api';
 
@@ -56,7 +56,7 @@ export default function WorkDetailScreen({
     if (!url || isBrokenUrl(url)) {
       return "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
     }
-    return url;
+    return cleanMediaUrl(url);
   };
 
   // Helper for localStorage fallback for missing uploaded images
@@ -1403,8 +1403,8 @@ export default function WorkDetailScreen({
             {isVideo ? (
               <video 
                 key={heroUrl}
-                src={resolvedUrls[heroUrl] || heroUrl} 
-                poster={videoPosters[heroUrl] || undefined}
+                src={cleanMediaUrl(resolvedUrls[heroUrl] || heroUrl)} 
+                poster={videoPosters[heroUrl] ? cleanMediaUrl(videoPosters[heroUrl]) : undefined}
                 autoPlay 
                 loop 
                 muted 
@@ -2530,8 +2530,8 @@ export default function WorkDetailScreen({
                  {isVideo ? (
                    <video 
                      key={mediaUrl}
-                     src={resolvedUrls[mediaUrl] || mediaUrl} 
-                     poster={videoPosters[mediaUrl] || undefined}
+                     src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)} 
+                     poster={videoPosters[mediaUrl] ? cleanMediaUrl(videoPosters[mediaUrl]) : undefined}
                      autoPlay 
                      loop 
                      muted 
@@ -2551,7 +2551,7 @@ export default function WorkDetailScreen({
                  ) : isPdf ? (
                    <div className="w-full h-[360px] md:h-[480px] bg-paper-100 border border-ink-200 relative">
                      <iframe 
-                       src={resolvedUrls[mediaUrl] || mediaUrl} 
+                       src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)} 
                        className="w-full h-full border-0" 
                        title={`PDF Preview ${idx}`}
                      />
