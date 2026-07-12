@@ -968,6 +968,10 @@ export default function WorkDetailScreen({
     apiFetch('/api/gallery')
       .then(res => {
         if (!res.ok) throw new Error('API server unreachable');
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('API did not return JSON');
+        }
         return res.json();
       })
       .then(config => {
@@ -978,6 +982,10 @@ export default function WorkDetailScreen({
         apiFetch('/uploads/gallery_config.json')
           .then(res => {
             if (!res.ok) throw new Error('Static config unreachable');
+            const contentType = res.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Static config did not return JSON');
+            }
             return res.json();
           })
           .then(config => {
@@ -2005,7 +2013,7 @@ export default function WorkDetailScreen({
                             <video 
                               key={imgUrl} 
                               src={getSafeUrl(resolvedUrls[imgUrl] || imgUrl)} 
-                              poster={videoPosters[imgUrl] || undefined} 
+                              poster={videoPosters[imgUrl] ? cleanMediaUrl(videoPosters[imgUrl]) : undefined} 
                               className="w-full h-full object-cover" 
                               muted 
                               playsInline 
@@ -2230,7 +2238,7 @@ export default function WorkDetailScreen({
                             <video 
                               key={newUrl} 
                               src={getSafeUrl(resolvedUrls[newUrl] || newUrl)} 
-                              poster={videoPosters[newUrl] || undefined} 
+                              poster={videoPosters[newUrl] ? cleanMediaUrl(videoPosters[newUrl]) : undefined} 
                               className="w-full h-full object-cover" 
                               muted 
                               playsInline 

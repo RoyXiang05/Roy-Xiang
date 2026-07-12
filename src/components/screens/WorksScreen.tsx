@@ -159,6 +159,10 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     apiFetch('/api/gallery')
       .then(res => {
         if (!res.ok) throw new Error('API server unreachable');
+        const contentType = res.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new Error('API did not return JSON');
+        }
         return res.json();
       })
       .then(config => {
@@ -169,6 +173,10 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
         apiFetch('/uploads/gallery_config.json')
           .then(res => {
             if (!res.ok) throw new Error('Static config unreachable');
+            const contentType = res.headers.get('content-type');
+            if (!contentType || !contentType.includes('application/json')) {
+              throw new Error('Static config did not return JSON');
+            }
             return res.json();
           })
           .then(config => {
