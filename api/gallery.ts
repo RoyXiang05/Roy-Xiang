@@ -1,8 +1,9 @@
 import { del } from '@vercel/blob';
-import { ensureSchema, isAdmin, sql } from './_lib';
+import { ensureSchema, getSql, isAdmin } from './_lib';
 
 export default async function handler(request: Request) {
   await ensureSchema();
+  const sql = getSql();
   if (request.method === 'GET') {
     const rows = await sql`SELECT project_id, media_url, link_url, poster_url FROM gallery_items ORDER BY project_id, sort_order`;
     const data: Record<string, any> = {};

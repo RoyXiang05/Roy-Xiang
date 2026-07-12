@@ -1,9 +1,14 @@
 import crypto from 'node:crypto';
 import { neon } from '@neondatabase/serverless';
 
-export const sql = neon(process.env.DATABASE_URL!);
+export function getSql() {
+  const url = process.env.DATABASE_URL || process.env.DATABASE_POSTGRES_URL;
+  if (!url) throw new Error('Database connection is not configured');
+  return neon(url);
+}
 
 export async function ensureSchema() {
+  const sql = getSql();
   await sql`CREATE TABLE IF NOT EXISTS gallery_items (
     id BIGSERIAL PRIMARY KEY,
     project_id TEXT NOT NULL,
