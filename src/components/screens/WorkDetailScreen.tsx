@@ -920,7 +920,7 @@ export default function WorkDetailScreen({
           }
         }
       } catch (err) {
-        console.error("[Gallery] Failed to parse localStorage backup:", err);
+        console.warn("[Gallery] Failed to parse localStorage backup:", err);
       }
     }
 

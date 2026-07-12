@@ -199,7 +199,28 @@ export const WORKS: Work[] = [
       { label: "Brand Alignment", value: "100%" }
     ],
     tags: ["Generative AI", "Creative Automation", "Brand Assets", "Photoshop", "Workflow"],
-    schematicType: "workflow"
+    schematicType: "workflow",
+    heroImage: "/portfolio_assets/1783797479443_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+    galleryImages: [
+      "/portfolio_assets/opt_1783661874686_movie.mp4#video",
+      "/portfolio_assets/opt_1783661997327_movie.mp4#video",
+      "/portfolio_assets/1783689328246_IMG_7520.PNG.png#image",
+      "/portfolio_assets/1783797479443_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+      "/portfolio_assets/1783797533528_Picture12.jpg#image",
+      "/portfolio_assets/1783797595082_Picture1.png#image",
+      "/portfolio_assets/1783797596471_Picture3.png#image",
+      "/portfolio_assets/1783797597229_Picture5.png#image",
+      "/portfolio_assets/1783797598425_Picture6.png#image",
+      "/portfolio_assets/1783797599081_93ff5e99ej2fdaae4df422eb4555353f.png#image",
+      "/portfolio_assets/1783797599739_IMG_4530.jpg#image",
+      "/portfolio_assets/1783797528976_Picture6.jpg#image",
+      "/portfolio_assets/1783797529644_Picture7.jpg#image",
+      "/portfolio_assets/1783797530429_Picture8.jpg#image",
+      "/portfolio_assets/1783797531136_Picture9.jpg#image",
+      "/portfolio_assets/1783797531712_Picture10.jpg#image",
+      "/portfolio_assets/1783797532999_Picture11.png#image",
+      "/portfolio_assets/1783797130565_7637904cefda3c9611aff36ddfc45f50.PNG.png#image"
+    ]
   },
   {
     id: "ai-enabled-content-ops",
@@ -232,14 +253,12 @@ export const WORKS: Work[] = [
     ],
     tags: ["Content Operations", "SOP", "LinkedIn Growth", "AI Workflows", "Bilingual"],
     schematicType: "workflow",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__cover__asset026__b0a9ec6077.jpg",
+    heroImage: "/portfolio_assets/1783850585409_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset034__1be755256d.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset057__2677573a89.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset063__93d599265b.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset108__a5e91795e8.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset131__ab5d3f7ac7.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_linkedin_creative_videos__gallery__asset155__4e9ba3dfa8.jpg"
+      "/portfolio_assets/1783850585409_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+      "/portfolio_assets/1783850587903_Screenshot_2026-02-09_at_2.40.54___PM.png#image",
+      "/portfolio_assets/1783850590278_Screenshot_2026-02-10_at_6.39.11___PM.png#image",
+      "/portfolio_assets/1783850593224__________.png#image"
     ]
   },
   {
@@ -273,12 +292,10 @@ export const WORKS: Work[] = [
     ],
     tags: ["Vibe Coding", "B2B Workflow", "React", "Node.js", "Procurement"],
     schematicType: "platform",
-    heroImage: "/portfolio_mapping/recommended_assets/product_anton_supplier_platform__cover__asset104__bda55ccbda.jpg",
+    heroImage: "/portfolio_assets/1783850550164_1920w_light.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/product_anton_supplier_platform__gallery__asset135__e4d869f9f6.jpg",
-      "/portfolio_mapping/recommended_assets/product_anton_supplier_platform__gallery__asset164__4fe50b4444.jpg",
-      "/portfolio_mapping/recommended_assets/product_anton_supplier_platform__gallery__asset189__6fc979a09e.jpg",
-      "/portfolio_mapping/recommended_assets/product_anton_supplier_platform__gallery__asset197__214482525d.jpg"
+      "/portfolio_assets/1783850550164_1920w_light.png#image",
+      "/portfolio_assets/1783856761356_Screenshot_2026-07-12_at_11.15.49___AM.png#image"
     ]
   },
   {
@@ -312,16 +329,16 @@ export const WORKS: Work[] = [
     ],
     tags: ["Generative AI", "Photoshop", "CSR", "HSE", "Visual System"],
     schematicType: "workflow",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__cover__asset027__fb634db6bd.jpg",
+    heroImage: "/portfolio_assets/1783856802987_7637904cefda3c9611aff36ddfc45f50.PNG.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset036__a60107df8e.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset055__e93724d14b.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset073__4507018995.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset077__3fab820d78.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset090__020a5c27d7.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset142__a8d655dbbe.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset169__4fdee3baae.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_csr_gen_ai__gallery__asset171__654eec17d9.jpg"
+      "/portfolio_assets/1783856802987_7637904cefda3c9611aff36ddfc45f50.PNG.png#image",
+      "/portfolio_assets/1783856801273_Screenshot_2026-07-10_at_3.38.18___PM.png#image",
+      "/portfolio_assets/1783856808158_Gemini_Generated_Image_6asj3a6asj3a6asj.png#image",
+      "/portfolio_assets/1783856811553_Gemini_Generated_Image_9fz84p9fz84p9fz8.png#image",
+      "/portfolio_assets/1783856813352_Gemini_Generated_Image_unpwpfunpwpfunpw.png#image",
+      "/portfolio_assets/1783856816812_Gemini_Generated_Image_w2mxqnw2mxqnw2mx.png#image",
+      "/portfolio_assets/1783856819037_Gemini_Generated_Image_3y5x5p3y5x5p3y5x.png#image",
+      "/portfolio_assets/1783856821413_Gemini_Generated_Image_4h2bjf4h2bjf4h2b.png#image"
     ]
   },
   {
@@ -355,13 +372,12 @@ export const WORKS: Work[] = [
     ],
     tags: ["B2B Brand", "ADIPEC", "Event Design", "Corporate Strategy"],
     schematicType: "exhibition",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__cover__asset031__ac1224b87f.jpg",
+    heroImage: "/portfolio_assets/1783857053072_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__gallery__asset052__6977ea1d50.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__gallery__asset058__785f4377d8.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__gallery__asset102__2f5e95a4d4.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__gallery__asset129__a86115b6d7.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_adipec_exhibition__gallery__asset137__2063321bc1.jpg"
+      "/portfolio_assets/1783857053072_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+      "/portfolio_assets/1783857055470_Screenshot_2026-02-09_at_2.40.54___PM.png#image",
+      "/portfolio_assets/opt_1783857095880_601b0ed52b895e258a8a242efa6c2c58_raw.mp4#video",
+      "/portfolio_assets/1783857124673__________.png#image"
     ]
   },
   {
@@ -395,9 +411,15 @@ export const WORKS: Work[] = [
     ],
     tags: ["Product Positioning", "GTM Strategy", "Luxury Marketing", "Creative Direction"],
     schematicType: "campaign",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_oppo_find_n5__cover__asset080__b8a321e94e.jpg",
+    heroImage: "/portfolio_assets/1783857301578_Picture12.jpg#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_oppo_find_n5__gallery__asset182__ffc138de54.jpg"
+      "/portfolio_assets/1783857301578_Picture12.jpg#image",
+      "/portfolio_assets/1783857285405_Picture6.jpg#image",
+      "/portfolio_assets/1783857286052_Picture7.jpg#image",
+      "/portfolio_assets/1783857286838_Picture8.jpg#image",
+      "/portfolio_assets/1783857287783_Picture9.jpg#image",
+      "/portfolio_assets/1783857288705_Picture10.jpg#image",
+      "/portfolio_assets/1783857301068_Picture11.png#image"
     ]
   },
   {
@@ -431,10 +453,14 @@ export const WORKS: Work[] = [
     ],
     tags: ["Strategic Brand", "Entertainment Integration", "KOL Playbook", "IP Crossover"],
     schematicType: "campaign",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_vivo_partnership__cover__asset038__da540127e9.jpg",
+    heroImage: "/portfolio_assets/1783857435499_Picture1.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_vivo_partnership__gallery__asset117__996964cd75.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_vivo_partnership__gallery__asset139__e1e79bb15d.jpg"
+      "/portfolio_assets/1783857435499_Picture1.png#image",
+      "/portfolio_assets/1783857440436_Picture3.png#image",
+      "/portfolio_assets/1783857442956_Picture5.png#image",
+      "/portfolio_assets/1783857443797_Picture6.png#image",
+      "/portfolio_assets/1783857445110_93ff5e99ej2fdaae4df422eb4555353f.png#image",
+      "/portfolio_assets/1783857445598_IMG_4530.jpg#image"
     ]
   },
   {
@@ -468,19 +494,12 @@ export const WORKS: Work[] = [
     ],
     tags: ["LinkedIn Growth", "Generative AI", "Employer Branding", "SOP", "Recruitment"],
     schematicType: "campaign",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__cover__asset001__3ec50caba7.jpg",
+    heroImage: "/portfolio_assets/opt_1783857560006_QHSE2.mp4#video",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset002__16fe5fd785.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset003__dca2e63334.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset004__5c71991f5a.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset035__1a889d029e.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset062__5fe2c39a2f.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset070__c59ff0d431.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset087__3298f2d10a.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset100__9fbd16ccd4.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset115__abd29642da.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset156__46bae0ce0c.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset163__42bbbb6cec.jpg"
+      "/portfolio_assets/opt_1783857560006_QHSE2.mp4#video",
+      "/portfolio_assets/opt_1783857529702_jimeng-2025-08-20-5888-_________________________________________2.mp4#video",
+      "/portfolio_assets/opt_1783857539969_MUD3.mp4#video",
+      "/portfolio_assets/opt_1783857550167_QHSE.mp4#video"
     ]
   },
   {
@@ -514,13 +533,17 @@ export const WORKS: Work[] = [
     ],
     tags: ["Product Ops", "B2B SaaS", "Data Viz", "Farfetch", "CRO"],
     schematicType: "analytics",
-    heroImage: "/portfolio_mapping/recommended_assets/product_curio_eye_saas__cover__asset018__80703335d1.jpg",
+    heroImage: "/portfolio_assets/1783857642354____Curio_eye_One_pager__20230807.___001.jpeg#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/product_curio_eye_saas__gallery__asset040__91faee1f10.jpg",
-      "/portfolio_mapping/recommended_assets/product_curio_eye_saas__gallery__asset044__87274f8260.jpg",
-      "/portfolio_mapping/recommended_assets/product_curio_eye_saas__gallery__asset107__17c64fe916.jpg",
-      "/portfolio_mapping/recommended_assets/product_curio_eye_saas__gallery__asset167__e64d08e2c3.jpg",
-      "/portfolio_mapping/recommended_assets/product_curio_eye_saas__gallery__asset180__0d7b64bf10.jpg"
+      "/portfolio_assets/1783857642354____Curio_eye_One_pager__20230807.___001.jpeg#image",
+      "/portfolio_assets/1783857645866_CurioEye_demo3_compressed.gif#image",
+      "/portfolio_assets/1783857647432_3bcaf45a2rb4e49ccbb87dadc8240a9e.PNG.png#image",
+      "/portfolio_assets/1783857648053_4caf472e4occ3d445ce0e46f03f402d3.PNG.png#image",
+      "/portfolio_assets/1783857648634_6bb631cebrad8b82d0ca53fba241c9fb.PNG.png#image",
+      "/portfolio_assets/1783857650434_09ed9a0c0rdf1ec37c6490e103a6e167.PNG.png#image",
+      "/portfolio_assets/1783857651073_89ea8f2b3qc3fe244ba91bb971a1c361.PNG.png#image",
+      "/portfolio_assets/1783857653275_curioeye_V6.1.png#image",
+      "/portfolio_assets/1783857653826_f01774f99k896b52b307bc59c7313582.PNG.png#image"
     ]
   },
   {
@@ -554,20 +577,20 @@ export const WORKS: Work[] = [
     ],
     tags: ["Luxury UX", "WeChat Mini Program", "Service Design", "O2O"],
     schematicType: "mobile",
-    heroImage: "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__cover__asset021__05459ac06b.jpg",
+    heroImage: "/portfolio_assets/1783857798873_____________-______.jpg#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset096__be738f17f2.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset158__9967ade378.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset175__9f05909b11.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset184__f7ffb2bb51.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset187__c3dd6770a8.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset188__6db472b37e.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset191__0696129362.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset192__8a8bdec0f4.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset198__ec70a6c8c4.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__gallery__asset199__cdc35c250a.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__secondary__asset094__dffb6a75eb.jpg",
-      "/portfolio_mapping/recommended_assets/product_john_lobb_wechat_store__secondary__asset110__3f919151ce.jpg"
+      "/portfolio_assets/1783857798873_____________-______.jpg#image",
+      "/portfolio_assets/1783857799472_____________.jpg#image",
+      "/portfolio_assets/1783857800115_____________.jpg#image",
+      "/portfolio_assets/1783857800615_______-__________________.jpg#image",
+      "/portfolio_assets/1783857801135_____________.jpg#image",
+      "/portfolio_assets/1783857801652_______.jpg#image",
+      "/portfolio_assets/1783857802246________________-____________.jpg#image",
+      "/portfolio_assets/1783857802877_____________.jpg#image",
+      "/portfolio_assets/1783857803504_____________.jpg#image",
+      "/portfolio_assets/1783857804014__________-____________.jpg#image",
+      "/portfolio_assets/1783857804571__________.jpg#image",
+      "/portfolio_assets/1783857805119_______.jpg#image"
     ]
   },
   {
@@ -601,25 +624,13 @@ export const WORKS: Work[] = [
     ],
     tags: ["CRO", "UX Design", "Gifting Referral", "Luxury E-Com"],
     schematicType: "analytics",
-    heroImage: "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__cover__asset050__535c80dd3b.jpg",
+    heroImage: "/portfolio_assets/1783857861571_Group_1.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset054__459da74f72.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset056__2933ce7912.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset065__be6a8b47ae.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset074__669c82855c.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset075__f7b7a85c0b.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset088__b751e0589d.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset092__2c81c73901.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset106__245f24a7ba.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset144__73339c290c.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset147__806067f324.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset162__a306d22f14.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset185__ff5c505e48.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset190__fc0e4318dd.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset194__12f218ba23.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset195__d813a5c633.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset196__c8509c0917.jpg",
-      "/portfolio_mapping/recommended_assets/product_baccarat_cro_campaign__gallery__asset201__229a8e89b8.jpg"
+      "/portfolio_assets/1783857861571_Group_1.png#image",
+      "/portfolio_assets/1783857862557_Group_2.png#image",
+      "/portfolio_assets/1783857864556_4d877ba94i3801a2c50c8852c98d4ea8.PNG.png#image",
+      "/portfolio_assets/1783857865405_IMG_6134.png#image",
+      "/portfolio_assets/1783857867901_IMG_6135.png#image"
     ]
   },
   {
@@ -653,7 +664,7 @@ export const WORKS: Work[] = [
     ],
     tags: ["SEO", "Baidu", "Google", "Bilingual Content", "GTM Campaign"],
     schematicType: "campaign",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_cityu_dual_seo__cover__asset068__abbf70aeb7.jpg",
+    heroImage: "",
     galleryImages: []
   },
   {
@@ -687,12 +698,14 @@ export const WORKS: Work[] = [
     ],
     tags: ["Integrated Campaign", "Social Operations", "Hyundai China", "Growth Marketing"],
     schematicType: "campaign",
-    heroImage: "/portfolio_mapping/recommended_assets/gtm_hyundai_china__cover__asset017__48f2d4aaeb.jpg",
+    heroImage: "/portfolio_assets/1783857910428_Screenshot_2026-07-10_at_4.34.17___PM.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/gtm_hyundai_china__gallery__asset134__827401a037.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hyundai_china__gallery__asset085__45729db99c.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hyundai_china__gallery__asset165__6c2d3f75b3.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_hyundai_china__gallery__asset025__c4cb6d60bf.jpg"
+      "/portfolio_assets/1783857910428_Screenshot_2026-07-10_at_4.34.17___PM.png#image",
+      "/portfolio_assets/1783857915309_IMG_7520.PNG.png#image",
+      "/portfolio_assets/1783857917858_IMG_7521_2.PNG.png#image",
+      "/portfolio_assets/1783858393690_IMG_7523.PNG.png#image",
+      "/portfolio_assets/1783858396609_IMG_7524_2.PNG.png#image",
+      "/portfolio_assets/1783858402480_IMG_7525_2.PNG.png#image"
     ]
   },
   {
@@ -726,12 +739,11 @@ export const WORKS: Work[] = [
     ],
     tags: ["Employee Platform", "UX Design", "Operations", "Internal Communications"],
     schematicType: "mobile",
-    heroImage: "/portfolio_mapping/recommended_assets/product_volvo_internal_platform__cover__asset085__45729db99c.jpg",
+    heroImage: "/portfolio_assets/1783857993895_Picture2.png#image",
     galleryImages: [
-      "/portfolio_mapping/recommended_assets/product_volvo_internal_platform__gallery__asset165__6c2d3f75b3.jpg",
-      "/portfolio_mapping/recommended_assets/product_volvo_internal_platform__gallery__asset145__9d15564a71.jpg",
-      "/portfolio_mapping/recommended_assets/product_volvo_internal_platform__gallery__asset159__d8e821e4e3.jpg",
-      "/portfolio_mapping/recommended_assets/gtm_volvo_owned_platform__secondary__asset025__c4cb6d60bf.jpg"
+      "/portfolio_assets/1783857993895_Picture2.png#image",
+      "/portfolio_assets/1783858432274_Picture3.png#image",
+      "/portfolio_assets/1783858437021_Picture1.png#image"
     ]
   }
 ];
@@ -780,51 +792,73 @@ export const isBrokenUrl = (url: string): boolean => {
 
 // Load any saved custom gallery images and links from localStorage on initial load
 if (typeof window !== 'undefined' && window.localStorage) {
-  try {
-    WORKS.forEach(work => {
+  WORKS.forEach(work => {
+    try {
       const savedImages = window.localStorage.getItem(`project_gallery_images_${work.id}`);
-      const savedLinks = window.localStorage.getItem(`project_gallery_links_${work.id}`);
       if (savedImages) {
-        const parsed = JSON.parse(savedImages);
-        if (Array.isArray(parsed)) {
-          // Self-heal: Migrate old /uploads/ paths to /portfolio_assets/ and filter out empty /portfolio_mapping/
-          const migrated = parsed
-            .map((url: string) => {
-              if (url.startsWith('/uploads/')) {
-                return url.replace('/uploads/', '/portfolio_assets/');
+        try {
+          const parsed = JSON.parse(savedImages);
+          if (Array.isArray(parsed)) {
+            // Self-heal: Migrate old /uploads/ paths to /portfolio_assets/ and filter out empty /portfolio_mapping/
+            const migrated = parsed
+              .map((url: string) => {
+                if (url && url.startsWith('/uploads/')) {
+                  return url.replace('/uploads/', '/portfolio_assets/');
+                }
+                return url;
+              })
+              .filter((url: string) => {
+                return (
+                  url &&
+                  !url.startsWith('blob:') &&
+                  !isBrokenUrl(url) &&
+                  !url.startsWith('/portfolio_mapping/recommended_assets/')
+                );
+              });
+            
+            if (migrated.length !== parsed.length || JSON.stringify(migrated) !== JSON.stringify(parsed)) {
+              try {
+                window.localStorage.setItem(`project_gallery_images_${work.id}`, JSON.stringify(migrated));
+              } catch (innerErr) {
+                console.warn("[LocalStorage] Failed to update project gallery images key:", innerErr);
               }
-              return url;
-            })
-            .filter((url: string) => {
-              return (
-                !url.startsWith('blob:') &&
-                !isBrokenUrl(url) &&
-                !url.startsWith('/portfolio_mapping/recommended_assets/')
-              );
-            });
-          
-          if (migrated.length !== parsed.length || JSON.stringify(migrated) !== JSON.stringify(parsed)) {
-            window.localStorage.setItem(`project_gallery_images_${work.id}`, JSON.stringify(migrated));
+            }
+            work.galleryImages = migrated;
           }
-          work.galleryImages = migrated;
+        } catch (parseErr) {
+          console.warn("[LocalStorage] Failed to parse gallery images for project:", work.id, parseErr);
         }
       }
+    } catch (err) {
+      console.warn("[LocalStorage] Failed to read gallery images for project:", work.id, err);
+    }
+
+    try {
+      const savedLinks = window.localStorage.getItem(`project_gallery_links_${work.id}`);
       if (savedLinks) {
-        const parsedLinks = JSON.parse(savedLinks);
-        const migratedLinks: Record<string, string> = {};
-        Object.entries(parsedLinks).forEach(([key, val]) => {
-          const newKey = key.startsWith('/uploads/') ? key.replace('/uploads/', '/portfolio_assets/') : key;
-          const newVal = typeof val === 'string' && val.startsWith('/uploads/') ? val.replace('/uploads/', '/portfolio_assets/') : val;
-          migratedLinks[newKey] = newVal as string;
-        });
-        if (JSON.stringify(migratedLinks) !== JSON.stringify(parsedLinks)) {
-          window.localStorage.setItem(`project_gallery_links_${work.id}`, JSON.stringify(migratedLinks));
+        try {
+          const parsedLinks = JSON.parse(savedLinks);
+          const migratedLinks: Record<string, string> = {};
+          Object.entries(parsedLinks).forEach(([key, val]) => {
+            const newKey = key.startsWith('/uploads/') ? key.replace('/uploads/', '/portfolio_assets/') : key;
+            const newVal = typeof val === 'string' && val.startsWith('/uploads/') ? val.replace('/uploads/', '/portfolio_assets/') : val;
+            migratedLinks[newKey] = newVal as string;
+          });
+          if (JSON.stringify(migratedLinks) !== JSON.stringify(parsedLinks)) {
+            try {
+              window.localStorage.setItem(`project_gallery_links_${work.id}`, JSON.stringify(migratedLinks));
+            } catch (innerErr) {
+              console.warn("[LocalStorage] Failed to update project gallery links key:", innerErr);
+            }
+          }
+          (work as any).galleryLinks = migratedLinks;
+        } catch (parseErr) {
+          console.warn("[LocalStorage] Failed to parse gallery links for project:", work.id, parseErr);
         }
-        (work as any).galleryLinks = migratedLinks;
       }
-    });
-  } catch (e) {
-    console.error("Error loading persisted gallery content from localStorage:", e);
-  }
+    } catch (err) {
+      console.warn("[LocalStorage] Failed to read gallery links for project:", work.id, err);
+    }
+  });
 }
 
