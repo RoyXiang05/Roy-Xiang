@@ -1,12 +1,17 @@
+import multer from 'multer';
 import { put } from '@vercel/blob';
-import { isAdmin } from './_lib';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default async function handler(request: Request) {
-  if (request.method !== 'POST') return Response.json({ error: 'Method not allowed' }, { status: 405 });
-  if (!isAdmin(request)) return Response.json({ error: 'Administrator login required' }, { status: 401 });
-  const form = await request.formData();
-  const file = form.get('file');
-  if (!(file instanceof File)) return Response.json({ error: 'Missing file' }, { status: 400 });
-  const blob = await put(`portfolio/${Date.now()}-${file.name}`, file, { access: 'public', addRandomSuffix: true });
-  return Response.json({ url: blob.url });
+const upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 50 * 1024 * 1024 } });
+
+export const config = { api: { bodyParser: false } };
+
+export default async function handler(request: VercelRequest, response: VercelResponse) {
+  if (request.method !== 'POST') return response.status(405).json({ error: 'Method not allowed' });
+  if (!request.headers.cookie?.includes('portfolio_admin=')) return response.status(401).json({ error: 'Administrator login required' });
+  await new Promise<void>((resolve, reject) => upload.single('file')(request as any, response as any, error => error ? reject(error) : resolve()));
+  const file = (request as any).file as Express.Multer.File | undefined;
+  if (!file) return response.status(400).json({ error: 'Missing file' });
+  const blob = await put(`portfolio/${Date.now()}-${file.originalname}`, file.buffer, { access: 'public', addRandomSuffix: true, contentType: file.mimetype });
+  return response.status(200).json({ url: blob.url });
 }
