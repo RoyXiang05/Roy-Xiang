@@ -1,7 +1,4 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    { "source": "/admin", "destination": "/index.html" },
-    { "source": "/((?!assets/|portfolio_assets/|.*\\.).*)", "destination": "/index.html" }
-  ]
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
