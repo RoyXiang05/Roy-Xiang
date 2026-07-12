@@ -787,12 +787,40 @@ if (typeof window !== 'undefined' && window.localStorage) {
       if (savedImages) {
         const parsed = JSON.parse(savedImages);
         if (Array.isArray(parsed)) {
-          // Filter out transient blob URLs and broken URLs to prevent rendering broken images on load
-          work.galleryImages = parsed.filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
+          // Self-heal: Migrate old /uploads/ paths to /portfolio_assets/ and filter out empty /portfolio_mapping/
+          const migrated = parsed
+            .map((url: string) => {
+              if (url.startsWith('/uploads/')) {
+                return url.replace('/uploads/', '/portfolio_assets/');
+              }
+              return url;
+            })
+            .filter((url: string) => {
+              return (
+                !url.startsWith('blob:') &&
+                !isBrokenUrl(url) &&
+                !url.startsWith('/portfolio_mapping/recommended_assets/')
+              );
+            });
+          
+          if (migrated.length !== parsed.length || JSON.stringify(migrated) !== JSON.stringify(parsed)) {
+            window.localStorage.setItem(`project_gallery_images_${work.id}`, JSON.stringify(migrated));
+          }
+          work.galleryImages = migrated;
         }
       }
       if (savedLinks) {
-        (work as any).galleryLinks = JSON.parse(savedLinks);
+        const parsedLinks = JSON.parse(savedLinks);
+        const migratedLinks: Record<string, string> = {};
+        Object.entries(parsedLinks).forEach(([key, val]) => {
+          const newKey = key.startsWith('/uploads/') ? key.replace('/uploads/', '/portfolio_assets/') : key;
+          const newVal = typeof val === 'string' && val.startsWith('/uploads/') ? val.replace('/uploads/', '/portfolio_assets/') : val;
+          migratedLinks[newKey] = newVal as string;
+        });
+        if (JSON.stringify(migratedLinks) !== JSON.stringify(parsedLinks)) {
+          window.localStorage.setItem(`project_gallery_links_${work.id}`, JSON.stringify(migratedLinks));
+        }
+        (work as any).galleryLinks = migratedLinks;
       }
     });
   } catch (e) {

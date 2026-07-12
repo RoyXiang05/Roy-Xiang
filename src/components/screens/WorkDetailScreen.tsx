@@ -1402,8 +1402,9 @@ export default function WorkDetailScreen({
 
   // 3. Hero Media Container
   function renderMedia(item: Work) {
-    const isVideo = isVideoUrl(item.heroImage);
-    const heroUrl = item.heroImage;
+    const isHeroBroken = !item.heroImage || item.heroImage.startsWith('/portfolio_mapping/') || isBrokenUrl(item.heroImage);
+    const heroUrl = isHeroBroken ? (item.galleryImages?.[0] || '') : item.heroImage;
+    const isVideo = isVideoUrl(heroUrl);
     return (
       <div id="hero-media-container" className="rx-detail-hero-media mb-12">
         {heroUrl ? (
