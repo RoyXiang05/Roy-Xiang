@@ -1,0 +1,576 @@
+[
+  {
+    "id": "profile",
+    "title": "Roy Xiang Profile",
+    "category": "Profile",
+    "pdf_pages": [
+      3
+    ],
+    "role": "Brand & Growth Marketing Professional",
+    "summary": "Personal profile covering brand, growth marketing, production, design, and AI-powered content operations across China and the Middle East.",
+    "deliverables": [
+      "Portfolio introduction",
+      "Career narrative",
+      "Professional positioning"
+    ],
+    "tags": [
+      "profile",
+      "marketing",
+      "AI",
+      "Middle East",
+      "China"
+    ],
+    "cover_asset_id": "8cb5304fbf61be0d88bfd307d53e60bb0cb5d2ad",
+    "gallery_asset_ids": [],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_hr_gen_ai_linkedin",
+    "title": "HR Gen-AI Visual LinkedIn Project",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      5
+    ],
+    "role": "Regional content operations and Gen-AI visual workflow lead",
+    "summary": "Implemented Gen-AI visual workflows for regional recruitment storytelling on LinkedIn, achieving a 40% lead conversion rate.",
+    "deliverables": [
+      "Recruitment key visuals",
+      "LinkedIn post creatives",
+      "AI-assisted image workflow"
+    ],
+    "tags": [
+      "LinkedIn",
+      "Gen-AI",
+      "recruitment",
+      "visual campaign"
+    ],
+    "cover_asset_id": "3ec50caba7236ed17cf72f61661caefb3fcc1b5a",
+    "gallery_asset_ids": [
+      "16fe5fd7854202ec3313342e7426dc2ef5bd8fdf",
+      "dca2e63334fc42f0ced72d7138263c89ab53646c",
+      "5c71991f5a4f6b01660695db9dc1520aab5f0997",
+      "1a889d029e0ab5795dae7ffebcdad36f9b1b02c5",
+      "5fe2c39a2f4aef38562a65f5175180edfe6dcb65",
+      "c59ff0d431fe0460731828f8f5ee5ca98ad43e97",
+      "3298f2d10a5f362f3a8fb271295debbd644bba31",
+      "9fbd16ccd44267960a231ef6063275c000a2f14b",
+      "abd29642dad0dc26042ce224844912ee2e3d7cd6",
+      "46bae0ce0c4a43605cb88145741af82685c76014",
+      "42bbbb6ceceeaaa919a15e7bceb3d90547f893df"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_linkedin_creative_videos",
+    "title": "LinkedIn Creative Videos",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      6
+    ],
+    "role": "End-to-end video producer",
+    "summary": "Managed creative videos from storyboard to 4K cinematography, editing, and cinematic color grading for corporate communication.",
+    "deliverables": [
+      "Storyboard",
+      "On-site shooting",
+      "Post-production",
+      "LinkedIn video posts"
+    ],
+    "tags": [
+      "video",
+      "LinkedIn",
+      "production",
+      "DaVinci Resolve"
+    ],
+    "cover_asset_id": "b0a9ec6077d91fab954e34cd3d73410d929f2b8d",
+    "gallery_asset_ids": [
+      "1be755256ded9e751e86cb9b8775e357f8497fe2",
+      "2677573a899120b63747efab04ef5ca34d672b0f",
+      "93d599265b375e21803d08a06173471632af2e87",
+      "a5e91795e8e0d14e551e2a186b8840e220368573",
+      "ab5d3f7ac76ae117c6802c6aa5cab12ead4f631a",
+      "4e9ba3dfa8be5cfb07571ed1c9c08ea6a75c9199"
+    ],
+    "secondary_asset_ids": [
+      "d15fe79e7178671752761a0041d8495f915768c9"
+    ],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_adipec_exhibition",
+    "title": "ADIPEC Exhibition",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      7
+    ],
+    "role": "Exhibition brand experience lead",
+    "summary": "Orchestrated Anton’s ADIPEC brand presence across booth design, digital screen content, and VIP invitation systems.",
+    "deliverables": [
+      "Booth experience",
+      "Digital screen content",
+      "VIP invitation system",
+      "Event communications"
+    ],
+    "tags": [
+      "ADIPEC",
+      "exhibition",
+      "B2B",
+      "brand experience"
+    ],
+    "cover_asset_id": "ac1224b87f2ffeb9dfadd4d132f2a9dedc2faba8",
+    "gallery_asset_ids": [
+      "6977ea1d50e490c40accb9b527d3d8e2e22b421e",
+      "785f4377d8b0a0b5d1a0ad25dbac404177bd9000",
+      "2f5e95a4d4a0f68b74f98ca7a1af72710a1472db",
+      "a86115b6d732d7455a4c92cfbaacfc2941a1f1d4",
+      "2063321bc1b6ba13ff1502b1abd5331652aa2f34"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_csr_gen_ai",
+    "title": "CSR Gen-AI Project",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      8
+    ],
+    "role": "Gen-AI visual workflow and card design lead",
+    "summary": "Created child-friendly HSE safety card visuals using a hybrid AI generation and Photoshop compositing workflow.",
+    "deliverables": [
+      "Safety cards",
+      "Custom illustrated icons",
+      "Hybrid AI compositing workflow"
+    ],
+    "tags": [
+      "CSR",
+      "HSE",
+      "Gen-AI",
+      "Photoshop",
+      "safety"
+    ],
+    "cover_asset_id": "fb634db6bd1a2489fdd31a00e1cc6c6c51f7b6ea",
+    "gallery_asset_ids": [
+      "a60107df8eceff92a4eb02fde8b3c4003a55fc32",
+      "e93724d14b3f4b094a71cbf2c3de4cb281646ce5",
+      "4507018995b4544488f67509c2b825228566cf58",
+      "3fab820d786ff4a98825dc0143fdd1d518cf8d4a",
+      "020a5c27d71fc3ebada80655ba13c59be95c3ebc",
+      "a8d655dbbe4cbf0de6a7eb447f9c7971fec535f7",
+      "4fdee3baae1e02b076532f28c2742566f2dedc80",
+      "654eec17d908120684e2cdb099cf03c9134c41d7"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_vivo_partnership",
+    "title": "vivo 5-Year Strategic Partnership",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      9
+    ],
+    "role": "Strategic brand campaign partner",
+    "summary": "Supported vivo’s hyper-growth through product launches, IP collaborations, entertainment integrations, and social platform campaigns.",
+    "deliverables": [
+      "Product launch campaigns",
+      "IP collaborations",
+      "Social content strategy",
+      "Entertainment integrations"
+    ],
+    "tags": [
+      "vivo",
+      "mobile",
+      "IP collaboration",
+      "Xiaohongshu"
+    ],
+    "cover_asset_id": "da540127e9ab5fb0f72b81fdb38dd9e7cbbe08ed",
+    "gallery_asset_ids": [
+      "996964cd75b6d0cb8a92af3d652e0088bece4148",
+      "e1e79bb15dc8130bbc412eecdc2361760465948f"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_oppo_find_n5",
+    "title": "OPPO Find N5 Foldable Flagship",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      10
+    ],
+    "role": "Product positioning and GTM strategist",
+    "summary": "Defined premium naming, teaser strategy, and lifestyle positioning for OPPO’s foldable flagship.",
+    "deliverables": [
+      "Product positioning",
+      "Visual identity",
+      "Creative teaser",
+      "GTM messaging"
+    ],
+    "tags": [
+      "OPPO",
+      "foldable",
+      "GTM",
+      "product marketing"
+    ],
+    "cover_asset_id": "b8a321e94e87135cdca467ace3d0e9c1e2889ae4",
+    "gallery_asset_ids": [
+      "ffc138de547713d141a47203a81984377abd05b9"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_douyin_iqoo_5g",
+    "title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      11
+    ],
+    "role": "Viral social campaign strategist",
+    "summary": "Launched a gamified 5G challenge with brand music and influencer matrix to dominate short-video share of voice.",
+    "deliverables": [
+      "Douyin challenge concept",
+      "Brand music track",
+      "Influencer matrix",
+      "Short-video creative system"
+    ],
+    "tags": [
+      "Douyin",
+      "TikTok CN",
+      "iQOO",
+      "5G",
+      "viral challenge"
+    ],
+    "cover_asset_id": "6cc69a7a25f50c660ef7bf1bb2ecb0fc7aa5f80e",
+    "gallery_asset_ids": [
+      "0a271cf1e732738028f0baa9f225bbf07851ba67",
+      "bcc56385f695beb190935b1c3091b2a680962679",
+      "26469de937b409abe1233020a18a919dbe3ec29b",
+      "13073d269e97108e24404b01f59ac7b44210ea71",
+      "99ded674b8edb12cc1e2ab350fb712256d81993b"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_volvo_owned_platform",
+    "title": "Volvo China - Branded Employee Engagement Platform",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      12
+    ],
+    "role": "Owned community platform operator",
+    "summary": "Operated Volvo’s branded WeChat community platform to increase active users, penetration, and engagement.",
+    "deliverables": [
+      "WeChat community operations",
+      "Content programming",
+      "In-app optimization",
+      "Performance reporting"
+    ],
+    "tags": [
+      "Volvo",
+      "WeChat",
+      "community",
+      "CRM",
+      "engagement"
+    ],
+    "cover_asset_id": "45729db99c226679d4bfd455ce9909b20ded43fb",
+    "gallery_asset_ids": [
+      "d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+      "2face8f8c1b745f2ffc7a2be7a544f5bd399e6de",
+      "6c2d3f75b3047a270edbdd2a2002ad668e382a51"
+    ],
+    "secondary_asset_ids": [
+      "48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+      "c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc"
+    ],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_cityu_dual_seo",
+    "title": "City University of HK - Dual-Engine SEO",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      13
+    ],
+    "role": "Bilingual SEO programme lead",
+    "summary": "Delivered a 12-month Google and Baidu SEO programme with bilingual editorial strategy and native Baidu content placement.",
+    "deliverables": [
+      "Google SEO",
+      "Baidu SEO",
+      "Bilingual content calendar",
+      "Performance optimization"
+    ],
+    "tags": [
+      "CityU",
+      "SEO",
+      "Google",
+      "Baidu",
+      "education"
+    ],
+    "cover_asset_id": "abbf70aeb73d768f0c2607a8b447b9eb71166ae0",
+    "gallery_asset_ids": [
+      "fafd6636fc9ef951e0afb339cbab728997e6071a",
+      "5d06d32ae8af4d9b689de8fe6b174df6858ce04d",
+      "0437af0661c22ea04e00285c7873e38a1d94acf4"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "gtm_hyundai_china",
+    "title": "Hyundai China - Five-Platform Integrated Campaign",
+    "category": "GTM Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "role": "Integrated campaign operations lead",
+    "summary": "Led platform-specific campaigns across WeChat, Douyin, Xiaohongshu, Weibo, and Video Account, achieving +120% engagement.",
+    "deliverables": [
+      "Five-platform campaign",
+      "Content adaptation",
+      "Data-led targeting",
+      "Performance reporting"
+    ],
+    "tags": [
+      "Hyundai",
+      "auto",
+      "China social",
+      "integrated campaign"
+    ],
+    "cover_asset_id": "48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+    "gallery_asset_ids": [
+      "c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc",
+      "45729db99c226679d4bfd455ce9909b20ded43fb",
+      "827401a037196626d4f009127e3182b2fddf0ae7",
+      "6c2d3f75b3047a270edbdd2a2002ad668e382a51"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "product_john_lobb_wechat_store",
+    "title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "role": "UI/UX designer and e-commerce architect",
+    "summary": "Designed a luxury WeChat flagship store that translated white-glove bespoke service into a mobile commerce experience.",
+    "deliverables": [
+      "Product page UI",
+      "Customisation flow",
+      "Order page UI",
+      "UX low-fi diagram",
+      "Requirements breakdown"
+    ],
+    "tags": [
+      "John Lobb",
+      "luxury",
+      "WeChat mini-program",
+      "e-commerce",
+      "service design"
+    ],
+    "cover_asset_id": "05459ac06b01463fc15a07085b5e805d96ff7309",
+    "gallery_asset_ids": [
+      "be738f17f262afd4bbe0a0e217f21ef116578c6d",
+      "9967ade378ca7ea596d9677f266f5d3d8c190f26",
+      "9f05909b11922aac5df4b607cf2f1bc25d7327a9",
+      "f7ffb2bb51213a0f47eb70fcb4d3df4e83ef2429",
+      "c3dd6770a8bcdbe2ebd310426867ad0ae29015cb",
+      "6db472b37ef7f747b5e63746179558ae98cc4b9e",
+      "06961293622115b1cf81aed483d75f52898b15f2",
+      "8a8bdec0f43e87a91ec001e989475af112cd3c89",
+      "ec70a6c8c47c655ad20db73a6ffe2c67bafc5054",
+      "cdc35c250aca7ee8c975e9a3f6a25ea853975391"
+    ],
+    "secondary_asset_ids": [
+      "dffb6a75eb4c7db824f0a0c531e2b5e359870a7b",
+      "3f919151ce506671c161722a4d40dfea7821f104"
+    ],
+    "website_section_suggestion": "featured case study"
+  },
+  {
+    "id": "product_baccarat_cro_campaign",
+    "title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "role": "CRO and campaign product strategist",
+    "summary": "Optimized platform UX through A/B testing and built seasonal referral campaigns for gifting growth.",
+    "deliverables": [
+      "UX optimization",
+      "A/B testing",
+      "Referral campaign",
+      "Gift card sharing flow",
+      "Seasonal campaign pages"
+    ],
+    "tags": [
+      "Baccarat",
+      "CRO",
+      "WeChat",
+      "campaign",
+      "luxury"
+    ],
+    "cover_asset_id": "535c80dd3b0c1f71ba5ab52074537595ae0cae73",
+    "gallery_asset_ids": [
+      "459da74f726b149764fbe159df82fb515026a595",
+      "2933ce79121fb26bb2e6d9a05f4876dda67db713",
+      "be6a8b47aefdca9e5ee6daa15fa7a50420cf54d6",
+      "669c82855c5ad357ce77fa3a44f0164ac2862080",
+      "f7b7a85c0bf8240e825969f3517ae449dfc99eb6",
+      "b751e0589da900aecd4b7a2c0cdb74b0050d3015",
+      "2c81c73901cb0ba77a4f08e98ed05551c3cbaefe",
+      "245f24a7ba19c72d6008b917feac1e580dcc5dcb",
+      "73339c290c5c64214d7d802cc24c6fde9f7b757f",
+      "806067f324fa51d500627e1ab2ae3c4523768a1f",
+      "a306d22f14da4714a3b14bc89c4025fb08553af3",
+      "ff5c505e481e13e1324f295b6122eb801662441e",
+      "fc0e4318ddc63fa4f61c244654dcf49972670fd3",
+      "12f218ba2378224ed155cef99f1ad8dbf7642e25",
+      "d813a5c633de59c510b15b6acde4a31f908808b3",
+      "c8509c091749d800c53cc245530799ad26f0682f",
+      "229a8e89b8ae53bd0adf82f5941969d9d4c8e38f"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "featured case study"
+  },
+  {
+    "id": "product_curio_eye_saas",
+    "title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "role": "Product monetisation and BI experience lead",
+    "summary": "Repositioned a fashion intelligence tool from data display to business intelligence with dashboards, profiling, and reporting.",
+    "deliverables": [
+      "Visual dashboards",
+      "User profiling",
+      "Consultative reports",
+      "Commercial pitch support"
+    ],
+    "tags": [
+      "SaaS",
+      "BI",
+      "data visualization",
+      "fashion intelligence"
+    ],
+    "cover_asset_id": "80703335d1ecd9d8e63f4ed73b5fd4c35cd17e50",
+    "gallery_asset_ids": [
+      "91faee1f106f390a8d51fe0d2421bd029cdeaa22",
+      "87274f82607fd69f65d5a11c571110035fb8c1c6",
+      "17c64fe916f035f9fb0f08e0d75f2a55629e431a",
+      "e64d08e2c3142696f463103275508a45050135cb",
+      "0d7b64bf10448e8e51bb32862f132a15d23393bb"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "featured case study"
+  },
+  {
+    "id": "product_anton_brand_website",
+    "title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      25
+    ],
+    "role": "Website UX/UI upgrade lead",
+    "summary": "Led Anton’s corporate website overhaul across IA, UI system upgrade, and responsive adaptation for global expansion.",
+    "deliverables": [
+      "UX audit",
+      "Information architecture",
+      "UI visual system",
+      "Responsive design"
+    ],
+    "tags": [
+      "Anton Oil",
+      "corporate website",
+      "UI/UX",
+      "responsive"
+    ],
+    "cover_asset_id": "d34118451b75f57a545ff0e5011e868df0998c90",
+    "gallery_asset_ids": [
+      "b54d38528b48c3376af1ae69fc051b3204368249",
+      "bf0f7a8ee2fc11dc46294e141acf3415eb94b77b",
+      "87ab97f56c5d518f2d6ab56bfa4d4e2184c21a44",
+      "e7901d54e5893ae4ef8e7221b642e6cc4572d06b"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  },
+  {
+    "id": "product_anton_supplier_platform",
+    "title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "role": "Solo AI-assisted product builder",
+    "summary": "Built a supplier recruitment platform from prompt to launch, combining marketing front door and structured onboarding workflow.",
+    "deliverables": [
+      "Supplier landing page",
+      "Registration flow",
+      "Qualification upload",
+      "Bilingual architecture",
+      "AI-coded build"
+    ],
+    "tags": [
+      "Anton Oil",
+      "vibe coding",
+      "AI-assisted development",
+      "supplier platform",
+      "B2B"
+    ],
+    "cover_asset_id": "bda55ccbda8b0b087fe43c23198ea5fbaa84708b",
+    "gallery_asset_ids": [
+      "e4d869f9f67e943b1d577547fe28745eb89cea79",
+      "4fe50b44447d62864a0f540e4b28efe441494fbd",
+      "6fc979a09e5410fc00c9e40d701054cf282cbc1e",
+      "214482525da20746c11debac36e462098d8a3240"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "featured case study"
+  },
+  {
+    "id": "product_volvo_internal_platform",
+    "title": "Volvo China - Internal Employee Engagement Platform",
+    "category": "Product & UI/UX",
+    "pdf_pages": [
+      29,
+      30
+    ],
+    "role": "Internal platform operations lead",
+    "summary": "Operated Volvo China’s internal employee platform across HR services, content, community, and performance optimization.",
+    "deliverables": [
+      "Internal platform operations",
+      "Service modules",
+      "Content programming",
+      "Usage analytics"
+    ],
+    "tags": [
+      "Volvo",
+      "employee engagement",
+      "internal platform",
+      "WeChat"
+    ],
+    "cover_asset_id": "45729db99c226679d4bfd455ce9909b20ded43fb",
+    "gallery_asset_ids": [
+      "d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+      "9d15564a712cb71a21ac82924183c87edbabe21f",
+      "6c2d3f75b3047a270edbdd2a2002ad668e382a51"
+    ],
+    "secondary_asset_ids": [],
+    "website_section_suggestion": "project card + short case section"
+  }
+]

@@ -11,6 +11,7 @@ export interface FolderCoverProps {
   details?: string[];
   hidePaper?: boolean;
   animPhase?: 'idle' | 'tucked' | 'pull' | 'zoom' | 'reverse-zoom' | 'reverse-pull';
+  isSiblingAnimating?: boolean;
 }
 
 export default function FolderCover({
@@ -22,7 +23,8 @@ export default function FolderCover({
   active = false,
   details = [],
   hidePaper = false,
-  animPhase = 'idle'
+  animPhase = 'idle',
+  isSiblingAnimating = false
 }: FolderCoverProps) {
   const pad = (num: number) => String(num).padStart(2, '0');
 
@@ -34,6 +36,7 @@ export default function FolderCover({
   const containerRef = useRef<HTMLDivElement>(null);
 
   const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
+    if (isSiblingAnimating) return;
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left; // x position within element
@@ -57,8 +60,8 @@ export default function FolderCover({
     }
     
     // Set max tilt angles (X controls tilt around horizontal axis, Y around vertical axis)
-    const maxTiltX = 8; // degrees
-    const maxTiltY = 8; // degrees
+    const maxTiltX = 11; // degrees (enhanced by ~30%)
+    const maxTiltY = 11; // degrees (enhanced by ~30%)
     
     // Smooth tilt calculations
     const rotateX = -normalizedY * maxTiltX;
@@ -133,6 +136,7 @@ export default function FolderCover({
     } else if (animPhase === 'zoom' || animPhase === 'reverse-zoom') {
       paperStyle = {
         transform: 'translateY(-210px) rotate(-1.5deg)',
+        transition: 'none',
       };
       paperOpacityClass = 'opacity-0 pointer-events-none';
     } else if (animPhase === 'reverse-pull') {
@@ -143,14 +147,17 @@ export default function FolderCover({
     }
   }
 
+  const isAnimating = animPhase && animPhase !== 'idle';
+  const shouldDisableHover = isAnimating || isSiblingAnimating;
+
   return (
     <div
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       onClick={onClick}
-      style={(hidePaper || (animPhase && animPhase !== 'idle')) ? { transform: 'none', transition: 'none' } : tiltStyle}
-      className="group relative flex flex-col cursor-pointer select-none h-[368px] justify-end pt-[70px] overflow-visible"
+      style={(hidePaper || shouldDisableHover) ? { transform: 'none', transition: 'none' } : tiltStyle}
+      className={`${shouldDisableHover ? '' : 'group'} relative flex flex-col cursor-pointer select-none h-[368px] justify-end pt-[70px] overflow-visible`}
       id={`folder-cover-${number}`}
     >
       {/* 1. Back Flap & Tab */}

@@ -1,21 +1,6 @@
 import { Work } from '../../data';
 
-export interface WorkCardProps {
-  key?: any;
-  work: Work;
-  onClick?: () => void;
-  ratio?: string;
-}
-
-export default function WorkCard({
-  work,
-  onClick,
-  ratio = "aspect-[4/3]"
-}: WorkCardProps) {
-  const pad = (num: number) => String(num).padStart(2, '0');
-
-  // Render a custom blueprint diagram based on the project's schematicType
-  const renderSchematic = (type: Work['schematicType']) => {
+export const renderSchematic = (type: Work['schematicType']) => {
     switch (type) {
       case 'platform':
         return (
@@ -225,7 +210,21 @@ export default function WorkCard({
           </div>
         );
     }
-  };
+};
+
+export interface WorkCardProps {
+  key?: any;
+  work: Work;
+  onClick?: () => void;
+  ratio?: string;
+}
+
+export default function WorkCard({
+  work,
+  onClick,
+  ratio = "aspect-[4/3]"
+}: WorkCardProps) {
+  const pad = (num: number) => String(num).padStart(2, '0');
 
   return (
     <div

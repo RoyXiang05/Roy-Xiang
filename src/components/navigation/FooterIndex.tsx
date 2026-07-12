@@ -11,8 +11,9 @@ export default function FooterIndex({
 }: FooterIndexProps) {
   const linksIndex = [
     { name: '01 / Selected Archive', view: 'Works' },
-    { name: '02 / Personal Profile', view: 'Profile' },
-    { name: '03 / Inquiry & Contact', view: 'Contact' }
+    { name: '02 / Personal About', view: 'About' },
+    { name: '03 / Inquiry & Contact', view: 'Contact' },
+    { name: '04 / Administrative Portal', view: 'Admin' }
   ];
 
   const linksSocial = [
@@ -82,7 +83,7 @@ export default function FooterIndex({
                 — Positioning
               </h5>
               <p className="font-sans text-xs text-ink-300 leading-relaxed max-w-xs">
-                Designing commercial growth, strategic narratives, and AI creative pipelines across APAC & MENA markets.
+                Turning AI tools into practical business workflows for creative production, content operations, product communication, and digital execution.
               </p>
             </div>
           </div>

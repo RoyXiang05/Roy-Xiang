@@ -1,22 +1,87 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import RevealText from '../core/RevealText';
 import IndexLabel from '../core/IndexLabel';
 import Tag from '../core/Tag';
 import FolderCover from '../archive/FolderCover';
-import WorkCard from '../archive/WorkCard';
+import WorkCard, { renderSchematic } from '../archive/WorkCard';
 import WorkRow from '../archive/WorkRow';
 import { WORKS, Work } from '../../data';
-import { ArrowLeft, FolderOpen, Calendar, Shield, Cpu, Tag as TagIcon, Barcode } from 'lucide-react';
+import { ArrowLeft, FolderOpen, Calendar, Shield, Cpu, Tag as TagIcon, Barcode, Scissors } from 'lucide-react';
+import LogoCropper from '../core/LogoCropper';
+import { apiFetch } from '../../lib/api';
 
 interface WorksScreenProps {
   onSelectProject: (project: Work) => void;
+  isViewActive?: boolean;
+  onNavigate?: (viewName: string) => void;
 }
 
-export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
+const getProjectAbbreviation = (work: Work) => {
+  switch (work.id) {
+    case 'ai-visual-production-workflow': return 'AVP';
+    case 'ai-enabled-content-ops': return 'ACO';
+    case 'ai-coded-supplier-platform': return 'SOP';
+    case 'hitl-genai-safety-communication': return 'HSC';
+    case 'adipec-anton-brand-experience': return 'AEB';
+    case 'oppo-find-n5-gtm': return 'OPP';
+    case 'vivo-5year-partnership': return 'VIV';
+    case 'hr-gen-ai-visual-linkedin': return 'HGA';
+    case 'curioeye-fashion-intelligence-saas': return 'FSC';
+    case 'john-lobb-wechat-flagship-store': return 'JLW';
+    case 'baccarat-ux-optimization': return 'BUO';
+    case 'cityu-seo-campaign': return 'CYU';
+    case 'hyundai-china-campaign': return 'HYU';
+    case 'volvo-internal-platform': return 'VOL';
+    default: return 'WRK';
+  }
+};
+
+const isVideoUrl = (url?: string) => {
+  if (!url) return false;
+  if (url.includes('#video')) return true;
+  if (url.includes('#image')) return false;
+  
+  const cleanUrl = url.split('?')[0].split('#')[0].toLowerCase();
+  return (
+    cleanUrl.endsWith('.mp4') || 
+    cleanUrl.endsWith('.webm') || 
+    cleanUrl.endsWith('.mov') || 
+    cleanUrl.endsWith('.ogg') ||
+    cleanUrl.includes('mixkit.co/videos')
+  );
+};
+
+export default function WorksScreen({ onSelectProject, isViewActive = true, onNavigate }: WorksScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedTag, setSelectedTag] = useState<string>('All');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [displayType, setDisplayType] = useState<'cabinet' | 'flat'>('cabinet');
+
+  // Scrolling phrases inside angle brackets
+  const [phraseIndex, setPhraseIndex] = useState(0);
+  const phrases = [
+    'applied AI',
+    'AI production pipelines',
+    'creative automation',
+    'vibe-coded prototypes',
+    'growth marketing',
+    'content systems',
+    'prompt frameworks',
+    'human-in-the-loop QA',
+    'product management',
+    'UI/UX design',
+    'graphic design',
+    'video producing'
+  ];
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setPhraseIndex((prev) => (prev + 1) % phrases.length);
+    }, 2000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Animation and view states
   const [activeCategoryPage, setActiveCategoryPage] = useState<string | null>(null);
@@ -25,62 +90,124 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
   const [clickRect, setClickRect] = useState<DOMRect | null>(null);
   const [reverseActive, setReverseActive] = useState<boolean>(false);
 
-  // Lock body scroll when floating overlay is active to keep parent scroll position pristine
+  // Logo Cropper Custom Assets States & Handlers
+  const [showCropper, setShowCropper] = useState<boolean>(false);
+  const [customLogos, setCustomLogos] = useState<Record<string, string>>({});
+
+  const [galleryUpdated, setGalleryUpdated] = useState(0);
+
+  const loadCustomLogos = () => {
+    const loaded: Record<string, string> = {};
+    const brandIds = [
+      'sinopec', 'douyin', 'red', 'tencent', 'tencent_ad', 
+      'lenovo', 'dior', 'john_lobb', 'vanke', 'vivo', 
+      'kuaishou', 'ocean_engine', 'estee_lauder'
+    ];
+    brandIds.forEach((id) => {
+      const saved = localStorage.getItem(`custom_logo_${id}`);
+      if (saved) {
+        loaded[id] = saved;
+      }
+    });
+    setCustomLogos(loaded);
+  };
+
   useEffect(() => {
-    if (activeCategoryPage) {
+    loadCustomLogos();
+    
+    // Fetch latest gallery configuration from server to sync WORKS
+    apiFetch('/api/gallery')
+      .then(res => {
+        if (!res.ok) throw new Error('API server unreachable');
+        return res.json();
+      })
+      .then(config => {
+        if (config) {
+          let updated = false;
+          WORKS.forEach(work => {
+            if (config[work.id]) {
+              const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:'));
+              const savedPosters = config[work.id].videoPosters || {};
+              if (savedImages.length > 0) {
+                work.galleryImages = savedImages;
+                updated = true;
+              }
+              if (Object.keys(savedPosters).length > 0) {
+                (work as any).videoPosters = { ...((work as any).videoPosters || {}), ...savedPosters };
+                updated = true;
+              }
+            }
+          });
+          if (updated) {
+            setGalleryUpdated(prev => prev + 1);
+          }
+        }
+      })
+      .catch(err => {
+        console.warn('[Gallery] Error syncing with server config:', err);
+      });
+  }, []);
+
+  const renderBrandLogo = (id: string, defaultSvg: React.ReactNode) => {
+    if (customLogos[id]) {
+      return (
+        <div className="flex items-center h-6 hover:opacity-100 transition-opacity duration-200" id={`brand-logo-custom-${id}`}>
+          <img 
+            src={customLogos[id]} 
+            alt={id} 
+            className="h-6 object-contain" 
+          />
+        </div>
+      );
+    }
+    return defaultSvg;
+  };
+
+  // Lock body scroll when floating overlay is active to keep parent scroll position pristine and avoid layout shift
+  useEffect(() => {
+    if (activeCategoryPage && isViewActive) {
+      // Calculate exact scrollbar width
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
+      if (scrollbarWidth > 0) {
+        document.body.style.paddingRight = `${scrollbarWidth}px`;
+      }
     } else {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     }
     return () => {
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
-  }, [activeCategoryPage]);
+  }, [activeCategoryPage, isViewActive]);
 
-  const categories = [
+  const categories = useMemo(() => [
     { 
       number: 1, 
-      title: 'AI Creative Operations', 
-      subtitle: '2 FILES ARCHIVED', 
+      title: 'AI Creative Operations' as const, 
+      subtitle: `${WORKS.filter(w => w.category === 'AI Creative Operations').length} FILES ARCHIVED`, 
       tone: 'klein' as const,
-      details: [
-        "Midjourney & Runway v3",
-        "Custom GPT Assistants",
-        "SOP Workflow Automation",
-        "Bilingual Creative Pipelines"
-      ],
-      description: "Harnessing deep neural models and generative tooling to collapse production cycles, establish standardized brand prompts, and deliver localized, high-fidelity creative systems at speed."
+      details: WORKS.filter(w => w.category === 'AI Creative Operations').map(w => w.title),
+      description: "Turning manual creative, marketing, and business processes into repeatable, high-efficiency AI-enabled workflows and functional business prototypes."
     },
     { 
       number: 2, 
-      title: 'GTM Campaigns', 
-      subtitle: '3 FILES ARCHIVED', 
+      title: 'Branding & Marketing' as const, 
+      subtitle: `${WORKS.filter(w => w.category === 'Branding & Marketing').length} FILES ARCHIVED`, 
       tone: 'ink' as const,
-      details: [
-        "MENA Region GTM Strategy",
-        "LinkedIn Growth Operations",
-        "Bilingual Content Funnels",
-        "ADIPEC Exhibition Experience",
-        "Corporate Storytelling Systems",
-        "VIP High-Level Communications",
-        "Conversion Optimization"
-      ],
-      description: "High-impact brand, product launch, and exhibition strategies crafted for the Middle East, APAC, and global markets. Integrates physical corporate narratives with digital performance marketing to drive massive commercial leverage."
+      details: WORKS.filter(w => w.category === 'Branding & Marketing').map(w => w.title),
+      description: "High-impact brand, product campaign, and exhibition strategies that form the foundation of our commercial and digital operations across APAC, MENA, and global markets."
     },
     { 
       number: 3, 
-      title: 'Product & UI/UX', 
-      subtitle: '3 FILES ARCHIVED', 
+      title: 'Product & UI/UX' as const, 
+      subtitle: `${WORKS.filter(w => w.category === 'Product & UI/UX').length} FILES ARCHIVED`, 
       tone: 'paper' as const,
-      details: [
-        "B2B SaaS Hub Design",
-        "E-Commerce Journeys",
-        "System Information Architecture",
-        "Data-Driven Dashboards"
-      ],
-      description: "User experience blueprints and digital product architectures that bridge elite aesthetics with frictionless usability, focusing on data-informed conversion pathways and enterprise SaaS hubs."
+      details: WORKS.filter(w => w.category === 'Product & UI/UX').map(w => w.title),
+      description: "UX blueprints, digital product architectures, and optimization strategies that support high-growth e-commerce, enterprise SaaS, and retail operations."
     }
-  ];
+  ], []);
 
   // Tags for the active animating category specifically, so the tags list is relevant to what's inside!
   const currentCategoryTags = useMemo(() => {
@@ -107,6 +234,44 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
       return matchCategory && matchTag && matchQuery;
     });
   }, [animatingCat, selectedTag, searchQuery]);
+
+  // Works filtered for the flat index grid view
+  const flatFilteredWorks = useMemo(() => {
+    return WORKS.filter(work => {
+      const matchCategory = selectedCategory === 'All' || work.category === selectedCategory;
+      return matchCategory;
+    });
+  }, [selectedCategory]);
+
+  // Click on a scrolling marquee/index item opens the respective cabinet folder dossier
+  const handleMarqueeItemClick = (catNumber: number) => {
+    let folderNumber = 1;
+    if (catNumber === 4) folderNumber = 2;
+    if (catNumber === 5) folderNumber = 3;
+
+    const targetCat = categories.find(c => c.number === folderNumber);
+    if (targetCat) {
+      const el = document.getElementById(`folder-cover-${folderNumber}`);
+      if (el) {
+        handleFolderClick(targetCat, el.getBoundingClientRect());
+      } else {
+        // Fallback if folder cover element is temporarily not mounted or flat view is active
+        setDisplayType('cabinet');
+        setTimeout(() => {
+          const freshEl = document.getElementById(`folder-cover-${folderNumber}`);
+          if (freshEl) {
+            handleFolderClick(targetCat, freshEl.getBoundingClientRect());
+          } else {
+            setSelectedTag('All');
+            setSearchQuery('');
+            setAnimatingCat(targetCat);
+            setAnimPhase('zoom');
+            setActiveCategoryPage(targetCat.title);
+          }
+        }, 100);
+      }
+    }
+  };
 
   // Click on a category folder initiates pull-out transition
   const handleFolderClick = (cat: any, rect: DOMRect) => {
@@ -180,6 +345,7 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
       transformOrigin: 'center center',
       borderRadius: '4px',
       opacity: 0,
+      transition: 'none',
     };
 
     if (animPhase === 'tucked') {
@@ -187,6 +353,7 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
         ...initialStyle,
         transform: 'translateY(-70px) rotate(-1.5deg)',
         opacity: 0,
+        transition: 'none',
       };
     }
 
@@ -195,12 +362,13 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
         ...initialStyle,
         transform: 'translateY(-210px) rotate(-1.5deg)',
         opacity: 0,
+        transition: 'none',
       };
     }
 
     if (animPhase === 'zoom') {
-      const targetWidth = Math.min(896, window.innerWidth - 32);
-      const targetHeight = Math.min(680, window.innerHeight - 64);
+      const targetWidth = Math.min(cardWidth * 3, window.innerWidth - 32);
+      const targetHeight = Math.min(cardHeight * 4.5, window.innerHeight - 48);
       const targetLeft = (window.innerWidth - targetWidth) / 2;
       const targetTop = (window.innerHeight - targetHeight) / 2;
 
@@ -214,7 +382,7 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
         borderRadius: '8px',
         pointerEvents: 'auto',
         opacity: 1,
-        transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), left 0.5s cubic-bezier(0.16, 1, 0.3, 1), top 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       };
     }
@@ -224,7 +392,7 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
         ...initialStyle,
         transform: 'translateY(-210px) rotate(-1.5deg)',
         opacity: 1,
-        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), left 0.45s cubic-bezier(0.16, 1, 0.3, 1), top 0.45s cubic-bezier(0.16, 1, 0.3, 1), width 0.45s cubic-bezier(0.16, 1, 0.3, 1), height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
       };
     }
 
@@ -233,7 +401,7 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
         ...initialStyle,
         transform: 'translateY(-210px) rotate(-1.5deg)',
         opacity: 0,
-        transition: 'opacity 0.1s ease-out',
+        transition: 'opacity 0.15s ease-out',
       };
     }
 
@@ -273,36 +441,48 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
       {/* 1. CINEMATIC PULL-OUT TRANSITION OVERLAY */}
       {animatingCat && (
         <div 
-          className={`fixed inset-0 overflow-hidden flex items-center justify-center transition-all duration-500 ${
+          className={`fixed inset-0 overflow-hidden flex items-center justify-center ${
             (animPhase === 'zoom' || animPhase === 'reverse-zoom') 
               ? 'z-50 pointer-events-auto cursor-zoom-out' 
               : 'z-[15] pointer-events-none'
           }`}
-          style={{
-            backgroundColor: (animPhase === 'zoom' || animPhase === 'reverse-zoom') ? 'rgba(10, 10, 10, 0.25)' : 'transparent',
-            backdropFilter: (animPhase === 'zoom' || animPhase === 'reverse-zoom') ? 'blur(12px)' : 'none',
-            WebkitBackdropFilter: (animPhase === 'zoom' || animPhase === 'reverse-zoom') ? 'blur(12px)' : 'none',
-          }}
           onClick={handleBackToCabinet}
         >
+          {/* Hardware-accelerated smooth backdrop blur element */}
+          <div 
+            className={`absolute inset-0 transition-all duration-500 ease-out ${
+              (animPhase === 'zoom' || animPhase === 'reverse-zoom') ? 'opacity-100' : 'opacity-0'
+            }`}
+            style={{
+              backgroundColor: 'rgba(10, 10, 10, 0.25)',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              pointerEvents: 'none',
+            }}
+          />
           {/* Paper Insert Document (Animates dynamically with GPU transition style) */}
           <div
-            className={`bg-paper-0 shadow-2xl border relative flex flex-col justify-between overflow-y-auto custom-scrollbar cursor-default ${
+            className={`bg-paper-0 shadow-2xl border relative flex flex-col justify-between overflow-hidden cursor-default ${
               animatingCat.tone === 'klein' ? 'border-klein-tint border-l-4 border-l-klein' :
               animatingCat.tone === 'ink' ? 'border-ink-150 border-l-4 border-l-ink-800' :
               'border-ink-150 border-l-4 border-l-klein'
             }`}
-            style={getAnimatingCardStyle()}
+            style={{
+              ...getAnimatingCardStyle(),
+              backgroundColor: animPhase === 'zoom' ? '#ffffff' : undefined,
+            }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Grid pattern overlay */}
-            <div 
-              className="absolute inset-0 opacity-[0.03] pointer-events-none"
-              style={{
-                backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
-                backgroundSize: '8px 8px'
-              }}
-            />
+            {/* Grid pattern overlay - only show in small card phase */}
+            {animPhase !== 'zoom' && (
+              <div 
+                className="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style={{
+                  backgroundImage: `radial-gradient(circle, currentColor 1px, transparent 1px)`,
+                  backgroundSize: '8px 8px'
+                }}
+              />
+            )}
 
             {/* A. SMALL CARD CONTENT (fades out as card zooms to full screen) */}
             <div 
@@ -351,215 +531,159 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
 
             {/* B. FULL SCREEN PAGE CONTENT (fades in when card reaches full screen) */}
             <div 
-              className={`relative z-15 flex flex-col min-h-full justify-between max-w-4xl mx-auto w-full px-6 py-12 md:py-16 transition-all duration-500 ease-out ${
+              className={`relative z-15 flex flex-col md:flex-row gap-8 md:gap-12 w-full p-8 md:p-12 transition-opacity transition-transform duration-[350ms] ease-out h-full min-h-full overflow-y-auto bg-white ${
                 animPhase === 'zoom' 
-                  ? 'opacity-100 translate-y-0 delay-200' 
-                  : 'opacity-0 translate-y-6 pointer-events-none'
+                  ? 'opacity-100 translate-y-0 delay-[300ms]' 
+                  : 'opacity-0 translate-y-4 pointer-events-none'
               }`}
             >
-              <div>
-                <div className="flex items-center justify-between border-b border-ink-150 pb-4 mb-8">
-                  <div className="flex flex-col space-y-1 md:flex-row md:items-center md:space-y-0 md:space-x-4">
-                    <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-400">
-                      SEC_DOSSIER // ARCHIVE VOL.{String(animatingCat.number).padStart(2, '0')}
-                    </span>
-                    <span className="hidden md:inline font-mono text-[10px] uppercase tracking-widest text-ink-250">|</span>
-                    <span className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-klein font-bold">
-                      STATUS // DOSSIER_LOADED
-                    </span>
-                  </div>
-                  
-                  {/* Close button inside the card itself */}
-                  <button
-                    onClick={handleBackToCabinet}
-                    className="flex items-center space-x-2 font-mono text-[10px] md:text-xs text-ink-500 hover:text-klein transition-all group focus:outline-none cursor-pointer border border-ink-150 px-3 py-1 bg-paper-100 uppercase tracking-widest font-semibold hover:border-klein hover:bg-paper-0"
-                  >
-                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
-                    <span>[RETURN / 返回]</span>
-                  </button>
-                </div>
-
-                <div className="mt-8">
-                  <h2 className="font-sans font-bold text-4xl md:text-7xl tracking-tighter text-ink-900 uppercase mb-4 leading-none">
-                    {animatingCat.title}
+              {/* LEFT COLUMN: ARCHIVE SIDEBAR */}
+              <div className="w-full md:w-64 flex-shrink-0 flex flex-col justify-between">
+                <div>
+                  <h2 className="font-sans font-bold text-4xl tracking-wider text-[#2d2722] mb-6 select-none uppercase">
+                    WORK
                   </h2>
-                  <p className="font-sans text-xs md:text-sm text-ink-500 uppercase tracking-wider mb-8">
-                    {animatingCat.subtitle || 'Archived Files Section'}
-                  </p>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mt-6">
-                    <div className="space-y-4">
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-ink-400 block border-b border-ink-100 pb-1">
-                        Key Initiatives
-                      </span>
-                      {animatingCat.details.map((detail: string, idx: number) => (
-                        <div key={idx} className="flex items-start space-x-3">
-                          <span className="font-mono text-xs text-klein mt-0.5">[{idx + 1}]</span>
-                          <span className="font-sans text-sm md:text-base font-semibold text-ink-800 tracking-tight">
-                            {detail}
+                  
+                  <div className="space-y-4">
+                    <span className="font-mono text-[9px] text-[#2d2722]/60 font-bold block mb-2 tracking-widest uppercase">
+                      Category // {animatingCat.title}
+                    </span>
+                    <p className="font-sans text-[11px] leading-relaxed text-[#4c423a] mb-6 font-medium">
+                      {animatingCat.description}
+                    </p>
+                    
+                    <div className="border-t border-[#8c8278] pt-4 space-y-1.5">
+                      {WORKS.filter(w => w.category === animatingCat.title).map((work) => (
+                        <div
+                          key={work.id}
+                          onClick={() => onSelectProject(work)}
+                          className="font-sans text-[13px] text-[#322c27] hover:text-[#002FA7] transition-all cursor-pointer font-medium py-1 border-b border-[#9c938a]/30 flex items-center justify-between group/item"
+                        >
+                          <span className="truncate pr-4">{work.title}</span>
+                          <span className="font-mono text-[9px] text-[#5c524a] group-hover/item:text-[#002FA7] group-hover/item:translate-x-0.5 transition-transform">
+                            →
                           </span>
                         </div>
                       ))}
                     </div>
-
-                    <div className="space-y-4 opacity-85">
-                      <span className="font-mono text-[10px] uppercase tracking-widest text-ink-400 block border-b border-ink-100 pb-1">
-                        Overview
-                      </span>
-                      <p className="font-sans text-sm text-ink-600 leading-relaxed">
-                        {animatingCat.description}
-                      </p>
-                    </div>
                   </div>
                 </div>
 
-                {/* INTERACTIVE PROJECTS SUB-ARCHIVE */}
-                <div className="mt-16 border-t border-ink-150 pt-12">
-                  <div className="mb-8">
-                    <span className="font-mono text-[10px] uppercase tracking-widest text-klein font-bold block mb-1">
-                      SEC_ARCHIVE_FILE_REGISTRY // 归档项目索引
-                    </span>
-                    <h3 className="font-sans font-bold text-2xl md:text-3xl tracking-tight text-ink-900 uppercase">
-                      Category Files & Records
-                    </h3>
-                  </div>
-
-                  {/* Filter and controls bar */}
-                  <div className="border-t border-b border-ink-150 py-6 mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-                    {/* Search Input */}
-                    <div className="flex-1 max-w-md">
-                      <label className="font-mono text-[9px] uppercase tracking-widest text-ink-400 block mb-2">
-                        Search Dossier Files / Keywords
-                      </label>
-                      <div className="relative">
-                        <input
-                          type="text"
-                          placeholder="FILTER ARCHIVE BY KEYWORD..."
-                          value={searchQuery}
-                          onChange={(e) => setSearchQuery(e.target.value)}
-                          className="w-full bg-paper-100 border border-ink-150 rounded-none px-4 py-2.5 font-mono text-xs text-ink-900 focus:outline-none focus:border-klein uppercase tracking-wider"
-                        />
-                        {searchQuery && (
-                          <button 
-                            onClick={() => setSearchQuery('')}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 font-mono text-[10px] text-ink-400 hover:text-klein cursor-pointer focus:outline-none"
-                          >
-                            [CLEAR]
-                          </button>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* View Mode Toggle */}
-                    <div className="flex items-center space-x-4 self-end md:self-center">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-ink-400">
-                        Layout Mode
-                      </span>
-                      <div className="border border-ink-150 p-1 flex bg-paper-100 select-none">
-                        <button
-                          onClick={() => setViewMode('grid')}
-                          className={`px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider cursor-pointer focus:outline-none transition-fast ${
-                            viewMode === 'grid' 
-                              ? 'bg-ink-900 text-paper-0' 
-                              : 'text-ink-500 hover:text-klein'
-                          }`}
-                        >
-                          Grid
-                        </button>
-                        <button
-                          onClick={() => setViewMode('list')}
-                          className={`px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider cursor-pointer focus:outline-none transition-fast ${
-                            viewMode === 'list' 
-                              ? 'bg-ink-900 text-paper-0' 
-                              : 'text-ink-500 hover:text-klein'
-                          }`}
-                        >
-                          List
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Sub-tags Horizontal Bar */}
-                  {currentCategoryTags.length > 1 && (
-                    <div className="flex flex-wrap items-center gap-2 mb-10">
-                      <span className="font-mono text-[9px] uppercase tracking-widest text-ink-400 mr-2">
-                        Sub-tags:
-                      </span>
-                      {currentCategoryTags.map((tag) => (
-                        <Tag
-                          key={tag}
-                          selected={selectedTag === tag}
-                          onClick={() => setSelectedTag(tag)}
-                        >
-                          {tag}
-                        </Tag>
-                      ))}
-                    </div>
-                  )}
-
-                  {/* Works listings for this category */}
-                  {filteredCategoryWorks.length > 0 ? (
-                    viewMode === 'grid' ? (
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {filteredCategoryWorks.map((work) => (
-                          <WorkCard
-                            key={work.id}
-                            work={work}
-                            onClick={() => onSelectProject(work)}
-                          />
-                        ))}
-                      </div>
-                    ) : (
-                      <div className="flex flex-col">
-                        {filteredCategoryWorks.map((work, index) => (
-                          <WorkRow
-                            key={work.id}
-                            first={index === 0}
-                            number={work.number}
-                            title={work.title}
-                            year={work.period}
-                            media={work.subCategory}
-                            onClick={() => onSelectProject(work)}
-                          />
-                        ))}
-                      </div>
-                    )
-                  ) : (
-                    <div className="border border-dashed border-ink-150 py-16 text-center">
-                      <span className="font-mono text-xs uppercase tracking-widest text-ink-400 block mb-2">
-                        NO FILES FOUND IN THIS DOSSIER
-                      </span>
-                      <button
-                        onClick={() => {
-                          setSelectedTag('All');
-                          setSearchQuery('');
-                        }}
-                        className="font-mono text-[10px] text-klein hover:underline uppercase tracking-wider focus:outline-none cursor-pointer"
-                      >
-                        [RESET DOSSIER FILTERS]
-                      </button>
-                    </div>
-                  )}
+                <div className="mt-8 pt-6 border-t border-[#8c8278]/30">
+                  <button
+                    onClick={handleBackToCabinet}
+                    className="flex items-center space-x-2 font-mono text-[10px] uppercase tracking-widest text-[#2d2722] hover:text-white transition-all group focus:outline-none cursor-pointer border border-[#2d2722] px-4 py-2 bg-transparent hover:bg-[#2d2722]"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5 transition-transform group-hover:-translate-x-1" />
+                    <span>[ RETURN ]</span>
+                  </button>
                 </div>
               </div>
 
-              <div className="flex items-end justify-between border-t border-ink-150 pt-6 mt-12">
-                <div className="flex items-center space-x-4">
-                  <span className="font-mono text-[10px] md:text-xs text-ink-400">
-                    SYS_REF: {2821 + animatingCat.number}-X
-                  </span>
-                  <span className="w-2 h-2 rounded-full bg-klein-active animate-ping" />
-                </div>
-                <div className="flex items-end space-x-[2px] h-8 opacity-60">
-                  <div className="w-[1px] h-full bg-ink-900" />
-                  <div className="w-[3px] h-full bg-ink-900" />
-                  <div className="w-[1px] h-full bg-ink-900" />
-                  <div className="w-[4px] h-full bg-ink-900" />
-                  <div className="w-[2px] h-full bg-ink-900" />
-                  <div className="w-[1px] h-full bg-ink-900" />
-                  <div className="w-[5px] h-full bg-ink-900" />
-                </div>
+              {/* RIGHT COLUMN: DOCUMENT FILE CARDS GRID */}
+              <div className="flex-grow overflow-y-auto max-h-full pr-2 custom-scrollbar">
+                {(() => {
+                  const filteredWorks = WORKS.filter(w => w.category === animatingCat.title);
+                  const leftWorks = filteredWorks.filter((_, i) => i % 2 === 0);
+                  const rightWorks = filteredWorks.filter((_, i) => i % 2 !== 0);
+
+                  const renderWorkCard = (work: typeof WORKS[0], idx: number) => {
+                    const padVal = (num: number) => String(num).padStart(2, '0');
+                    return (
+                      <div
+                        key={work.id}
+                        onClick={() => onSelectProject(work)}
+                        className="group relative flex flex-col bg-[#fbf9f6] p-3 shadow-md border border-[#d2c9be] hover:border-[#b2a99e] hover:shadow-lg transition-all duration-300 cursor-pointer rounded-[4px]"
+                      >
+                        {/* Rotated Vertical Index Label on the Left (Outside Card Margin) */}
+                        <div className="absolute left-[-26px] top-1/2 -translate-y-1/2 select-none h-full flex items-center">
+                          <span 
+                            className="font-mono text-[8px] uppercase tracking-widest text-[#5c524a] whitespace-nowrap"
+                            style={{ 
+                              writingMode: 'vertical-lr', 
+                              transform: 'rotate(180deg)' 
+                            }}
+                          >
+                            #{padVal(animatingCat.number)}-{padVal(idx + 1)}
+                          </span>
+                        </div>
+
+                        {/* Media Display Container (Full width, adapts to height) */}
+                        <div className="w-full overflow-hidden">
+                          {(() => {
+                            const firstMediaUrl = work.galleryImages?.[0];
+                            if (firstMediaUrl) {
+                              const isVideo = isVideoUrl(firstMediaUrl);
+                              if (isVideo) {
+                                return (
+                                  <video
+                                    key={firstMediaUrl}
+                                    src={firstMediaUrl}
+                                    poster={(work as any).videoPosters?.[firstMediaUrl] || work.galleryImages?.find(img => !isVideoUrl(img)) || undefined}
+                                    autoPlay
+                                    loop
+                                    muted
+                                    playsInline
+                                    className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.02]"
+                                  />
+                                );
+                              } else {
+                                return (
+                                  <img
+                                    src={firstMediaUrl}
+                                    alt={work.title}
+                                    className="w-full h-auto block transition-transform duration-300 group-hover:scale-[1.02]"
+                                  />
+                                );
+                              }
+                            }
+                            return (
+                              <div className="w-full aspect-[1.35] bg-white border border-[#d8d2c9] flex items-center justify-center p-3 relative overflow-hidden group-hover:bg-paper-0 transition-colors">
+                                <div className="w-full h-auto scale-[0.95] group-hover:scale-[0.98] transition-transform duration-300">
+                                  {renderSchematic(work.schematicType)}
+                                </div>
+                              </div>
+                            );
+                          })()}
+                        </div>
+
+                        {/* Details Block below */}
+                        <div className="mt-3 flex items-start justify-between">
+                          <div className="flex-1 min-w-0 pr-2">
+                            <span className="font-mono text-[8px] uppercase tracking-widest text-[#6c645c] block mb-0.5">
+                              {work.tags[0].toUpperCase()}
+                            </span>
+                            <h4 className="font-sans font-semibold text-xs text-[#2d2722] truncate group-hover:text-[#002FA7] transition-colors leading-tight">
+                              {work.title}
+                            </h4>
+                          </div>
+                          <div className="text-right flex-shrink-0">
+                            <span className="font-mono text-[9px] font-bold uppercase tracking-widest text-[#4c423a] bg-[#ded8cf] px-1.5 py-0.5 rounded-sm">
+                              {getProjectAbbreviation(work)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  };
+
+                  return (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 pl-6 pt-2 items-start">
+                      <div className="flex flex-col gap-y-10">
+                        {leftWorks.map((work) => {
+                          const originalIdx = filteredWorks.findIndex(w => w.id === work.id);
+                          return renderWorkCard(work, originalIdx);
+                        })}
+                      </div>
+                      <div className="flex flex-col gap-y-10">
+                        {rightWorks.map((work) => {
+                          const originalIdx = filteredWorks.findIndex(w => w.id === work.id);
+                          return renderWorkCard(work, originalIdx);
+                        })}
+                      </div>
+                    </div>
+                  );
+                })()}
               </div>
             </div>
           </div>
@@ -567,24 +691,85 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
       )}
 
       {/* 3. STANDARD CABINET/FOLDER GRID VIEW & LISTINGS */}
-      <div className={`transition-all duration-500 ${activeCategoryPage ? 'blur-[4px] opacity-40 pointer-events-none' : ''}`}>
+      <div className={`transition-opacity duration-500 ${activeCategoryPage ? 'opacity-40 pointer-events-none' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-12">
           
           {/* Editorial Title Section */}
-          <div className="mb-16">
-            <IndexLabel number={1} text="Index / Selected Works" tone="klein" className="mb-4 inline-block" />
-            <RevealText
-              as="h1"
-              lines={["Selected Archive", "2019 — 2026"]}
-              className="font-sans font-bold text-4xl md:text-6xl tracking-tighter text-ink-900 leading-none"
-            />
-            <p className="font-sans text-sm text-ink-500 max-w-lg mt-6 leading-relaxed">
-              An archival dossier documenting Brand & Growth campaigns, 0-to-1 digital products, B2B narratives, and Generative AI creative workflows.
-            </p>
+          <div className="mb-5">
+            <h1 className="font-sans font-bold text-5xl md:text-[80px] tracking-tighter text-ink-900 leading-none mb-8">
+              <div className="mb-2">Roy Xiang does</div>
+              <div className="text-klein flex items-center h-[1.15em] overflow-hidden select-none">
+                <span className="mr-3 md:mr-4">&lt;</span>
+                <span className="relative h-full flex items-center overflow-hidden flex-grow min-w-[200px]">
+                  <AnimatePresence mode="wait">
+                    <motion.span
+                      key={phraseIndex}
+                      initial={{ y: '80%', opacity: 0 }}
+                      animate={{ y: '0%', opacity: 1 }}
+                      exit={{ y: '-80%', opacity: 0 }}
+                      transition={{ duration: 0.35, ease: 'easeInOut' }}
+                      className="absolute left-0 inline-block text-klein font-bold leading-none whitespace-nowrap"
+                    >
+                      {phrases[phraseIndex]}
+                    </motion.span>
+                  </AnimatePresence>
+                </span>
+                <span className="ml-3 md:ml-4">&gt;</span>
+              </div>
+            </h1>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 font-sans text-base md:text-lg text-ink-700 leading-relaxed mt-6 pb-2">
+              <div className="space-y-6">
+                <p>
+                  I'm Roy Xiang, an applied AI practitioner, building at the intersection of APAC and the MENA.
+                </p>
+                <div>
+                  <button 
+                    onClick={() => onNavigate && onNavigate('Profile')}
+                    className="text-klein hover:text-klein-active font-mono text-xs font-bold tracking-widest uppercase flex items-center space-x-2 border-b border-transparent hover:border-klein pb-1 focus:outline-none cursor-pointer transition-all"
+                  >
+                    Read More -&gt;
+                  </button>
+                </div>
+              </div>
+              <div>
+                <p>
+                  I turn AI tools into working systems: production pipelines, automation workflows, and shipped prototypes, grounded in 6+ years of growth marketing and product operations across 6 markets.
+                </p>
+              </div>
+            </div>
           </div>
 
-          {/* Dossier Folders Categories */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {/* 6 Capability Marquee Navigation (Continuous scrolling ticker) - PLACED IN THE BLANK AREA ABOVE CABINET DOSSIERS */}
+          <div className="w-full border-t border-b border-ink-150 py-6 overflow-hidden mb-5 select-none relative translate-y-1/2">
+            <div className="animate-marquee-reverse whitespace-nowrap flex items-center italic">
+              {[1, 2, 3].map((cycle) => (
+                <div key={cycle} className="flex items-center space-x-12 pr-12">
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[01] APPLIED AI WORKFLOWS</span>
+                  </div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[02] CREATIVE AUTOMATION</span>
+                  </div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[03] VIBE-CODED PROTOTYPES</span>
+                  </div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[04] CONTENT OPERATIONS</span>
+                  </div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[05] PRODUCT COMMUNICATION</span>
+                  </div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
+                    <span className="font-bold text-ink-900">[06] HUMAN-IN-THE-LOOP QA</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Cabinet Dossiers grid (placed above the scrollbar) */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-fade-in">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.title;
               return (
@@ -597,12 +782,175 @@ export default function WorksScreen({ onSelectProject }: WorksScreenProps) {
                     active={isActive}
                     details={cat.details}
                     animPhase={animatingCat?.title === cat.title ? animPhase : 'idle'}
+                    isSiblingAnimating={animatingCat !== null && animatingCat.title !== cat.title}
                     onClick={(e) => handleFolderClick(cat, e.currentTarget.getBoundingClientRect())}
                   />
                 </div>
               );
             })}
           </div>
+
+          {/* Brand Logos Marquee Scrolling Loop */}
+          <div className="w-full border-t border-b border-ink-150 py-6 overflow-hidden select-none relative mb-12 translate-y-1/2">
+            <div className="animate-marquee whitespace-nowrap flex items-center">
+              {[1, 2, 3].map((cycle) => (
+                <div key={cycle} className="flex items-center space-x-16 pr-16 text-ink-400">
+                  {/* SINOPEC */}
+                  {renderBrandLogo('sinopec', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-5 fill-current mr-1" viewBox="0 0 160 32">
+                        <g fill="#E60012">
+                          <circle cx="16" cy="16" r="14" />
+                          <rect x="14.5" y="6" width="3" height="20" fill="white" />
+                          <path d="M11 20 L21 20 M11 15 L21 15 M11 24 L21 24" stroke="white" strokeWidth="1.5" />
+                          <circle cx="16" cy="16" r="7" fill="none" stroke="white" strokeWidth="2" />
+                        </g>
+                        <text x="38" y="22" fontFamily="sans-serif" fontWeight="900" fontSize="14" fill="currentColor" letterSpacing="0.05em">SINOPEC</text>
+                        <text x="114" y="22" fontFamily="sans-serif" fontWeight="bold" fontSize="11" fill="currentColor">中国石化</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* 抖音 */}
+                  {renderBrandLogo('douyin', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-5 fill-current mr-1" viewBox="0 0 110 32">
+                        <g transform="translate(2, 0)">
+                          <path d="M17 6 a6 6 0 0 1 5-5 v3 a3 3 0 0 0-3 3 v10 a6 6 0 1 1-6-6 h2 v3 h-2 a3 3 0 1 0 3 3 z" fill="#FF004F" opacity="0.8" transform="translate(1, 1)" />
+                          <path d="M17 6 a6 6 0 0 1 5-5 v3 a3 3 0 0 0-3 3 v10 a6 6 0 1 1-6-6 h2 v3 h-2 a3 3 0 1 0 3 3 z" fill="#00F5FF" opacity="0.8" transform="translate(-1, -1)" />
+                          <path d="M17 6 a6 6 0 0 1 5-5 v3 a3 3 0 0 0-3 3 v10 a6 6 0 1 1-6-6 h2 v3 h-2 a3 3 0 1 0 3 3 z" fill="currentColor" />
+                        </g>
+                        <text x="32" y="22" fontFamily="sans-serif" fontWeight="900" fontSize="15" fill="currentColor" letterSpacing="0.05em">抖音</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* 小红书 */}
+                  {renderBrandLogo('red', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current mr-1" viewBox="0 0 130 32">
+                        <rect x="0" y="4" width="38" height="24" rx="6" fill="#FF2442" />
+                        <text x="5" y="21" fontFamily="sans-serif" fontWeight="900" fontSize="13" fill="white" letterSpacing="-0.02em">RED</text>
+                        <text x="46" y="22" fontFamily="sans-serif" fontWeight="900" fontSize="15" fill="currentColor" letterSpacing="0.02em">小红书</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* Tencent */}
+                  {renderBrandLogo('tencent', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current mr-1" viewBox="0 0 150 32">
+                        <text x="0" y="22" fontFamily="sans-serif" fontWeight="900" fontStyle="italic" fontSize="18" fill="currentColor" letterSpacing="-0.04em">Tencent</text>
+                        <text x="82" y="22" fontFamily="sans-serif" fontWeight="900" fontSize="15" fill="currentColor" letterSpacing="0.05em">腾讯</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* 腾讯广告 */}
+                  {renderBrandLogo('tencent_ad', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current mr-1" viewBox="0 0 145 32">
+                        <g transform="translate(0, 4)" fill="currentColor">
+                          <rect x="0" y="10" width="4" height="10" rx="2" transform="rotate(-30 2 15)" />
+                          <rect x="8" y="5" width="4" height="15" rx="2" transform="rotate(-30 10 12)" />
+                          <rect x="16" y="0" width="4" height="20" rx="2" transform="rotate(-30 18 10)" />
+                        </g>
+                        <text x="32" y="22" fontFamily="sans-serif" fontWeight="900" fontStyle="italic" fontSize="16" fill="currentColor" letterSpacing="-0.04em">Tencent</text>
+                        <text x="106" y="22" fontFamily="sans-serif" fontWeight="bold" fontSize="14" fill="currentColor" letterSpacing="0.05em">广告</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* Lenovo */}
+                  {renderBrandLogo('lenovo', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 85 32">
+                        <text x="0" y="22" fontFamily="sans-serif" fontWeight="bold" fontSize="17" fill="currentColor" letterSpacing="-0.02em">lenovo</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* DIOR */}
+                  {renderBrandLogo('dior', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 65 32">
+                        <text x="0" y="22" fontFamily="serif" fontWeight="bold" fontSize="18" fill="currentColor" letterSpacing="0.15em">DIOR</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* JOHN LOBB */}
+                  {renderBrandLogo('john_lobb', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-3 fill-current" viewBox="0 0 125 32">
+                        <text x="0" y="20" fontFamily="serif" fontWeight="bold" fontSize="14" fill="currentColor" letterSpacing="0.18em">JOHN LOBB</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* vanke */}
+                  {renderBrandLogo('vanke', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 95 32">
+                        <g transform="translate(0, 6)" fill="#E21936">
+                          <rect x="0" y="0" width="8" height="8" />
+                          <rect x="10" y="0" width="8" height="8" />
+                          <rect x="0" y="10" width="8" height="8" />
+                          <rect x="10" y="10" width="8" height="8" fill="#999999" />
+                        </g>
+                        <text x="26" y="22" fontFamily="sans-serif" fontWeight="bold" fontSize="17" fill="currentColor" letterSpacing="-0.02em">vanke</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* vivo */}
+                  {renderBrandLogo('vivo', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 50 32">
+                        <text x="0" y="22" fontFamily="sans-serif" fontWeight="900" fontStyle="italic" fontSize="21" fill="currentColor" letterSpacing="-0.06em">vivo</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* 快手 */}
+                  {renderBrandLogo('kuaishou', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 100 32">
+                        <g transform="translate(0, 4)">
+                          <path d="M12 0 C5 0, 0 5, 0 12 C 0 19, 5 24, 12 24 C 19 24, 24 19, 24 12 C 24 5, 19 0, 12 0 Z" fill="#FF4E21" />
+                          <circle cx="12" cy="12" r="5" fill="white" />
+                          <circle cx="12" cy="12" r="2.5" fill="#FF4E21" />
+                          <path d="M 6 12 A 6 6 0 0 0 18 12" stroke="white" strokeWidth="2.5" fill="none" strokeLinecap="round" />
+                        </g>
+                        <text x="32" y="22" fontFamily="sans-serif" fontWeight="900" fontSize="16" fill="currentColor" letterSpacing="0.05em">快手</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* 巨量引擎 */}
+                  {renderBrandLogo('ocean_engine', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 115 32">
+                        <g transform="translate(0, 4)" fill="#2962FF">
+                          <polygon points="0,18 6,4 12,18" opacity="0.7" />
+                          <polygon points="8,18 14,0 20,18" />
+                        </g>
+                        <text x="28" y="21" fontFamily="sans-serif" fontWeight="900" fontSize="14" fill="currentColor" letterSpacing="0.02em">巨量引擎</text>
+                      </svg>
+                    </div>
+                  ))}
+                  {/* ESTEE LAUDER */}
+                  {renderBrandLogo('estee_lauder', (
+                    <div className="flex items-center h-6 text-ink-500 hover:text-ink-900 transition-colors duration-200">
+                      <svg className="h-4 fill-current" viewBox="0 0 145 32">
+                        <text x="0" y="15" fontFamily="serif" fontWeight="bold" fontSize="11" fill="currentColor" letterSpacing="0.12em">ESTĒE LAUDER</text>
+                        <text x="0" y="26" fontFamily="sans-serif" fontSize="7" fill="currentColor" letterSpacing="0.3em" opacity="0.7">雅诗兰黛</text>
+                      </svg>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+
+
+
+          {/* Render the Cropper Dialog when active */}
+          {showCropper && (
+            <LogoCropper 
+              onClose={() => setShowCropper(false)}
+              onUpdate={loadCustomLogos}
+            />
+          )}
         </div>
       </div>
 

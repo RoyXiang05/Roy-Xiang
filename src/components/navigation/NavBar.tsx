@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useLayoutEffect } from 'react';
 
 export interface NavBarProps {
   items?: string[];
@@ -8,12 +8,18 @@ export interface NavBarProps {
 }
 
 export default function NavBar({
-  items = ['Works', 'Profile', 'Contact'],
+  items = ['Works', 'About', 'Contact'],
   active,
   onSelect,
   sticky = true
 }: NavBarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
+
+  // Update immediately and synchronously before painting when active page changes
+  useLayoutEffect(() => {
+    if (!sticky) return;
+    setIsScrolled(window.scrollY > 20);
+  }, [active, sticky]);
 
   useEffect(() => {
     if (!sticky) return;
@@ -28,23 +34,18 @@ export default function NavBar({
 
   return (
     <nav
-      className={`top-0 left-0 right-0 z-50 transition-editorial border-b border-transparent ${
-        sticky ? 'sticky' : 'relative'
-      } ${
+      className={`top-0 left-0 right-0 z-50 transition-editorial border-b border-transparent fixed py-5 ${
         isScrolled 
-          ? 'bg-paper-50/92 backdrop-blur-md border-ink-150 py-4 shadow-sm' 
-          : 'bg-transparent py-6'
+          ? 'bg-paper-50/92 backdrop-blur-md border-ink-150 shadow-sm' 
+          : 'bg-transparent'
       }`}
     >
       <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Left wordmark */}
         <div 
           onClick={() => onSelect && onSelect('Works')}
-          className="cursor-pointer group flex items-center space-x-3 select-none"
+          className="cursor-pointer group flex items-center select-none"
         >
-          <span className="font-mono text-xs font-bold text-paper-0 bg-ink-900 px-1.5 py-0.5 tracking-widest group-hover:bg-klein transition-fast">
-            RX
-          </span>
           <span className="font-sans text-sm font-bold uppercase tracking-tight text-ink-900 group-hover:text-klein transition-fast">
             Roy Xiang
           </span>

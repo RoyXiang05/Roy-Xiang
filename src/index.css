@@ -76,6 +76,8 @@ body {
 .rx-reveal {
   overflow: hidden;
   display: block;
+  padding-bottom: 0.18em;
+  margin-bottom: -0.18em;
 }
 
 .rx-reveal-inner {
@@ -133,4 +135,103 @@ ul, ol {
   padding: 0;
   margin: 0;
 }
+
+/* Horizontal scrolling marquee ticker */
+@keyframes marquee-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+}
+
+@keyframes marquee-scroll-reverse {
+  0% {
+    transform: translate3d(-33.3333%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll-reverse 30s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
+  animation-play-state: paused;
+}
+
+/* --- Work Detail Page Design Spec styles --- */
+.work-detail {
+  animation: fadeUp 460ms ease both;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.detail-number {
+  font-size: 3.8rem;
+  line-height: 0.9;
+}
+
+.detail-header h1 {
+  font-size: 2.4rem;
+  line-height: 0.98;
+}
+
+.detail-block h2 {
+  font-size: 1.125rem;
+  line-height: 1.12;
+}
+
+.detail-block p,
+.detail-block li {
+  font-size: 0.875rem;
+  line-height: 1.62;
+}
+
+@media (min-width: 768px) {
+  .detail-number {
+    font-size: 5rem;
+  }
+  .detail-header h1 {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .detail-number {
+    font-size: 6.7rem;
+  }
+  .detail-header h1 {
+    font-size: 4.4rem;
+  }
+  .detail-block h2 {
+    font-size: 1.25rem;
+  }
+  .detail-block p,
+  .detail-block li {
+    font-size: 1rem;
+  }
+}
+
 

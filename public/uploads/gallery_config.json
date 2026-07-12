@@ -1,0 +1,64 @@
+{
+  "ai-visual-production-workflow": {
+    "galleryImages": [
+      "/uploads/opt_1783661874686_movie.mp4#video",
+      "/uploads/opt_1783661997327_movie.mp4#video",
+      "/uploads/1783689328246_IMG_7520.PNG.png#image",
+      "/uploads/1783797479443_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+      "/uploads/1783797533528_Picture12.jpg#image",
+      "/uploads/1783797595082_Picture1.png#image",
+      "/uploads/1783797596471_Picture3.png#image",
+      "/uploads/1783797597229_Picture5.png#image",
+      "/uploads/1783797598425_Picture6.png#image",
+      "/uploads/1783797599081_93ff5e99ej2fdaae4df422eb4555353f.png#image",
+      "/uploads/1783797599739_IMG_4530.jpg#image",
+      "/uploads/1783797528976_Picture6.jpg#image",
+      "/uploads/1783797529644_Picture7.jpg#image",
+      "/uploads/1783797530429_Picture8.jpg#image",
+      "/uploads/1783797531136_Picture9.jpg#image",
+      "/uploads/1783797531712_Picture10.jpg#image",
+      "/uploads/1783797532999_Picture11.png#image",
+      "/uploads/1783797130565_7637904cefda3c9611aff36ddfc45f50.PNG.png#image",
+      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video",
+      "/uploads/opt_1783838780101_MUD3.mp4#video",
+      "/uploads/opt_1783838797273_QHSE.mp4#video",
+      "/uploads/opt_1783838811766_QHSE2.mp4#video"
+    ],
+    "galleryLinks": {},
+    "videoPosters": {
+      "/uploads/opt_1783661874686_movie.mp4#video": "/uploads/poster_1783661874686_movie.jpg",
+      "/uploads/opt_1783661997327_movie.mp4#video": "/uploads/poster_1783661997327_movie.jpg",
+      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.jpg",
+      "/uploads/opt_1783838780101_MUD3.mp4#video": "/uploads/poster_1783838780101_MUD3.jpg",
+      "/uploads/opt_1783838797273_QHSE.mp4#video": "/uploads/poster_1783838797273_QHSE.jpg",
+      "/uploads/opt_1783838811766_QHSE2.mp4#video": "/uploads/poster_1783838811766_QHSE2.jpg"
+    }
+  },
+  "hr-gen-ai-visual-linkedin": {
+    "galleryImages": [
+      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video",
+      "/uploads/opt_1783838780101_MUD3.mp4#video",
+      "/uploads/opt_1783838797273_QHSE.mp4#video",
+      "/uploads/opt_1783838811766_QHSE2.mp4#video"
+    ],
+    "galleryLinks": {},
+    "videoPosters": {
+      "/uploads/opt_1783659492493_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783659492493_jimeng-2025-08-20-5888-_________________________________________2.jpg",
+      "/uploads/opt_1783686140660_QHSE2.mp4#video": "/uploads/poster_1783686140660_QHSE2.jpg",
+      "/uploads/opt_1783686184038_MUD3.mp4#video": "/uploads/poster_1783686184038_MUD3.jpg",
+      "/uploads/opt_1783686282522_QHSE.mp4#video": "/uploads/poster_1783686282522_QHSE.jpg",
+      "/uploads/opt_1783797685025_2026_loop.mp4#video": "/uploads/poster_1783797685025_2026_loop.jpg",
+      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.jpg",
+      "/uploads/opt_1783838780101_MUD3.mp4#video": "/uploads/poster_1783838780101_MUD3.jpg",
+      "/uploads/opt_1783838797273_QHSE.mp4#video": "/uploads/poster_1783838797273_QHSE.jpg",
+      "/uploads/opt_1783838811766_QHSE2.mp4#video": "/uploads/poster_1783838811766_QHSE2.jpg"
+    },
+    "galleryColumns": 2
+  },
+  "curioeye-fashion-intelligence-saas": {
+    "galleryImages": [],
+    "galleryLinks": {},
+    "videoPosters": {},
+    "galleryColumns": 3
+  }
+}

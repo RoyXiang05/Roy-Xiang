@@ -1,0 +1,2124 @@
+[
+  {
+    "project_id": "profile",
+    "project_title": "Roy Xiang Profile",
+    "pdf_pages": [
+      3
+    ],
+    "asset_index": 16,
+    "asset_id": "8cb5304fbf61be0d88bfd307d53e60bb0cb5d2ad",
+    "zip_path": "images/8cb5304fbf61be0d88bfd307d53e60bb0cb5d2ad",
+    "format": "JPEG",
+    "width": 3132,
+    "height": 3920,
+    "bytes": 8839992,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Portrait photo matches PDF page 3 profile section.",
+    "preview_file": "recommended_assets/profile__cover__asset016__8cb5304fbf.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 1,
+    "asset_id": "3ec50caba7236ed17cf72f61661caefb3fcc1b5a",
+    "zip_path": "images/3ec50caba7236ed17cf72f61661caefb3fcc1b5a",
+    "format": "GIF",
+    "width": 1920,
+    "height": 1080,
+    "bytes": 98885290,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__cover__asset001__3ec50caba7.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 2,
+    "asset_id": "16fe5fd7854202ec3313342e7426dc2ef5bd8fdf",
+    "zip_path": "images/16fe5fd7854202ec3313342e7426dc2ef5bd8fdf",
+    "format": "GIF",
+    "width": 1280,
+    "height": 725,
+    "bytes": 53139020,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset002__16fe5fd785.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 3,
+    "asset_id": "dca2e63334fc42f0ced72d7138263c89ab53646c",
+    "zip_path": "images/dca2e63334fc42f0ced72d7138263c89ab53646c",
+    "format": "GIF",
+    "width": 1280,
+    "height": 725,
+    "bytes": 48342892,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset003__dca2e63334.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 4,
+    "asset_id": "5c71991f5a4f6b01660695db9dc1520aab5f0997",
+    "zip_path": "images/5c71991f5a4f6b01660695db9dc1520aab5f0997",
+    "format": "GIF",
+    "width": 800,
+    "height": 453,
+    "bytes": 34578753,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset004__5c71991f5a.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 35,
+    "asset_id": "1a889d029e0ab5795dae7ffebcdad36f9b1b02c5",
+    "zip_path": "images/1a889d029e0ab5795dae7ffebcdad36f9b1b02c5",
+    "format": "PNG",
+    "width": 1920,
+    "height": 1080,
+    "bytes": 2088729,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset035__1a889d029e.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 62,
+    "asset_id": "5fe2c39a2f4aef38562a65f5175180edfe6dcb65",
+    "zip_path": "images/5fe2c39a2f4aef38562a65f5175180edfe6dcb65",
+    "format": "PNG",
+    "width": 1280,
+    "height": 725,
+    "bytes": 964445,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset062__5fe2c39a2f.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 70,
+    "asset_id": "c59ff0d431fe0460731828f8f5ee5ca98ad43e97",
+    "zip_path": "images/c59ff0d431fe0460731828f8f5ee5ca98ad43e97",
+    "format": "PNG",
+    "width": 1280,
+    "height": 725,
+    "bytes": 742967,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset070__c59ff0d431.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 87,
+    "asset_id": "3298f2d10a5f362f3a8fb271295debbd644bba31",
+    "zip_path": "images/3298f2d10a5f362f3a8fb271295debbd644bba31",
+    "format": "PNG",
+    "width": 800,
+    "height": 453,
+    "bytes": 359090,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset087__3298f2d10a.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 100,
+    "asset_id": "9fbd16ccd44267960a231ef6063275c000a2f14b",
+    "zip_path": "images/9fbd16ccd44267960a231ef6063275c000a2f14b",
+    "format": "PNG",
+    "width": 480,
+    "height": 270,
+    "bytes": 219443,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset100__9fbd16ccd4.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 115,
+    "asset_id": "abd29642dad0dc26042ce224844912ee2e3d7cd6",
+    "zip_path": "images/abd29642dad0dc26042ce224844912ee2e3d7cd6",
+    "format": "PNG",
+    "width": 400,
+    "height": 227,
+    "bytes": 156960,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset115__abd29642da.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 156,
+    "asset_id": "46bae0ce0c4a43605cb88145741af82685c76014",
+    "zip_path": "images/46bae0ce0c4a43605cb88145741af82685c76014",
+    "format": "PNG",
+    "width": 320,
+    "height": 182,
+    "bytes": 98288,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset156__46bae0ce0c.jpg"
+  },
+  {
+    "project_id": "gtm_hr_gen_ai_linkedin",
+    "project_title": "HR Gen-AI Visual LinkedIn Project",
+    "pdf_pages": [
+      5
+    ],
+    "asset_index": 163,
+    "asset_id": "42bbbb6ceceeaaa919a15e7bceb3d90547f893df",
+    "zip_path": "images/42bbbb6ceceeaaa919a15e7bceb3d90547f893df",
+    "format": "PNG",
+    "width": 320,
+    "height": 182,
+    "bytes": 88174,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Recruitment/HIRING layouts and worker imagery match PDF page 5 LinkedIn HR Gen-AI visuals.",
+    "preview_file": "recommended_assets/gtm_hr_gen_ai_linkedin__gallery__asset163__42bbbb6cec.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 26,
+    "asset_id": "b0a9ec6077d91fab954e34cd3d73410d929f2b8d",
+    "zip_path": "images/b0a9ec6077d91fab954e34cd3d73410d929f2b8d",
+    "format": "PNG",
+    "width": 1030,
+    "height": 4096,
+    "bytes": 3346828,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__cover__asset026__b0a9ec6077.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 34,
+    "asset_id": "1be755256ded9e751e86cb9b8775e357f8497fe2",
+    "zip_path": "images/1be755256ded9e751e86cb9b8775e357f8497fe2",
+    "format": "PNG",
+    "width": 1920,
+    "height": 1080,
+    "bytes": 2163300,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset034__1be755256d.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 57,
+    "asset_id": "2677573a899120b63747efab04ef5ca34d672b0f",
+    "zip_path": "images/2677573a899120b63747efab04ef5ca34d672b0f",
+    "format": "PNG",
+    "width": 1142,
+    "height": 1082,
+    "bytes": 1063772,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset057__2677573a89.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 63,
+    "asset_id": "93d599265b375e21803d08a06173471632af2e87",
+    "zip_path": "images/93d599265b375e21803d08a06173471632af2e87",
+    "format": "PNG",
+    "width": 1080,
+    "height": 1920,
+    "bytes": 930548,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset063__93d599265b.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 108,
+    "asset_id": "a5e91795e8e0d14e551e2a186b8840e220368573",
+    "zip_path": "images/a5e91795e8e0d14e551e2a186b8840e220368573",
+    "format": "PNG",
+    "width": 480,
+    "height": 270,
+    "bytes": 186834,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset108__a5e91795e8.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 131,
+    "asset_id": "ab5d3f7ac76ae117c6802c6aa5cab12ead4f631a",
+    "zip_path": "images/ab5d3f7ac76ae117c6802c6aa5cab12ead4f631a",
+    "format": "PNG",
+    "width": 270,
+    "height": 480,
+    "bytes": 124146,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset131__ab5d3f7ac7.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 155,
+    "asset_id": "4e9ba3dfa8be5cfb07571ed1c9c08ea6a75c9199",
+    "zip_path": "images/4e9ba3dfa8be5cfb07571ed1c9c08ea6a75c9199",
+    "format": "PNG",
+    "width": 246,
+    "height": 512,
+    "bytes": 100756,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__gallery__asset155__4e9ba3dfa8.jpg"
+  },
+  {
+    "project_id": "gtm_linkedin_creative_videos",
+    "project_title": "LinkedIn Creative Videos",
+    "pdf_pages": [
+      6
+    ],
+    "asset_index": 47,
+    "asset_id": "d15fe79e7178671752761a0041d8495f915768c9",
+    "zip_path": "images/d15fe79e7178671752761a0041d8495f915768c9",
+    "format": "PNG",
+    "width": 2012,
+    "height": 1090,
+    "bytes": 1351944,
+    "recommended_usage": "secondary",
+    "confidence": "medium",
+    "reason": "LinkedIn post screenshots, Dubai/ADIPEC video posts, and cinematic video stills match PDF page 6 creative video examples.",
+    "preview_file": "recommended_assets/gtm_linkedin_creative_videos__secondary__asset047__d15fe79e71.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 31,
+    "asset_id": "ac1224b87f2ffeb9dfadd4d132f2a9dedc2faba8",
+    "zip_path": "images/ac1224b87f2ffeb9dfadd4d132f2a9dedc2faba8",
+    "format": "PNG",
+    "width": 1702,
+    "height": 1126,
+    "bytes": 2647665,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__cover__asset031__ac1224b87f.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 52,
+    "asset_id": "6977ea1d50e490c40accb9b527d3d8e2e22b421e",
+    "zip_path": "images/6977ea1d50e490c40accb9b527d3d8e2e22b421e",
+    "format": "PNG",
+    "width": 1126,
+    "height": 1076,
+    "bytes": 1211997,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__gallery__asset052__6977ea1d50.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 58,
+    "asset_id": "785f4377d8b0a0b5d1a0ad25dbac404177bd9000",
+    "zip_path": "images/785f4377d8b0a0b5d1a0ad25dbac404177bd9000",
+    "format": "PNG",
+    "width": 1158,
+    "height": 1076,
+    "bytes": 1049998,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__gallery__asset058__785f4377d8.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 102,
+    "asset_id": "2f5e95a4d4a0f68b74f98ca7a1af72710a1472db",
+    "zip_path": "images/2f5e95a4d4a0f68b74f98ca7a1af72710a1472db",
+    "format": "PNG",
+    "width": 426,
+    "height": 282,
+    "bytes": 210532,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__gallery__asset102__2f5e95a4d4.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 129,
+    "asset_id": "a86115b6d732d7455a4c92cfbaacfc2941a1f1d4",
+    "zip_path": "images/a86115b6d732d7455a4c92cfbaacfc2941a1f1d4",
+    "format": "PNG",
+    "width": 282,
+    "height": 269,
+    "bytes": 126121,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__gallery__asset129__a86115b6d7.jpg"
+  },
+  {
+    "project_id": "gtm_adipec_exhibition",
+    "project_title": "ADIPEC Exhibition",
+    "pdf_pages": [
+      7
+    ],
+    "asset_index": 137,
+    "asset_id": "2063321bc1b6ba13ff1502b1abd5331652aa2f34",
+    "zip_path": "images/2063321bc1b6ba13ff1502b1abd5331652aa2f34",
+    "format": "PNG",
+    "width": 290,
+    "height": 269,
+    "bytes": 120035,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "ADIPEC booth render and LinkedIn event posts match PDF page 7 exhibition case.",
+    "preview_file": "recommended_assets/gtm_adipec_exhibition__gallery__asset137__2063321bc1.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 27,
+    "asset_id": "fb634db6bd1a2489fdd31a00e1cc6c6c51f7b6ea",
+    "zip_path": "images/fb634db6bd1a2489fdd31a00e1cc6c6c51f7b6ea",
+    "format": "PNG",
+    "width": 4096,
+    "height": 2731,
+    "bytes": 3303066,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__cover__asset027__fb634db6bd.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 36,
+    "asset_id": "a60107df8eceff92a4eb02fde8b3c4003a55fc32",
+    "zip_path": "images/a60107df8eceff92a4eb02fde8b3c4003a55fc32",
+    "format": "PNG",
+    "width": 1024,
+    "height": 1024,
+    "bytes": 2011402,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset036__a60107df8e.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 55,
+    "asset_id": "e93724d14b3f4b094a71cbf2c3de4cb281646ce5",
+    "zip_path": "images/e93724d14b3f4b094a71cbf2c3de4cb281646ce5",
+    "format": "PNG",
+    "width": 1024,
+    "height": 576,
+    "bytes": 1082632,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset055__e93724d14b.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 73,
+    "asset_id": "4507018995b4544488f67509c2b825228566cf58",
+    "zip_path": "images/4507018995b4544488f67509c2b825228566cf58",
+    "format": "PNG",
+    "width": 512,
+    "height": 512,
+    "bytes": 606040,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset073__4507018995.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 77,
+    "asset_id": "3fab820d786ff4a98825dc0143fdd1d518cf8d4a",
+    "zip_path": "images/3fab820d786ff4a98825dc0143fdd1d518cf8d4a",
+    "format": "PNG",
+    "width": 1662,
+    "height": 1250,
+    "bytes": 464157,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset077__3fab820d78.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 90,
+    "asset_id": "020a5c27d71fc3ebada80655ba13c59be95c3ebc",
+    "zip_path": "images/020a5c27d71fc3ebada80655ba13c59be95c3ebc",
+    "format": "PNG",
+    "width": 512,
+    "height": 288,
+    "bytes": 346457,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset090__020a5c27d7.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 142,
+    "asset_id": "a8d655dbbe4cbf0de6a7eb447f9c7971fec535f7",
+    "zip_path": "images/a8d655dbbe4cbf0de6a7eb447f9c7971fec535f7",
+    "format": "PNG",
+    "width": 304,
+    "height": 220,
+    "bytes": 114393,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset142__a8d655dbbe.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 169,
+    "asset_id": "4fdee3baae1e02b076532f28c2742566f2dedc80",
+    "zip_path": "images/4fdee3baae1e02b076532f28c2742566f2dedc80",
+    "format": "PNG",
+    "width": 416,
+    "height": 313,
+    "bytes": 75130,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset169__4fdee3baae.jpg"
+  },
+  {
+    "project_id": "gtm_csr_gen_ai",
+    "project_title": "CSR Gen-AI Project",
+    "pdf_pages": [
+      8
+    ],
+    "asset_index": 171,
+    "asset_id": "654eec17d908120684e2cdb099cf03c9134c41d7",
+    "zip_path": "images/654eec17d908120684e2cdb099cf03c9134c41d7",
+    "format": "PNG",
+    "width": 512,
+    "height": 342,
+    "bytes": 68353,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Safety cards, child/dog imagery, and family safety illustration match PDF page 8 CSR Gen-AI HSE card workflow.",
+    "preview_file": "recommended_assets/gtm_csr_gen_ai__gallery__asset171__654eec17d9.jpg"
+  },
+  {
+    "project_id": "gtm_vivo_partnership",
+    "project_title": "vivo 5-Year Strategic Partnership",
+    "pdf_pages": [
+      9
+    ],
+    "asset_index": 38,
+    "asset_id": "da540127e9ab5fb0f72b81fdb38dd9e7cbbe08ed",
+    "zip_path": "images/da540127e9ab5fb0f72b81fdb38dd9e7cbbe08ed",
+    "format": "PNG",
+    "width": 1242,
+    "height": 1186,
+    "bytes": 1689610,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Layered smartphone campaign collage matches PDF page 9 vivo partnership visual.",
+    "preview_file": "recommended_assets/gtm_vivo_partnership__cover__asset038__da540127e9.jpg"
+  },
+  {
+    "project_id": "gtm_vivo_partnership",
+    "project_title": "vivo 5-Year Strategic Partnership",
+    "pdf_pages": [
+      9
+    ],
+    "asset_index": 117,
+    "asset_id": "996964cd75b6d0cb8a92af3d652e0088bece4148",
+    "zip_path": "images/996964cd75b6d0cb8a92af3d652e0088bece4148",
+    "format": "PNG",
+    "width": 311,
+    "height": 297,
+    "bytes": 151357,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Layered smartphone campaign collage matches PDF page 9 vivo partnership visual.",
+    "preview_file": "recommended_assets/gtm_vivo_partnership__gallery__asset117__996964cd75.jpg"
+  },
+  {
+    "project_id": "gtm_vivo_partnership",
+    "project_title": "vivo 5-Year Strategic Partnership",
+    "pdf_pages": [
+      9
+    ],
+    "asset_index": 139,
+    "asset_id": "e1e79bb15dc8130bbc412eecdc2361760465948f",
+    "zip_path": "images/e1e79bb15dc8130bbc412eecdc2361760465948f",
+    "format": "PNG",
+    "width": 262,
+    "height": 336,
+    "bytes": 118135,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Layered smartphone campaign collage matches PDF page 9 vivo partnership visual.",
+    "preview_file": "recommended_assets/gtm_vivo_partnership__gallery__asset139__e1e79bb15d.jpg"
+  },
+  {
+    "project_id": "gtm_oppo_find_n5",
+    "project_title": "OPPO Find N5 Foldable Flagship",
+    "pdf_pages": [
+      10
+    ],
+    "asset_index": 80,
+    "asset_id": "b8a321e94e87135cdca467ace3d0e9c1e2889ae4",
+    "zip_path": "images/b8a321e94e87135cdca467ace3d0e9c1e2889ae4",
+    "format": "PNG",
+    "width": 639,
+    "height": 1740,
+    "bytes": 442994,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Foldable phone side-view render matches PDF page 10 Find N5 thinness positioning.",
+    "preview_file": "recommended_assets/gtm_oppo_find_n5__cover__asset080__b8a321e94e.jpg"
+  },
+  {
+    "project_id": "gtm_oppo_find_n5",
+    "project_title": "OPPO Find N5 Foldable Flagship",
+    "pdf_pages": [
+      10
+    ],
+    "asset_index": 182,
+    "asset_id": "ffc138de547713d141a47203a81984377abd05b9",
+    "zip_path": "images/ffc138de547713d141a47203a81984377abd05b9",
+    "format": "PNG",
+    "width": 160,
+    "height": 435,
+    "bytes": 42189,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Foldable phone side-view render matches PDF page 10 Find N5 thinness positioning.",
+    "preview_file": "recommended_assets/gtm_oppo_find_n5__gallery__asset182__ffc138de54.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 9,
+    "asset_id": "6cc69a7a25f50c660ef7bf1bb2ecb0fc7aa5f80e",
+    "zip_path": "images/6cc69a7a25f50c660ef7bf1bb2ecb0fc7aa5f80e",
+    "format": "PNG",
+    "width": 1559,
+    "height": 2777,
+    "bytes": 14214446,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__cover__asset009__6cc69a7a25.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 11,
+    "asset_id": "0a271cf1e732738028f0baa9f225bbf07851ba67",
+    "zip_path": "images/0a271cf1e732738028f0baa9f225bbf07851ba67",
+    "format": "PNG",
+    "width": 1559,
+    "height": 2777,
+    "bytes": 13577968,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__gallery__asset011__0a271cf1e7.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 23,
+    "asset_id": "bcc56385f695beb190935b1c3091b2a680962679",
+    "zip_path": "images/bcc56385f695beb190935b1c3091b2a680962679",
+    "format": "PNG",
+    "width": 1290,
+    "height": 2796,
+    "bytes": 3894963,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__gallery__asset023__bcc56385f6.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 120,
+    "asset_id": "26469de937b409abe1233020a18a919dbe3ec29b",
+    "zip_path": "images/26469de937b409abe1233020a18a919dbe3ec29b",
+    "format": "PNG",
+    "width": 195,
+    "height": 348,
+    "bytes": 148082,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__gallery__asset120__26469de937.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 122,
+    "asset_id": "13073d269e97108e24404b01f59ac7b44210ea71",
+    "zip_path": "images/13073d269e97108e24404b01f59ac7b44210ea71",
+    "format": "PNG",
+    "width": 195,
+    "height": 348,
+    "bytes": 141680,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__gallery__asset122__13073d269e.jpg"
+  },
+  {
+    "project_id": "gtm_douyin_iqoo_5g",
+    "project_title": "Douyin (TikTok) Viral Challenge - iQOO 5G Launch",
+    "pdf_pages": [
+      11
+    ],
+    "asset_index": 124,
+    "asset_id": "99ded674b8edb12cc1e2ab350fb712256d81993b",
+    "zip_path": "images/99ded674b8edb12cc1e2ab350fb712256d81993b",
+    "format": "PNG",
+    "width": 162,
+    "height": 350,
+    "bytes": 135083,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Dark Douyin/iQOO challenge mobile screenshots match PDF page 11 viral challenge case.",
+    "preview_file": "recommended_assets/gtm_douyin_iqoo_5g__gallery__asset124__99ded674b8.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 85,
+    "asset_id": "45729db99c226679d4bfd455ce9909b20ded43fb",
+    "zip_path": "images/45729db99c226679d4bfd455ce9909b20ded43fb",
+    "format": "PNG",
+    "width": 552,
+    "height": 432,
+    "bytes": 390202,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__cover__asset085__45729db99c.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 159,
+    "asset_id": "d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+    "zip_path": "images/d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+    "format": "PNG",
+    "width": 496,
+    "height": 432,
+    "bytes": 93751,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__gallery__asset159__d8e821e4e3.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 148,
+    "asset_id": "2face8f8c1b745f2ffc7a2be7a544f5bd399e6de",
+    "zip_path": "images/2face8f8c1b745f2ffc7a2be7a544f5bd399e6de",
+    "format": "PNG",
+    "width": 162,
+    "height": 350,
+    "bytes": 106262,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__gallery__asset148__2face8f8c1.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 165,
+    "asset_id": "6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "zip_path": "images/6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "format": "PNG",
+    "width": 336,
+    "height": 240,
+    "bytes": 82706,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__gallery__asset165__6c2d3f75b3.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 17,
+    "asset_id": "48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+    "zip_path": "images/48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+    "format": "PNG",
+    "width": 1290,
+    "height": 2796,
+    "bytes": 6942933,
+    "recommended_usage": "secondary",
+    "confidence": "medium",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__secondary__asset017__48f2d4aaeb.jpg"
+  },
+  {
+    "project_id": "gtm_volvo_owned_platform",
+    "project_title": "Volvo China - Branded Employee Engagement Platform",
+    "pdf_pages": [
+      12
+    ],
+    "asset_index": 25,
+    "asset_id": "c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc",
+    "zip_path": "images/c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc",
+    "format": "PNG",
+    "width": 1290,
+    "height": 2796,
+    "bytes": 3349644,
+    "recommended_usage": "secondary",
+    "confidence": "medium",
+    "reason": "Automotive/social platform collage and analytics screenshots match PDF page 12 Volvo platform operations case.",
+    "preview_file": "recommended_assets/gtm_volvo_owned_platform__secondary__asset025__c4cb6d60bf.jpg"
+  },
+  {
+    "project_id": "gtm_cityu_dual_seo",
+    "project_title": "City University of HK - Dual-Engine SEO",
+    "pdf_pages": [
+      13
+    ],
+    "asset_index": 68,
+    "asset_id": "abbf70aeb73d768f0c2607a8b447b9eb71166ae0",
+    "zip_path": "images/abbf70aeb73d768f0c2607a8b447b9eb71166ae0",
+    "format": "PNG",
+    "width": 2524,
+    "height": 1420,
+    "bytes": 779370,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "SEO planning tables and content publishing sheets match PDF page 13 dual-engine SEO case.",
+    "preview_file": "recommended_assets/gtm_cityu_dual_seo__cover__asset068__abbf70aeb7.jpg"
+  },
+  {
+    "project_id": "gtm_cityu_dual_seo",
+    "project_title": "City University of HK - Dual-Engine SEO",
+    "pdf_pages": [
+      13
+    ],
+    "asset_index": 78,
+    "asset_id": "fafd6636fc9ef951e0afb339cbab728997e6071a",
+    "zip_path": "images/fafd6636fc9ef951e0afb339cbab728997e6071a",
+    "format": "PNG",
+    "width": 2092,
+    "height": 1170,
+    "bytes": 460686,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "SEO planning tables and content publishing sheets match PDF page 13 dual-engine SEO case.",
+    "preview_file": "recommended_assets/gtm_cityu_dual_seo__gallery__asset078__fafd6636fc.jpg"
+  },
+  {
+    "project_id": "gtm_cityu_dual_seo",
+    "project_title": "City University of HK - Dual-Engine SEO",
+    "pdf_pages": [
+      13
+    ],
+    "asset_index": 121,
+    "asset_id": "5d06d32ae8af4d9b689de8fe6b174df6858ce04d",
+    "zip_path": "images/5d06d32ae8af4d9b689de8fe6b174df6858ce04d",
+    "format": "PNG",
+    "width": 1660,
+    "height": 846,
+    "bytes": 143433,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "SEO planning tables and content publishing sheets match PDF page 13 dual-engine SEO case.",
+    "preview_file": "recommended_assets/gtm_cityu_dual_seo__gallery__asset121__5d06d32ae8.jpg"
+  },
+  {
+    "project_id": "gtm_cityu_dual_seo",
+    "project_title": "City University of HK - Dual-Engine SEO",
+    "pdf_pages": [
+      13
+    ],
+    "asset_index": 186,
+    "asset_id": "0437af0661c22ea04e00285c7873e38a1d94acf4",
+    "zip_path": "images/0437af0661c22ea04e00285c7873e38a1d94acf4",
+    "format": "PNG",
+    "width": 316,
+    "height": 178,
+    "bytes": 36487,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "SEO planning tables and content publishing sheets match PDF page 13 dual-engine SEO case.",
+    "preview_file": "recommended_assets/gtm_cityu_dual_seo__gallery__asset186__0437af0661.jpg"
+  },
+  {
+    "project_id": "gtm_hyundai_china",
+    "project_title": "Hyundai China - Five-Platform Integrated Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "asset_index": 17,
+    "asset_id": "48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+    "zip_path": "images/48f2d4aaebc4dfd18bb07b7a0b287872e5eb1dfd",
+    "format": "PNG",
+    "width": 1290,
+    "height": 2796,
+    "bytes": 6942933,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Car social content screenshots and auto content collage match PDF page 14 Hyundai campaign.",
+    "preview_file": "recommended_assets/gtm_hyundai_china__cover__asset017__48f2d4aaeb.jpg"
+  },
+  {
+    "project_id": "gtm_hyundai_china",
+    "project_title": "Hyundai China - Five-Platform Integrated Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "asset_index": 25,
+    "asset_id": "c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc",
+    "zip_path": "images/c4cb6d60bf1aaafc8a817797d29b641e2dcb5ecc",
+    "format": "PNG",
+    "width": 1290,
+    "height": 2796,
+    "bytes": 3349644,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Car social content screenshots and auto content collage match PDF page 14 Hyundai campaign.",
+    "preview_file": "recommended_assets/gtm_hyundai_china__gallery__asset025__c4cb6d60bf.jpg"
+  },
+  {
+    "project_id": "gtm_hyundai_china",
+    "project_title": "Hyundai China - Five-Platform Integrated Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "asset_index": 85,
+    "asset_id": "45729db99c226679d4bfd455ce9909b20ded43fb",
+    "zip_path": "images/45729db99c226679d4bfd455ce9909b20ded43fb",
+    "format": "PNG",
+    "width": 552,
+    "height": 432,
+    "bytes": 390202,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Car social content screenshots and auto content collage match PDF page 14 Hyundai campaign.",
+    "preview_file": "recommended_assets/gtm_hyundai_china__gallery__asset085__45729db99c.jpg"
+  },
+  {
+    "project_id": "gtm_hyundai_china",
+    "project_title": "Hyundai China - Five-Platform Integrated Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "asset_index": 134,
+    "asset_id": "827401a037196626d4f009127e3182b2fddf0ae7",
+    "zip_path": "images/827401a037196626d4f009127e3182b2fddf0ae7",
+    "format": "PNG",
+    "width": 276,
+    "height": 216,
+    "bytes": 121880,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Car social content screenshots and auto content collage match PDF page 14 Hyundai campaign.",
+    "preview_file": "recommended_assets/gtm_hyundai_china__gallery__asset134__827401a037.jpg"
+  },
+  {
+    "project_id": "gtm_hyundai_china",
+    "project_title": "Hyundai China - Five-Platform Integrated Campaign",
+    "pdf_pages": [
+      14
+    ],
+    "asset_index": 165,
+    "asset_id": "6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "zip_path": "images/6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "format": "PNG",
+    "width": 336,
+    "height": 240,
+    "bytes": 82706,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Car social content screenshots and auto content collage match PDF page 14 Hyundai campaign.",
+    "preview_file": "recommended_assets/gtm_hyundai_china__gallery__asset165__6c2d3f75b3.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 21,
+    "asset_id": "05459ac06b01463fc15a07085b5e805d96ff7309",
+    "zip_path": "images/05459ac06b01463fc15a07085b5e805d96ff7309",
+    "format": "PNG",
+    "width": 2752,
+    "height": 1536,
+    "bytes": 5874177,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__cover__asset021__05459ac06b.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 96,
+    "asset_id": "be738f17f262afd4bbe0a0e217f21ef116578c6d",
+    "zip_path": "images/be738f17f262afd4bbe0a0e217f21ef116578c6d",
+    "format": "JPEG",
+    "width": 1080,
+    "height": 810,
+    "bytes": 246043,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset096__be738f17f2.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 158,
+    "asset_id": "9967ade378ca7ea596d9677f266f5d3d8c190f26",
+    "zip_path": "images/9967ade378ca7ea596d9677f266f5d3d8c190f26",
+    "format": "JPEG",
+    "width": 750,
+    "height": 3164,
+    "bytes": 93945,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset158__9967ade378.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 175,
+    "asset_id": "9f05909b11922aac5df4b607cf2f1bc25d7327a9",
+    "zip_path": "images/9f05909b11922aac5df4b607cf2f1bc25d7327a9",
+    "format": "JPEG",
+    "width": 750,
+    "height": 1739,
+    "bytes": 58465,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset175__9f05909b11.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 184,
+    "asset_id": "f7ffb2bb51213a0f47eb70fcb4d3df4e83ef2429",
+    "zip_path": "images/f7ffb2bb51213a0f47eb70fcb4d3df4e83ef2429",
+    "format": "JPEG",
+    "width": 750,
+    "height": 1623,
+    "bytes": 39063,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset184__f7ffb2bb51.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 187,
+    "asset_id": "c3dd6770a8bcdbe2ebd310426867ad0ae29015cb",
+    "zip_path": "images/c3dd6770a8bcdbe2ebd310426867ad0ae29015cb",
+    "format": "JPEG",
+    "width": 750,
+    "height": 1623,
+    "bytes": 35737,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset187__c3dd6770a8.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 188,
+    "asset_id": "6db472b37ef7f747b5e63746179558ae98cc4b9e",
+    "zip_path": "images/6db472b37ef7f747b5e63746179558ae98cc4b9e",
+    "format": "PNG",
+    "width": 480,
+    "height": 116,
+    "bytes": 35123,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset188__6db472b37e.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 191,
+    "asset_id": "06961293622115b1cf81aed483d75f52898b15f2",
+    "zip_path": "images/06961293622115b1cf81aed483d75f52898b15f2",
+    "format": "JPEG",
+    "width": 94,
+    "height": 396,
+    "bytes": 26332,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset191__0696129362.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 192,
+    "asset_id": "8a8bdec0f43e87a91ec001e989475af112cd3c89",
+    "zip_path": "images/8a8bdec0f43e87a91ec001e989475af112cd3c89",
+    "format": "JPEG",
+    "width": 188,
+    "height": 435,
+    "bytes": 25888,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset192__8a8bdec0f4.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 198,
+    "asset_id": "ec70a6c8c47c655ad20db73a6ffe2c67bafc5054",
+    "zip_path": "images/ec70a6c8c47c655ad20db73a6ffe2c67bafc5054",
+    "format": "JPEG",
+    "width": 188,
+    "height": 406,
+    "bytes": 21154,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset198__ec70a6c8c4.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 199,
+    "asset_id": "cdc35c250aca7ee8c975e9a3f6a25ea853975391",
+    "zip_path": "images/cdc35c250aca7ee8c975e9a3f6a25ea853975391",
+    "format": "JPEG",
+    "width": 188,
+    "height": 406,
+    "bytes": 20845,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__gallery__asset199__cdc35c250a.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 94,
+    "asset_id": "dffb6a75eb4c7db824f0a0c531e2b5e359870a7b",
+    "zip_path": "images/dffb6a75eb4c7db824f0a0c531e2b5e359870a7b",
+    "format": "PNG",
+    "width": 1920,
+    "height": 462,
+    "bytes": 283926,
+    "recommended_usage": "secondary",
+    "confidence": "medium",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__secondary__asset094__dffb6a75eb.jpg"
+  },
+  {
+    "project_id": "product_john_lobb_wechat_store",
+    "project_title": "John Lobb - 0-to-1 WeChat Flagship Store",
+    "pdf_pages": [
+      16,
+      17,
+      18
+    ],
+    "asset_index": 110,
+    "asset_id": "3f919151ce506671c161722a4d40dfea7821f104",
+    "zip_path": "images/3f919151ce506671c161722a4d40dfea7821f104",
+    "format": "JPEG",
+    "width": 392,
+    "height": 490,
+    "bytes": 181307,
+    "recommended_usage": "secondary",
+    "confidence": "medium",
+    "reason": "WeChat mini-program flow, product pages, and shoe detail images match PDF pages 16-18 John Lobb store.",
+    "preview_file": "recommended_assets/product_john_lobb_wechat_store__secondary__asset110__3f919151ce.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 50,
+    "asset_id": "535c80dd3b0c1f71ba5ab52074537595ae0cae73",
+    "zip_path": "images/535c80dd3b0c1f71ba5ab52074537595ae0cae73",
+    "format": "PNG",
+    "width": 1875,
+    "height": 1470,
+    "bytes": 1286156,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__cover__asset050__535c80dd3b.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 54,
+    "asset_id": "459da74f726b149764fbe159df82fb515026a595",
+    "zip_path": "images/459da74f726b149764fbe159df82fb515026a595",
+    "format": "PNG",
+    "width": 750,
+    "height": 1796,
+    "bytes": 1086371,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset054__459da74f72.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 56,
+    "asset_id": "2933ce79121fb26bb2e6d9a05f4876dda67db713",
+    "zip_path": "images/2933ce79121fb26bb2e6d9a05f4876dda67db713",
+    "format": "PNG",
+    "width": 2084,
+    "height": 1172,
+    "bytes": 1067250,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset056__2933ce7912.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 65,
+    "asset_id": "be6a8b47aefdca9e5ee6daa15fa7a50420cf54d6",
+    "zip_path": "images/be6a8b47aefdca9e5ee6daa15fa7a50420cf54d6",
+    "format": "PNG",
+    "width": 750,
+    "height": 1796,
+    "bytes": 881972,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset065__be6a8b47ae.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 74,
+    "asset_id": "669c82855c5ad357ce77fa3a44f0164ac2862080",
+    "zip_path": "images/669c82855c5ad357ce77fa3a44f0164ac2862080",
+    "format": "PNG",
+    "width": 2132,
+    "height": 1206,
+    "bytes": 597638,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset074__669c82855c.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 75,
+    "asset_id": "f7b7a85c0bf8240e825969f3517ae449dfc99eb6",
+    "zip_path": "images/f7b7a85c0bf8240e825969f3517ae449dfc99eb6",
+    "format": "PNG",
+    "width": 2078,
+    "height": 1176,
+    "bytes": 498634,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset075__f7b7a85c0b.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 88,
+    "asset_id": "b751e0589da900aecd4b7a2c0cdb74b0050d3015",
+    "zip_path": "images/b751e0589da900aecd4b7a2c0cdb74b0050d3015",
+    "format": "PNG",
+    "width": 2082,
+    "height": 1172,
+    "bytes": 358758,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset088__b751e0589d.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 92,
+    "asset_id": "2c81c73901cb0ba77a4f08e98ed05551c3cbaefe",
+    "zip_path": "images/2c81c73901cb0ba77a4f08e98ed05551c3cbaefe",
+    "format": "JPEG",
+    "width": 1775,
+    "height": 1315,
+    "bytes": 322263,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset092__2c81c73901.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 106,
+    "asset_id": "245f24a7ba19c72d6008b917feac1e580dcc5dcb",
+    "zip_path": "images/245f24a7ba19c72d6008b917feac1e580dcc5dcb",
+    "format": "PNG",
+    "width": 469,
+    "height": 368,
+    "bytes": 198419,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset106__245f24a7ba.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 144,
+    "asset_id": "73339c290c5c64214d7d802cc24c6fde9f7b757f",
+    "zip_path": "images/73339c290c5c64214d7d802cc24c6fde9f7b757f",
+    "format": "JPEG",
+    "width": 444,
+    "height": 329,
+    "bytes": 111290,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset144__73339c290c.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 147,
+    "asset_id": "806067f324fa51d500627e1ab2ae3c4523768a1f",
+    "zip_path": "images/806067f324fa51d500627e1ab2ae3c4523768a1f",
+    "format": "PNG",
+    "width": 188,
+    "height": 449,
+    "bytes": 110097,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset147__806067f324.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 162,
+    "asset_id": "a306d22f14da4714a3b14bc89c4025fb08553af3",
+    "zip_path": "images/a306d22f14da4714a3b14bc89c4025fb08553af3",
+    "format": "PNG",
+    "width": 188,
+    "height": 449,
+    "bytes": 88813,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset162__a306d22f14.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 185,
+    "asset_id": "ff5c505e481e13e1324f295b6122eb801662441e",
+    "zip_path": "images/ff5c505e481e13e1324f295b6122eb801662441e",
+    "format": "PNG",
+    "width": 261,
+    "height": 147,
+    "bytes": 37711,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset185__ff5c505e48.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 190,
+    "asset_id": "fc0e4318ddc63fa4f61c244654dcf49972670fd3",
+    "zip_path": "images/fc0e4318ddc63fa4f61c244654dcf49972670fd3",
+    "format": "PNG",
+    "width": 267,
+    "height": 151,
+    "bytes": 26916,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset190__fc0e4318dd.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 194,
+    "asset_id": "12f218ba2378224ed155cef99f1ad8dbf7642e25",
+    "zip_path": "images/12f218ba2378224ed155cef99f1ad8dbf7642e25",
+    "format": "PNG",
+    "width": 262,
+    "height": 147,
+    "bytes": 22867,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset194__12f218ba23.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 195,
+    "asset_id": "d813a5c633de59c510b15b6acde4a31f908808b3",
+    "zip_path": "images/d813a5c633de59c510b15b6acde4a31f908808b3",
+    "format": "PNG",
+    "width": 267,
+    "height": 151,
+    "bytes": 22785,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset195__d813a5c633.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 196,
+    "asset_id": "c8509c091749d800c53cc245530799ad26f0682f",
+    "zip_path": "images/c8509c091749d800c53cc245530799ad26f0682f",
+    "format": "PNG",
+    "width": 260,
+    "height": 147,
+    "bytes": 21623,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset196__c8509c0917.jpg"
+  },
+  {
+    "project_id": "product_baccarat_cro_campaign",
+    "project_title": "Baccarat - UX Optimization & Seasonal Campaign Growth",
+    "pdf_pages": [
+      19,
+      20,
+      21
+    ],
+    "asset_index": 201,
+    "asset_id": "229a8e89b8ae53bd0adf82f5941969d9d4c8e38f",
+    "zip_path": "images/229a8e89b8ae53bd0adf82f5941969d9d4c8e38f",
+    "format": "PNG",
+    "width": 261,
+    "height": 147,
+    "bytes": 18543,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Gift campaign, CNY/Xmas package pages, and UX optimization docs match PDF pages 19-21 Baccarat case.",
+    "preview_file": "recommended_assets/product_baccarat_cro_campaign__gallery__asset201__229a8e89b8.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 18,
+    "asset_id": "80703335d1ecd9d8e63f4ed73b5fd4c35cd17e50",
+    "zip_path": "images/80703335d1ecd9d8e63f4ed73b5fd4c35cd17e50",
+    "format": "PNG",
+    "width": 4096,
+    "height": 3346,
+    "bytes": 6644089,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__cover__asset018__80703335d1.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 40,
+    "asset_id": "91faee1f106f390a8d51fe0d2421bd029cdeaa22",
+    "zip_path": "images/91faee1f106f390a8d51fe0d2421bd029cdeaa22",
+    "format": "PNG",
+    "width": 4042,
+    "height": 3442,
+    "bytes": 1582812,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__gallery__asset040__91faee1f10.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 44,
+    "asset_id": "87274f82607fd69f65d5a11c571110035fb8c1c6",
+    "zip_path": "images/87274f82607fd69f65d5a11c571110035fb8c1c6",
+    "format": "PNG",
+    "width": 4096,
+    "height": 2480,
+    "bytes": 1413916,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__gallery__asset044__87274f8260.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 107,
+    "asset_id": "17c64fe916f035f9fb0f08e0d75f2a55629e431a",
+    "zip_path": "images/17c64fe916f035f9fb0f08e0d75f2a55629e431a",
+    "format": "PNG",
+    "width": 512,
+    "height": 419,
+    "bytes": 196732,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__gallery__asset107__17c64fe916.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 167,
+    "asset_id": "e64d08e2c3142696f463103275508a45050135cb",
+    "zip_path": "images/e64d08e2c3142696f463103275508a45050135cb",
+    "format": "PNG",
+    "width": 506,
+    "height": 431,
+    "bytes": 75632,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__gallery__asset167__e64d08e2c3.jpg"
+  },
+  {
+    "project_id": "product_curio_eye_saas",
+    "project_title": "Curio Eye - Fashion Intelligence SaaS Commercialization",
+    "pdf_pages": [
+      22,
+      23,
+      24
+    ],
+    "asset_index": 180,
+    "asset_id": "0d7b64bf10448e8e51bb32862f132a15d23393bb",
+    "zip_path": "images/0d7b64bf10448e8e51bb32862f132a15d23393bb",
+    "format": "PNG",
+    "width": 512,
+    "height": 310,
+    "bytes": 51436,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Fashion intelligence dashboard screenshots match PDF pages 22-24 Curio Eye SaaS case.",
+    "preview_file": "recommended_assets/product_curio_eye_saas__gallery__asset180__0d7b64bf10.jpg"
+  },
+  {
+    "project_id": "product_anton_brand_website",
+    "project_title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "pdf_pages": [
+      25
+    ],
+    "asset_index": 39,
+    "asset_id": "d34118451b75f57a545ff0e5011e868df0998c90",
+    "zip_path": "images/d34118451b75f57a545ff0e5011e868df0998c90",
+    "format": "PNG",
+    "width": 1778,
+    "height": 1658,
+    "bytes": 1596330,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Anton website screens and responsive page layouts match PDF page 25 website upgrade case.",
+    "preview_file": "recommended_assets/product_anton_brand_website__cover__asset039__d34118451b.jpg"
+  },
+  {
+    "project_id": "product_anton_brand_website",
+    "project_title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "pdf_pages": [
+      25
+    ],
+    "asset_index": 37,
+    "asset_id": "b54d38528b48c3376af1ae69fc051b3204368249",
+    "zip_path": "images/b54d38528b48c3376af1ae69fc051b3204368249",
+    "format": "PNG",
+    "width": 1390,
+    "height": 2816,
+    "bytes": 1978557,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton website screens and responsive page layouts match PDF page 25 website upgrade case.",
+    "preview_file": "recommended_assets/product_anton_brand_website__gallery__asset037__b54d38528b.jpg"
+  },
+  {
+    "project_id": "product_anton_brand_website",
+    "project_title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "pdf_pages": [
+      25
+    ],
+    "asset_index": 64,
+    "asset_id": "bf0f7a8ee2fc11dc46294e141acf3415eb94b77b",
+    "zip_path": "images/bf0f7a8ee2fc11dc46294e141acf3415eb94b77b",
+    "format": "JPEG",
+    "width": 1733,
+    "height": 1155,
+    "bytes": 915595,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton website screens and responsive page layouts match PDF page 25 website upgrade case.",
+    "preview_file": "recommended_assets/product_anton_brand_website__gallery__asset064__bf0f7a8ee2.jpg"
+  },
+  {
+    "project_id": "product_anton_brand_website",
+    "project_title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "pdf_pages": [
+      25
+    ],
+    "asset_index": 111,
+    "asset_id": "87ab97f56c5d518f2d6ab56bfa4d4e2184c21a44",
+    "zip_path": "images/87ab97f56c5d518f2d6ab56bfa4d4e2184c21a44",
+    "format": "PNG",
+    "width": 445,
+    "height": 415,
+    "bytes": 176906,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton website screens and responsive page layouts match PDF page 25 website upgrade case.",
+    "preview_file": "recommended_assets/product_anton_brand_website__gallery__asset111__87ab97f56c.jpg"
+  },
+  {
+    "project_id": "product_anton_brand_website",
+    "project_title": "Anton Oil - Brand Website UI/UX Upgrade",
+    "pdf_pages": [
+      25
+    ],
+    "asset_index": 176,
+    "asset_id": "e7901d54e5893ae4ef8e7221b642e6cc4572d06b",
+    "zip_path": "images/e7901d54e5893ae4ef8e7221b642e6cc4572d06b",
+    "format": "PNG",
+    "width": 174,
+    "height": 352,
+    "bytes": 58288,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton website screens and responsive page layouts match PDF page 25 website upgrade case.",
+    "preview_file": "recommended_assets/product_anton_brand_website__gallery__asset176__e7901d54e5.jpg"
+  },
+  {
+    "project_id": "product_anton_supplier_platform",
+    "project_title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "asset_index": 104,
+    "asset_id": "bda55ccbda8b0b087fe43c23198ea5fbaa84708b",
+    "zip_path": "images/bda55ccbda8b0b087fe43c23198ea5fbaa84708b",
+    "format": "PNG",
+    "width": 1920,
+    "height": 947,
+    "bytes": 204478,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Anton supplier registration screens and dashboard pages match PDF pages 26-28 vibe-coded platform.",
+    "preview_file": "recommended_assets/product_anton_supplier_platform__cover__asset104__bda55ccbda.jpg"
+  },
+  {
+    "project_id": "product_anton_supplier_platform",
+    "project_title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "asset_index": 135,
+    "asset_id": "e4d869f9f67e943b1d577547fe28745eb89cea79",
+    "zip_path": "images/e4d869f9f67e943b1d577547fe28745eb89cea79",
+    "format": "PNG",
+    "width": 1303,
+    "height": 783,
+    "bytes": 121726,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton supplier registration screens and dashboard pages match PDF pages 26-28 vibe-coded platform.",
+    "preview_file": "recommended_assets/product_anton_supplier_platform__gallery__asset135__e4d869f9f6.jpg"
+  },
+  {
+    "project_id": "product_anton_supplier_platform",
+    "project_title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "asset_index": 164,
+    "asset_id": "4fe50b44447d62864a0f540e4b28efe441494fbd",
+    "zip_path": "images/4fe50b44447d62864a0f540e4b28efe441494fbd",
+    "format": "PNG",
+    "width": 319,
+    "height": 227,
+    "bytes": 82861,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton supplier registration screens and dashboard pages match PDF pages 26-28 vibe-coded platform.",
+    "preview_file": "recommended_assets/product_anton_supplier_platform__gallery__asset164__4fe50b4444.jpg"
+  },
+  {
+    "project_id": "product_anton_supplier_platform",
+    "project_title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "asset_index": 189,
+    "asset_id": "6fc979a09e5410fc00c9e40d701054cf282cbc1e",
+    "zip_path": "images/6fc979a09e5410fc00c9e40d701054cf282cbc1e",
+    "format": "PNG",
+    "width": 480,
+    "height": 237,
+    "bytes": 32880,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton supplier registration screens and dashboard pages match PDF pages 26-28 vibe-coded platform.",
+    "preview_file": "recommended_assets/product_anton_supplier_platform__gallery__asset189__6fc979a09e.jpg"
+  },
+  {
+    "project_id": "product_anton_supplier_platform",
+    "project_title": "Anton Oil - 0-to-1 Vibe-Coding and AI-Coded Build",
+    "pdf_pages": [
+      26,
+      27,
+      28
+    ],
+    "asset_index": 197,
+    "asset_id": "214482525da20746c11debac36e462098d8a3240",
+    "zip_path": "images/214482525da20746c11debac36e462098d8a3240",
+    "format": "PNG",
+    "width": 326,
+    "height": 196,
+    "bytes": 21472,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Anton supplier registration screens and dashboard pages match PDF pages 26-28 vibe-coded platform.",
+    "preview_file": "recommended_assets/product_anton_supplier_platform__gallery__asset197__214482525d.jpg"
+  },
+  {
+    "project_id": "product_volvo_internal_platform",
+    "project_title": "Volvo China - Internal Employee Engagement Platform",
+    "pdf_pages": [
+      29,
+      30
+    ],
+    "asset_index": 85,
+    "asset_id": "45729db99c226679d4bfd455ce9909b20ded43fb",
+    "zip_path": "images/45729db99c226679d4bfd455ce9909b20ded43fb",
+    "format": "PNG",
+    "width": 552,
+    "height": 432,
+    "bytes": 390202,
+    "recommended_usage": "cover",
+    "confidence": "high",
+    "reason": "Volvo content grid and analytics visuals match PDF pages 29-30 internal platform case.",
+    "preview_file": "recommended_assets/product_volvo_internal_platform__cover__asset085__45729db99c.jpg"
+  },
+  {
+    "project_id": "product_volvo_internal_platform",
+    "project_title": "Volvo China - Internal Employee Engagement Platform",
+    "pdf_pages": [
+      29,
+      30
+    ],
+    "asset_index": 159,
+    "asset_id": "d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+    "zip_path": "images/d8e821e4e331aba8edf3e6b76b7cd283023988bc",
+    "format": "PNG",
+    "width": 496,
+    "height": 432,
+    "bytes": 93751,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Volvo content grid and analytics visuals match PDF pages 29-30 internal platform case.",
+    "preview_file": "recommended_assets/product_volvo_internal_platform__gallery__asset159__d8e821e4e3.jpg"
+  },
+  {
+    "project_id": "product_volvo_internal_platform",
+    "project_title": "Volvo China - Internal Employee Engagement Platform",
+    "pdf_pages": [
+      29,
+      30
+    ],
+    "asset_index": 145,
+    "asset_id": "9d15564a712cb71a21ac82924183c87edbabe21f",
+    "zip_path": "images/9d15564a712cb71a21ac82924183c87edbabe21f",
+    "format": "PNG",
+    "width": 336,
+    "height": 204,
+    "bytes": 110336,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Volvo content grid and analytics visuals match PDF pages 29-30 internal platform case.",
+    "preview_file": "recommended_assets/product_volvo_internal_platform__gallery__asset145__9d15564a71.jpg"
+  },
+  {
+    "project_id": "product_volvo_internal_platform",
+    "project_title": "Volvo China - Internal Employee Engagement Platform",
+    "pdf_pages": [
+      29,
+      30
+    ],
+    "asset_index": 165,
+    "asset_id": "6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "zip_path": "images/6c2d3f75b3047a270edbdd2a2002ad668e382a51",
+    "format": "PNG",
+    "width": 336,
+    "height": 240,
+    "bytes": 82706,
+    "recommended_usage": "gallery",
+    "confidence": "high",
+    "reason": "Volvo content grid and analytics visuals match PDF pages 29-30 internal platform case.",
+    "preview_file": "recommended_assets/product_volvo_internal_platform__gallery__asset165__6c2d3f75b3.jpg"
+  }
+]
