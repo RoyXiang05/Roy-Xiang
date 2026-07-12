@@ -128,7 +128,24 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             if (config[work.id]) {
               const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:'));
               const savedPosters = config[work.id].videoPosters || {};
-              if (savedImages.length > 0) {
+              
+              // Only override with API config if there is no local user override in localStorage
+              let hasLocalOverride = false;
+              if (typeof window !== 'undefined' && window.localStorage) {
+                try {
+                  const storedImagesStr = window.localStorage.getItem(`project_gallery_images_${work.id}`);
+                  if (storedImagesStr) {
+                    const parsed = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:'));
+                    if (parsed.length > 0) {
+                      hasLocalOverride = true;
+                    }
+                  }
+                } catch (e) {
+                  // Ignore parse errors
+                }
+              }
+
+              if (!hasLocalOverride && savedImages.length > 0) {
                 work.galleryImages = savedImages;
                 updated = true;
               }

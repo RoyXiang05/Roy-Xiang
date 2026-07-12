@@ -18,41 +18,20 @@
       "/uploads/1783797531136_Picture9.jpg#image",
       "/uploads/1783797531712_Picture10.jpg#image",
       "/uploads/1783797532999_Picture11.png#image",
-      "/uploads/1783797130565_7637904cefda3c9611aff36ddfc45f50.PNG.png#image",
-      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video",
-      "/uploads/opt_1783838780101_MUD3.mp4#video",
-      "/uploads/opt_1783838797273_QHSE.mp4#video",
-      "/uploads/opt_1783838811766_QHSE2.mp4#video"
+      "/uploads/1783797130565_7637904cefda3c9611aff36ddfc45f50.PNG.png#image"
     ],
     "galleryLinks": {},
     "videoPosters": {
       "/uploads/opt_1783661874686_movie.mp4#video": "/uploads/poster_1783661874686_movie.jpg",
-      "/uploads/opt_1783661997327_movie.mp4#video": "/uploads/poster_1783661997327_movie.jpg",
-      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.jpg",
-      "/uploads/opt_1783838780101_MUD3.mp4#video": "/uploads/poster_1783838780101_MUD3.jpg",
-      "/uploads/opt_1783838797273_QHSE.mp4#video": "/uploads/poster_1783838797273_QHSE.jpg",
-      "/uploads/opt_1783838811766_QHSE2.mp4#video": "/uploads/poster_1783838811766_QHSE2.jpg"
+      "/uploads/opt_1783661997327_movie.mp4#video": "/uploads/poster_1783661997327_movie.jpg"
     }
   },
   "hr-gen-ai-visual-linkedin": {
     "galleryImages": [
-      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video",
-      "/uploads/opt_1783838780101_MUD3.mp4#video",
-      "/uploads/opt_1783838797273_QHSE.mp4#video",
-      "/uploads/opt_1783838811766_QHSE2.mp4#video"
+      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video"
     ],
     "galleryLinks": {},
-    "videoPosters": {
-      "/uploads/opt_1783659492493_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783659492493_jimeng-2025-08-20-5888-_________________________________________2.jpg",
-      "/uploads/opt_1783686140660_QHSE2.mp4#video": "/uploads/poster_1783686140660_QHSE2.jpg",
-      "/uploads/opt_1783686184038_MUD3.mp4#video": "/uploads/poster_1783686184038_MUD3.jpg",
-      "/uploads/opt_1783686282522_QHSE.mp4#video": "/uploads/poster_1783686282522_QHSE.jpg",
-      "/uploads/opt_1783797685025_2026_loop.mp4#video": "/uploads/poster_1783797685025_2026_loop.jpg",
-      "/uploads/opt_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.mp4#video": "/uploads/poster_1783838760008_jimeng-2025-08-20-5888-_________________________________________2.jpg",
-      "/uploads/opt_1783838780101_MUD3.mp4#video": "/uploads/poster_1783838780101_MUD3.jpg",
-      "/uploads/opt_1783838797273_QHSE.mp4#video": "/uploads/poster_1783838797273_QHSE.jpg",
-      "/uploads/opt_1783838811766_QHSE2.mp4#video": "/uploads/poster_1783838811766_QHSE2.jpg"
-    },
+    "videoPosters": {},
     "galleryColumns": 2
   },
   "curioeye-fashion-intelligence-saas": {
@@ -60,5 +39,24 @@
     "galleryLinks": {},
     "videoPosters": {},
     "galleryColumns": 3
+  },
+  "ai-coded-supplier-platform": {
+    "galleryImages": [
+      "/uploads/1783850550164_1920w_light.png#image"
+    ],
+    "galleryLinks": {},
+    "videoPosters": {},
+    "galleryColumns": 2
+  },
+  "adipec-anton-brand-experience": {
+    "galleryImages": [
+      "/uploads/1783850585409_Screenshot_2026-02-09_at_2.40.29___PM.png#image",
+      "/uploads/1783850587903_Screenshot_2026-02-09_at_2.40.54___PM.png#image",
+      "/uploads/1783850590278_Screenshot_2026-02-10_at_6.39.11___PM.png#image",
+      "/uploads/1783850593224__________.png#image"
+    ],
+    "galleryLinks": {},
+    "videoPosters": {},
+    "galleryColumns": 2
   }
 }

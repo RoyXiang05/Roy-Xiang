@@ -58,48 +58,82 @@ async function startServer() {
     }
   };
 
+  const isFileValid = (p: string): boolean => {
+    try {
+      if (!fs.existsSync(p)) return false;
+      const stats = fs.statSync(p);
+      // Files with size <= 1000 bytes are empty/invalid dummy files
+      return stats.size > 1000;
+    } catch (e) {
+      return false;
+    }
+  };
+
   app.get('/uploads/:filename', (req, res, next) => {
     const filename = req.params.filename;
     const filePath = path.join(uploadsDir, filename);
-    if (!fs.existsSync(filePath)) {
-      const ext = path.extname(filename).toLowerCase();
-      const isVideo = ext === '.mp4' || ext === '.webm' || ext === '.mov' || ext === '.ogg' || ext === '.m4v' || ext === '.avi';
-      
-      if (isVideo) {
-        const defaultVideo = path.join(uploadsDir, '1783661864440_test.mp4');
-        if (fs.existsSync(defaultVideo)) {
-          try {
-            fs.copyFileSync(defaultVideo, filePath);
-            console.log(`[Fallback] Created fallback video for missing: ${filename}`);
-          } catch (e) {
-            console.error('[Fallback] Failed to copy fallback video:', e);
+    
+    if (isFileValid(filePath)) {
+      return res.sendFile(filePath);
+    }
+    
+    // If not found or invalid on disk, serve an elegant fallback dynamically WITHOUT writing to the filesystem
+    const ext = path.extname(filename).toLowerCase();
+    const isVideo = ext === '.mp4' || ext === '.webm' || ext === '.mov' || ext === '.ogg' || ext === '.m4v' || ext === '.avi';
+    
+    if (isVideo) {
+      // Find a valid video in the uploads directory
+      try {
+        const files = fs.readdirSync(uploadsDir);
+        const validVideo = files.find(f => {
+          const e = path.extname(f).toLowerCase();
+          if (e === '.mp4' || e === '.webm') {
+            const p = path.join(uploadsDir, f);
+            const stats = fs.statSync(p);
+            return stats.size > 1000;
           }
+          return false;
+        });
+        if (validVideo) {
+          const fallbackVideoPath = path.join(uploadsDir, validVideo);
+          console.log(`[Fallback] Serving dynamic fallback video (${validVideo}) for missing/invalid: ${filename}`);
+          return res.sendFile(fallbackVideoPath);
         }
-      } else {
-        const recommendedDir = path.join(process.cwd(), 'portfolio_mapping', 'recommended_assets');
-        if (fs.existsSync(recommendedDir)) {
-          try {
-            const files = fs.readdirSync(recommendedDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png'));
-            if (files.length > 0) {
-              // Use a hash of the filename to pick a deterministic file from the recommended assets
-              // to keep the visual identity consistent and non-random
-              let hash = 0;
-              for (let i = 0; i < filename.length; i++) {
-                hash = (hash << 5) - hash + filename.charCodeAt(i);
-                hash |= 0; // Convert to 32bit integer
-              }
-              const index = Math.abs(hash) % files.length;
-              const sourcePath = path.join(recommendedDir, files[index]);
-              fs.copyFileSync(sourcePath, filePath);
-              console.log(`[Fallback] Created fallback image for missing: ${filename} from deterministic index ${index} (${files[index]})`);
+      } catch (err) {
+        console.error('[Fallback] Failed to find valid fallback video:', err);
+      }
+    } else {
+      const recommendedDir = path.join(process.cwd(), 'portfolio_mapping', 'recommended_assets');
+      
+      // 1. Try recommended_assets directory first
+      if (fs.existsSync(recommendedDir)) {
+        try {
+          const files = fs.readdirSync(recommendedDir).filter(f => f.endsWith('.jpg') || f.endsWith('.png') || f.endsWith('.jpeg'));
+          if (files.length > 0) {
+            let hash = 0;
+            for (let i = 0; i < filename.length; i++) {
+              hash = (hash << 5) - hash + filename.charCodeAt(i);
+              hash |= 0;
             }
-          } catch (e) {
-            console.error('[Fallback] Failed to copy fallback image:', e);
+            const index = Math.abs(hash) % files.length;
+            const sourcePath = path.join(recommendedDir, files[index]);
+            console.log(`[Fallback] Serving dynamic fallback image from recommended_assets: ${filename}`);
+            return res.sendFile(sourcePath);
           }
+        } catch (e) {
+          console.error('[Fallback] Failed to find recommended asset:', e);
         }
       }
+      
+      // 2. Otherwise use the guaranteed local pdf_pages_contact_sheet.jpg
+      const contactSheetPath = path.join(process.cwd(), 'portfolio_mapping', 'pdf_pages_contact_sheet.jpg');
+      if (fs.existsSync(contactSheetPath)) {
+        console.log(`[Fallback] Serving dynamic fallback image from contact sheet: ${filename}`);
+        return res.sendFile(contactSheetPath);
+      }
     }
-    next();
+    
+    return res.status(404).send('Not found');
   });
 
   app.use('/uploads', express.static(uploadsDir, staticOptions));
@@ -535,93 +569,6 @@ async function startServer() {
         } catch (e) {
           console.error('[API] Error parsing existing config:', e);
         }
-      }
-
-      // Auto-discover and restore valid physical media files in public/uploads/
-      let hasChanges = false;
-      if (fs.existsSync(uploadsDir)) {
-        const files = fs.readdirSync(uploadsDir);
-        const discoveredVideos: string[] = [];
-        const discoveredPosters: Record<string, string> = {};
-        const discoveredImages: string[] = [];
-
-        files.forEach(file => {
-          const filePath = path.join(uploadsDir, file);
-          try {
-            const stats = fs.statSync(filePath);
-            // Ignore small dummy test files (< 1000 bytes)
-            if (stats.isFile() && stats.size > 1000) {
-              const ext = path.extname(file).toLowerCase();
-              if (ext === '.mp4') {
-                const videoUrl = `/uploads/${file}#video`;
-                discoveredVideos.push(videoUrl);
-                
-                // Find corresponding poster file
-                const base = file.replace('opt_', '').replace('.mp4', '');
-                const posterFile = files.find(f => f.startsWith('poster_') && f.includes(base) && f.endsWith('.jpg'));
-                if (posterFile) {
-                  discoveredPosters[videoUrl] = `/uploads/${posterFile}`;
-                }
-              } else if (ext === '.jpg' || ext === '.jpeg' || ext === '.png' || ext === '.gif') {
-                if (!file.startsWith('poster_')) {
-                  discoveredImages.push(`/uploads/${file}#image`);
-                }
-              } else if (ext === '.pdf') {
-                discoveredImages.push(`/uploads/${file}#pdf`);
-              }
-            }
-          } catch (statErr) {
-            console.error('[API] Error stating file:', file, statErr);
-          }
-        });
-
-        // We automatically merge these discovered real files into the default project config
-        const targetProjectId = 'ai-visual-production-workflow';
-        if (!config[targetProjectId]) {
-          config[targetProjectId] = {
-            galleryImages: [],
-            galleryLinks: {},
-            videoPosters: {}
-          };
-          hasChanges = true;
-        }
-
-        const projectConfig = config[targetProjectId];
-        if (!projectConfig.galleryImages) projectConfig.galleryImages = [];
-        if (!projectConfig.galleryLinks) projectConfig.galleryLinks = {};
-        if (!projectConfig.videoPosters) projectConfig.videoPosters = {};
-
-        // Filter out any blob: URLs from the server-side config file just in case they slipped in
-        const originalLength = projectConfig.galleryImages.length;
-        projectConfig.galleryImages = projectConfig.galleryImages.filter(url => !url.startsWith('blob:'));
-        if (projectConfig.galleryImages.length !== originalLength) {
-          hasChanges = true;
-        }
-
-        const existingUrls = new Set(projectConfig.galleryImages);
-        const allDiscovered = [...discoveredVideos, ...discoveredImages];
-
-        allDiscovered.forEach(url => {
-          if (!existingUrls.has(url)) {
-            projectConfig.galleryImages.push(url);
-            existingUrls.add(url);
-            hasChanges = true;
-          }
-        });
-
-        // Merge discovered posters
-        Object.entries(discoveredPosters).forEach(([videoUrl, posterUrl]) => {
-          if (projectConfig.videoPosters[videoUrl] !== posterUrl) {
-            projectConfig.videoPosters[videoUrl] = posterUrl;
-            hasChanges = true;
-          }
-        });
-      }
-
-      // If changes occurred or the file didn't exist, save the repaired/discovered config
-      if (hasChanges || !fs.existsSync(configPath)) {
-        fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
-        console.log('[API] Auto-discovered and repaired gallery config stored successfully.');
       }
 
       return res.json(config);
