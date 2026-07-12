@@ -170,7 +170,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
       })
       .catch(err => {
         console.warn('[Gallery] Error syncing with server config, trying static fallback:', err);
-        apiFetch('/uploads/gallery_config.json')
+        apiFetch('/portfolio_assets/gallery_config.json')
           .then(res => {
             if (!res.ok) throw new Error('Static config unreachable');
             const contentType = res.headers.get('content-type');

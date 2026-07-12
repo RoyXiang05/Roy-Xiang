@@ -24,7 +24,7 @@ async function startServer() {
   app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
   // Ensure uploads directory exists
-  const uploadsDir = path.join(process.cwd(), 'public', 'uploads');
+  const uploadsDir = path.join(process.cwd(), 'public', 'portfolio_assets');
   if (!fs.existsSync(uploadsDir)) {
     fs.mkdirSync(uploadsDir, { recursive: true });
   }
@@ -69,7 +69,7 @@ async function startServer() {
     }
   };
 
-  app.get('/uploads/:filename', (req, res, next) => {
+  app.get('/portfolio_assets/:filename', (req, res, next) => {
     const filename = req.params.filename;
     const filePath = path.join(uploadsDir, filename);
     
@@ -136,6 +136,12 @@ async function startServer() {
     return res.status(404).send('Not found');
   });
 
+  // Safe redirect fallback for any lingering or hardcoded /uploads/ paths
+  app.get('/uploads/:filename', (req, res) => {
+    res.redirect(`/portfolio_assets/${req.params.filename}`);
+  });
+
+  app.use('/portfolio_assets', express.static(uploadsDir, staticOptions));
   app.use('/uploads', express.static(uploadsDir, staticOptions));
   app.use('/portfolio_mapping', express.static(path.join(process.cwd(), 'public', 'portfolio_mapping'), staticOptions));
 
@@ -187,8 +193,8 @@ async function startServer() {
             fs.unlinkSync(tempPath);
           }
           
-          const posterUrl = fs.existsSync(posterPath) ? `/uploads/${posterName}` : undefined;
-          return res.json({ url: `/uploads/${optimizedName}`, poster: posterUrl });
+          const posterUrl = fs.existsSync(posterPath) ? `/portfolio_assets/${posterName}` : undefined;
+          return res.json({ url: `/portfolio_assets/${optimizedName}`, poster: posterUrl });
         } catch (ffmpegErr: any) {
           console.error('[API] ffmpeg failed, falling back to original upload:', ffmpegErr);
           const finalFallbackName = `${timestamp}_${baseName}${ext || '.mp4'}`;
@@ -198,7 +204,7 @@ async function startServer() {
           if (shouldCleanupTemp && tempPath && fs.existsSync(tempPath)) {
             fs.unlinkSync(tempPath);
           }
-          return res.json({ url: `/uploads/${finalFallbackName}` });
+          return res.json({ url: `/portfolio_assets/${finalFallbackName}` });
         }
       } else if (isGif) {
         // Save original GIF
@@ -223,8 +229,8 @@ async function startServer() {
           fs.unlinkSync(tempPath);
         }
 
-        const posterUrl = fs.existsSync(posterPath) ? `/uploads/${posterName}` : undefined;
-        return res.json({ url: `/uploads/${finalName}`, poster: posterUrl });
+        const posterUrl = fs.existsSync(posterPath) ? `/portfolio_assets/${posterName}` : undefined;
+        return res.json({ url: `/portfolio_assets/${finalName}`, poster: posterUrl });
       } else {
         // Standard image or non-video static file upload (like PDF)
         const finalName = `${timestamp}_${baseName}${ext}`;
@@ -236,7 +242,7 @@ async function startServer() {
           fs.unlinkSync(tempPath);
         }
 
-        return res.json({ url: `/uploads/${finalName}` });
+        return res.json({ url: `/portfolio_assets/${finalName}` });
       }
     } catch (err: any) {
       console.error('[API] processUploadedFile error:', err);

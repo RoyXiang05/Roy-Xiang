@@ -979,7 +979,7 @@ export default function WorkDetailScreen({
       })
       .catch(err => {
         console.warn('[Gallery] API failed, trying static config fallback:', err);
-        apiFetch('/uploads/gallery_config.json')
+        apiFetch('/portfolio_assets/gallery_config.json')
           .then(res => {
             if (!res.ok) throw new Error('Static config unreachable');
             const contentType = res.headers.get('content-type');
@@ -2162,7 +2162,7 @@ export default function WorkDetailScreen({
                             ? 'border-klein bg-klein/5 text-klein' 
                             : isUploading
                               ? 'border-amber-400 bg-amber-50/10 text-amber-600'
-                              : newUrl.startsWith('/uploads/')
+                              : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
                                 ? 'border-emerald-500 bg-emerald-50/20 text-emerald-600'
                                 : 'border-ink-200 hover:border-klein/50 hover:bg-paper-100 text-ink-500'
                         }`}
@@ -2179,14 +2179,14 @@ export default function WorkDetailScreen({
                         <span className="font-mono text-[10px] font-bold uppercase">
                           {isUploading 
                             ? (uploadProgress || 'Uploading File...') 
-                            : newUrl.startsWith('/uploads/') 
+                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/')) 
                               ? '✓ File Saved Online' 
                               : 'Choose Local File or Drop'}
                         </span>
                         <span className="text-[8px] text-ink-400 mt-0.5 max-w-[180px] truncate">
                           {isUploading 
                             ? (uploadProgress ? 'Processing chunks securely' : 'Processing media chunk') 
-                            : newUrl.startsWith('/uploads/') 
+                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/')) 
                               ? 'Ready to add to gallery' 
                               : 'Supports JPG, PNG, GIF, MP4'}
                         </span>
@@ -2275,7 +2275,7 @@ export default function WorkDetailScreen({
                               ? 'Loaded Local Base64 Resource' 
                               : newUrl.startsWith('blob:') 
                                 ? 'Loaded Local Blob Stream' 
-                                : newUrl.startsWith('/uploads/')
+                                : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
                                   ? '✓ Saved & Hosted on Server'
                                   : newUrl}
                           </div>
