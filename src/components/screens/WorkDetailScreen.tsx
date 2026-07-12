@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Work, WORKS } from '../../data';
+import { Work, WORKS, isBrokenUrl } from '../../data';
 import { ArrowUp, ArrowDown, Trash2, Plus, Sliders, Image as ImageIcon, Video as VideoIcon, Link as LinkIcon, Upload, Crop, Check, X, RotateCw, Maximize } from 'lucide-react';
 import { apiFetch } from '../../lib/api';
 
@@ -51,37 +51,6 @@ export default function WorkDetailScreen({
   const [viewMode, setViewMode] = useState<'slides' | 'schematic'>('slides');
   const [failedMediaUrls, setFailedMediaUrls] = useState<Record<string, boolean>>({});
   const [resolvedUrls, setResolvedUrls] = useState<Record<string, string>>({});
-
-  const isBrokenUrl = (url: string): boolean => {
-    if (!url) return false;
-    // Check if the URL is or contains specific legacy broken patterns without timestamp prefixes
-    const exactBrokenList = [
-      '1783661293602_Screenshot',
-      '1783673490533_Screenshot',
-      '1783673503827',
-      '1783688860067_Screenshot',
-      '1783689277346_Screenshot',
-      'opt_1783798718120',
-      'opt_1783797703502',
-      'opt_1783798702794',
-      'opt_1783798680868'
-    ];
-    if (exactBrokenList.some(item => url.includes(item))) {
-      return true;
-    }
-
-    // For IMG_7520 to IMG_7525, they are only broken if they are legacy names NOT prefixed by a timestamp
-    const legacyImgMatch = url.match(/IMG_752[0-5]/i);
-    if (legacyImgMatch) {
-      // If it contains a 13-digit timestamp prefix right before the name, it is a valid newly uploaded file, so NOT broken!
-      const hasTimestampPrefix = /\d{13}_IMG_752[0-5]/i.test(url);
-      if (!hasTimestampPrefix) {
-        return true;
-      }
-    }
-
-    return false;
-  };
 
   const getSafeUrl = (url: string): string => {
     if (!url || isBrokenUrl(url)) {

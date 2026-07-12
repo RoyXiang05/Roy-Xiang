@@ -6,7 +6,7 @@ import Tag from '../core/Tag';
 import FolderCover from '../archive/FolderCover';
 import WorkCard, { renderSchematic } from '../archive/WorkCard';
 import WorkRow from '../archive/WorkRow';
-import { WORKS, Work } from '../../data';
+import { WORKS, Work, isBrokenUrl } from '../../data';
 import { ArrowLeft, FolderOpen, Calendar, Shield, Cpu, Tag as TagIcon, Barcode, Scissors } from 'lucide-react';
 import LogoCropper from '../core/LogoCropper';
 import { apiFetch } from '../../lib/api';
@@ -120,7 +120,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
         let updated = false;
         WORKS.forEach(work => {
           if (config[work.id]) {
-            const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:'));
+            const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
             const savedPosters = config[work.id].videoPosters || {};
             
             // Only override with API config if there is no local user override in localStorage
@@ -129,7 +129,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
               try {
                 const storedImagesStr = window.localStorage.getItem(`project_gallery_images_${work.id}`);
                 if (storedImagesStr) {
-                  const parsed = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:'));
+                  const parsed = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
                   if (parsed.length > 0) {
                     hasLocalOverride = true;
                   }
