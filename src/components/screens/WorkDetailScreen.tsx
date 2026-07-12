@@ -965,6 +965,36 @@ export default function WorkDetailScreen({
     setVideoPosters(localPostersMerged);
     setGalleryColumns(localColumns);
 
+    const applyConfig = (config: any) => {
+      if (config && config[project.id]) {
+        const savedImages = (config[project.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
+        const savedLinks = config[project.id].galleryLinks || {};
+        const savedPosters = config[project.id].videoPosters || {};
+        const savedColumns = config[project.id].galleryColumns;
+        
+        // Only update if we don't have local overrides or if they match
+        const finalImages = localImages.length > 0 ? localImages : savedImages;
+        const finalLinks = localImages.length > 0 ? localLinks : savedLinks;
+        const finalPosters = { ...savedPosters, ...localPostersMerged };
+        const finalColumns = (typeof savedColumns === 'number' && (savedColumns === 2 || savedColumns === 3)) 
+          ? savedColumns as 2 | 3 
+          : localColumns;
+
+        project.galleryImages = finalImages;
+        (project as any).galleryLinks = finalLinks;
+        (project as any).videoPosters = finalPosters;
+        (project as any).galleryColumns = finalColumns;
+        
+        setVideoPosters(finalPosters);
+        setGalleryColumns(finalColumns);
+        
+        setGalleryItems(finalImages.map((url: string) => ({
+          url,
+          link: finalLinks[url] || ''
+        })));
+      }
+    };
+
     // Load from full-stack API to override with persistent configuration
     apiFetch('/api/gallery')
       .then(res => {
@@ -972,36 +1002,21 @@ export default function WorkDetailScreen({
         return res.json();
       })
       .then(config => {
-        if (config && config[project.id]) {
-          const savedImages = (config[project.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
-          const savedLinks = config[project.id].galleryLinks || {};
-          const savedPosters = config[project.id].videoPosters || {};
-          const savedColumns = config[project.id].galleryColumns;
-          
-          // Only update if we don't have local overrides or if they match
-          const finalImages = localImages.length > 0 ? localImages : savedImages;
-          const finalLinks = localImages.length > 0 ? localLinks : savedLinks;
-          const finalPosters = { ...savedPosters, ...localPostersMerged };
-          const finalColumns = (typeof savedColumns === 'number' && (savedColumns === 2 || savedColumns === 3)) 
-            ? savedColumns as 2 | 3 
-            : localColumns;
-
-          project.galleryImages = finalImages;
-          (project as any).galleryLinks = finalLinks;
-          (project as any).videoPosters = finalPosters;
-          (project as any).galleryColumns = finalColumns;
-          
-          setVideoPosters(finalPosters);
-          setGalleryColumns(finalColumns);
-          
-          setGalleryItems(finalImages.map((url: string) => ({
-            url,
-            link: finalLinks[url] || ''
-          })));
-        }
+        applyConfig(config);
       })
       .catch(err => {
-        console.warn('[Gallery] Using local config (API offline):', err);
+        console.warn('[Gallery] API failed, trying static config fallback:', err);
+        apiFetch('/uploads/gallery_config.json')
+          .then(res => {
+            if (!res.ok) throw new Error('Static config unreachable');
+            return res.json();
+          })
+          .then(config => {
+            applyConfig(config);
+          })
+          .catch(staticErr => {
+            console.warn('[Gallery] Both API and static config fallback failed, using local fallback:', staticErr);
+          });
       });
   }, [project]);
 

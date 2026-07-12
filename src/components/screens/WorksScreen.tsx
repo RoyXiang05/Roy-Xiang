@@ -115,6 +115,46 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
   useEffect(() => {
     loadCustomLogos();
     
+    const applyConfig = (config: any) => {
+      if (config) {
+        let updated = false;
+        WORKS.forEach(work => {
+          if (config[work.id]) {
+            const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:'));
+            const savedPosters = config[work.id].videoPosters || {};
+            
+            // Only override with API config if there is no local user override in localStorage
+            let hasLocalOverride = false;
+            if (typeof window !== 'undefined' && window.localStorage) {
+              try {
+                const storedImagesStr = window.localStorage.getItem(`project_gallery_images_${work.id}`);
+                if (storedImagesStr) {
+                  const parsed = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:'));
+                  if (parsed.length > 0) {
+                    hasLocalOverride = true;
+                  }
+                }
+              } catch (e) {
+                // Ignore parse errors
+              }
+            }
+
+            if (!hasLocalOverride && savedImages.length > 0) {
+              work.galleryImages = savedImages;
+              updated = true;
+            }
+            if (Object.keys(savedPosters).length > 0) {
+              (work as any).videoPosters = { ...((work as any).videoPosters || {}), ...savedPosters };
+              updated = true;
+            }
+          }
+        });
+        if (updated) {
+          setGalleryUpdated(prev => prev + 1);
+        }
+      }
+    };
+
     // Fetch latest gallery configuration from server to sync WORKS
     apiFetch('/api/gallery')
       .then(res => {
@@ -122,46 +162,21 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
         return res.json();
       })
       .then(config => {
-        if (config) {
-          let updated = false;
-          WORKS.forEach(work => {
-            if (config[work.id]) {
-              const savedImages = (config[work.id].galleryImages || []).filter((url: string) => !url.startsWith('blob:'));
-              const savedPosters = config[work.id].videoPosters || {};
-              
-              // Only override with API config if there is no local user override in localStorage
-              let hasLocalOverride = false;
-              if (typeof window !== 'undefined' && window.localStorage) {
-                try {
-                  const storedImagesStr = window.localStorage.getItem(`project_gallery_images_${work.id}`);
-                  if (storedImagesStr) {
-                    const parsed = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:'));
-                    if (parsed.length > 0) {
-                      hasLocalOverride = true;
-                    }
-                  }
-                } catch (e) {
-                  // Ignore parse errors
-                }
-              }
-
-              if (!hasLocalOverride && savedImages.length > 0) {
-                work.galleryImages = savedImages;
-                updated = true;
-              }
-              if (Object.keys(savedPosters).length > 0) {
-                (work as any).videoPosters = { ...((work as any).videoPosters || {}), ...savedPosters };
-                updated = true;
-              }
-            }
-          });
-          if (updated) {
-            setGalleryUpdated(prev => prev + 1);
-          }
-        }
+        applyConfig(config);
       })
       .catch(err => {
-        console.warn('[Gallery] Error syncing with server config:', err);
+        console.warn('[Gallery] Error syncing with server config, trying static fallback:', err);
+        apiFetch('/uploads/gallery_config.json')
+          .then(res => {
+            if (!res.ok) throw new Error('Static config unreachable');
+            return res.json();
+          })
+          .then(config => {
+            applyConfig(config);
+          })
+          .catch(staticErr => {
+            console.warn('[Gallery] Both API and static config fallback failed:', staticErr);
+          });
       });
   }, []);
 
