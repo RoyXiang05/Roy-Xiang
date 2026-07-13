@@ -152,19 +152,6 @@ export const TIMELINE: CareerItem[] = [
       "Managed influencer mapping, outreach, and post-campaign reporting for key brand activations across WeChat, Weibo, and Douyin.",
       "Conducted industry research, competitor benchmarking, and weekly/monthly performance reporting to identify growth opportunities for client accounts."
     ]
-  },
-  {
-    company: "HOK",
-    location: "Beijing, China",
-    role: "Marketing & Communications Coordinator",
-    period: "2018.06 - 2019.11",
-    industry: "Architecture & Global Design",
-    achievements: [
-      "Coordinated regional PR, brand communication, and media relations campaigns for HOK’s architectural and interior design projects in APAC.",
-      "Managed regional RFP/RFQ proposal compilations, pitch presentations, and project portfolio packages for high-value pursuits.",
-      "Developed and localized regional content assets, case study records, and digital channels to maintain global brand standards.",
-      "Supported professional client-facing event setups, webinars, and regional exhibition activations to strengthen brand market positioning."
-    ]
   }
 ];
 
