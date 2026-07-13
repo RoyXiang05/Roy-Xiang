@@ -423,7 +423,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
         ...initialStyle,
         transform: paperTransform(-70),
         opacity: 0,
-        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.12s ease-out',
+        transition: 'none',
       };
     }
 
@@ -431,10 +431,8 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
       return {
         ...initialStyle,
         transform: paperTransform(-210),
-        // The overlay takes over while the physical paper is still moving.
-        // This crossfade removes the single-frame flash before the zoom.
-        opacity: 1,
-        transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.12s ease-out',
+        opacity: 0,
+        transition: 'none',
       };
     }
 

@@ -126,29 +126,23 @@ export default function FolderCover({
     if (animPhase === 'tucked') {
       paperStyle = {
         transform: 'translateY(-70px) rotate(-1.5deg)',
-        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.12s ease-out',
-        willChange: 'transform, opacity',
+        transition: 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
       };
     } else if (animPhase === 'pull') {
       paperStyle = {
         transform: 'translateY(-210px) rotate(-1.5deg)',
-        transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.12s ease-out',
-        willChange: 'transform, opacity',
+        transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
       };
-      // Hand visual ownership to the fixed overlay before it starts scaling.
-      paperOpacityClass = 'opacity-0 pointer-events-none';
     } else if (animPhase === 'zoom' || animPhase === 'reverse-zoom') {
       paperStyle = {
         transform: 'translateY(-210px) rotate(-1.5deg)',
-        transition: 'opacity 0.12s ease-out',
-        willChange: 'transform, opacity',
+        transition: 'none',
       };
       paperOpacityClass = 'opacity-0 pointer-events-none';
     } else if (animPhase === 'reverse-pull') {
       paperStyle = {
         transform: 'translateY(-70px) rotate(-1.5deg)',
         transition: 'transform 0.35s cubic-bezier(0.25, 1, 0.5, 1)',
-        willChange: 'transform, opacity',
       };
     }
   }
