@@ -139,19 +139,6 @@ export const TIMELINE: CareerItem[] = [
       "Developed product launch narratives, social content strategies and influencer/creator activation plans for consumer technology brands across China and APAC.",
       "Managed integrated campaigns across TikTok/Douyin, YouTube, Instagram, WeChat, Xiaohongshu, Weibo, Google and Baidu, translating audience insights into platform-native content strategies."
     ]
-  },
-  {
-    company: "Ruder Finn",
-    location: "Beijing, China",
-    role: "Account Executive",
-    period: "2019.11 - 2021.07",
-    industry: "Global Communications Agency",
-    achievements: [
-      "Supported day-to-day client relations, project coordination, and media tracking for high-profile consumer technology, automotive, and luxury accounts.",
-      "Drafted bilingual press releases, social media copy, and pitch angles, securing consistent coverage in tier-1 tech and lifestyle media outlets.",
-      "Managed influencer mapping, outreach, and post-campaign reporting for key brand activations across WeChat, Weibo, and Douyin.",
-      "Conducted industry research, competitor benchmarking, and weekly/monthly performance reporting to identify growth opportunities for client accounts."
-    ]
   }
 ];
 
