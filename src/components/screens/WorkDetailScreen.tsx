@@ -551,6 +551,21 @@ export default function WorkDetailScreen({
       try {
         processedFile = await compressImageFile(file);
 
+        // Upload every batch item directly to Blob. The former chunk endpoint
+        // does not exist on Vercel, which made videos fail at chunk 1/5.
+        const directBlob = await uploadToBlob(processedFile, file.name);
+        const suffix = isVideo ? '#video' : (isPdf ? '#pdf' : '#image');
+        const markedUrl = directBlob.url + suffix;
+        setBatchFiles(prev => prev.map(item =>
+          item.id === bf.id ? { ...item, status: 'completed', progress: 100, error: undefined } : item
+        ));
+        setGalleryItems(prevItems => {
+          const updated = [...prevItems, { url: markedUrl, link: '' }];
+          syncToProject(updated);
+          return updated;
+        });
+        continue;
+
         setBatchFiles(prev => prev.map(item =>
           item.id === bf.id ? { ...item, status: 'uploading' } : item
         ));
