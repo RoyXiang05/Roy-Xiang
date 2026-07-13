@@ -12,8 +12,7 @@ export default function FooterIndex({
   const linksIndex = [
     { name: '01 / Selected Archive', view: 'Works' },
     { name: '02 / Personal About', view: 'About' },
-    { name: '03 / Inquiry & Contact', view: 'Contact' },
-    { name: '04 / Administrative Portal', view: 'Admin' }
+    { name: '03 / Inquiry & Contact', view: 'Contact' }
   ];
 
   const linksSocial = [
