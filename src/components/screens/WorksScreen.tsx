@@ -331,23 +331,22 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     }
   };
 
-  // Click on a category folder scales its preview straight into the work view.
+  // Click on a category folder leaves the dossier in place and fades in its collection.
   const handleFolderClick = (cat: any, rect: DOMRect) => {
     setSelectedTag('All');
     setSearchQuery('');
     setClickRect(rect);
     setAnimatingCat(cat);
-    setAnimPhase('tucked');
+    setAnimPhase('idle');
     
-    // Keep a single start frame, then scale directly into the work preview.
-    // There is intentionally no intermediate "pull out" movement.
-    setTimeout(() => {
+    // Leave one paint frame for the folder, then reveal the collection only.
+    requestAnimationFrame(() => {
       setAnimPhase('zoom');
       setActiveCategoryPage(cat.title);
-    }, 50);
+    });
   };
 
-  // Returns the enlarged preview straight back into its folder position.
+  // Fades the collection away without moving the folder preview.
   const handleBackToCabinet = () => {
     if (!animatingCat) {
       setActiveCategoryPage(null);
@@ -363,12 +362,12 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     setAnimPhase('reverse-zoom');
     setActiveCategoryPage(null); // Clear selected category
 
-    // No secondary pull-in phase: the preview simply shrinks back to its origin.
+    // The collection only fades out; the dossier underneath never travels.
     setTimeout(() => {
       setAnimPhase('idle');
       setAnimatingCat(null);
       setClickRect(null);
-    }, 460);
+    }, 280);
   };
 
   // Computes precise GPU-accelerated styles for the animating card to prevent layout reflows
@@ -429,11 +428,11 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     if (animPhase === 'zoom') {
       return {
         ...initialStyle,
-        transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)',
+        transform: 'translate3d(0, 0, 0)',
         borderRadius: '8px',
         pointerEvents: 'auto',
         opacity: 1,
-        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'opacity 0.28s ease-out',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       };
     }
@@ -441,9 +440,9 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     if (animPhase === 'reverse-zoom') {
       return {
         ...initialStyle,
-        transform: paperTransform(-70),
-        opacity: 1,
-        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
+        transform: 'translate3d(0, 0, 0)',
+        opacity: 0,
+        transition: 'opacity 0.24s ease-in',
       };
     }
 
@@ -489,7 +488,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
   return (
     <div className="relative min-h-screen">
       
-      {/* 1. CINEMATIC PULL-OUT TRANSITION OVERLAY */}
+      {/* 1. WORK COLLECTION FADE OVERLAY */}
       {animatingCat && (
         <div 
           className={`fixed inset-0 overflow-hidden flex items-center justify-center ${
@@ -502,7 +501,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
           {/* Hardware-accelerated smooth backdrop blur element */}
           <div 
             className={`absolute inset-0 transition-all duration-500 ease-out ${
-              (animPhase === 'zoom' || animPhase === 'reverse-zoom') ? 'opacity-100' : 'opacity-0'
+              animPhase === 'zoom' ? 'opacity-100' : 'opacity-0'
             }`}
             style={{
               backgroundColor: 'rgba(10, 10, 10, 0.25)',
@@ -527,7 +526,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Grid pattern overlay - only show in small card phase */}
+            {/* Grid pattern overlay - retained for legacy non-fade states */}
             {animPhase !== 'zoom' && (
               <div 
                 className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -542,7 +541,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             <div 
               className={`absolute inset-0 p-5 flex flex-col justify-between transition-opacity duration-300 ease-out z-10 ${
                 (animPhase === 'tucked' || animPhase === 'pull' || animPhase === 'reverse-pull') 
-                  ? 'opacity-100' 
+                  ? 'opacity-100'
                   : 'opacity-0 pointer-events-none'
               }`}
             >
@@ -583,12 +582,10 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
               </div>
             </div>
 
-            {/* B. FULL SCREEN PAGE CONTENT (fades in when card reaches full screen) */}
+            {/* B. WORK COLLECTION (fades in without moving the dossier preview) */}
             <div 
-              className={`relative z-15 flex flex-col md:flex-row gap-8 md:gap-12 w-full p-8 md:p-12 transition-opacity transition-transform duration-[350ms] ease-out h-full min-h-full overflow-y-auto bg-white ${
-                animPhase === 'zoom' 
-                  ? 'opacity-100 translate-y-0 delay-[300ms]' 
-                  : 'opacity-0 translate-y-4 pointer-events-none'
+              className={`relative z-15 flex flex-col md:flex-row gap-8 md:gap-12 w-full p-8 md:p-12 transition-opacity duration-[280ms] ease-out h-full min-h-full overflow-y-auto bg-white ${
+                animPhase === 'zoom' ? 'opacity-100' : 'opacity-0 pointer-events-none'
               }`}
             >
               {/* LEFT COLUMN: ARCHIVE SIDEBAR */}
