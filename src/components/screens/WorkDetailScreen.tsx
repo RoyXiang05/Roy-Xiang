@@ -94,14 +94,12 @@ export default function WorkDetailScreen({
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   const uploadToBlob = async (file: Blob, fileName: string) => {
-    const formData = new FormData();
-    formData.append('file', file, fileName);
-    const response = await apiFetch('/api/upload', { method: 'POST', body: formData });
-    const payload = await response.json().catch(() => ({}));
-    if (!response.ok || !payload?.url) {
-      throw new Error(payload?.error || 'Media upload failed. Nothing was saved.');
-    }
-    return payload as { url: string; poster?: string };
+    const { upload } = await import('@vercel/blob/client');
+    const blob = await upload(`portfolio/${Date.now()}-${fileName}`, file, {
+      access: 'public',
+      handleUploadUrl: '/api/blob-upload',
+    });
+    return { url: blob.url };
   };
 
   const openCropper = (src: string, index: number | null) => {
@@ -446,55 +444,8 @@ export default function WorkDetailScreen({
     };
 
     compressImageFile(file).then((processedFile) => {
-      const isLargeFile = processedFile.size > 4 * 1024 * 1024; // Files > 4MB uploaded in chunks
-
-      let uploadPromise: Promise<any>;
-      if (isLargeFile) {
-        uploadPromise = uploadFileInChunks(processedFile, file.name);
-      } else {
-        setUploadProgress('Uploading...');
-        const formData = new FormData();
-        formData.append('file', processedFile);
-
-        uploadPromise = apiFetch('/api/upload', {
-          method: 'POST',
-          body: formData
-        })
-        .then(async res => {
-          const contentType = res.headers.get('content-type') || '';
-          if (!res.ok) {
-            let errMsg = 'Upload failed on server';
-            if (contentType.includes('application/json')) {
-              try {
-                const errData = await res.json();
-                if (errData && errData.error) {
-                  errMsg = errData.error;
-                }
-              } catch (_) {}
-            } else {
-              errMsg = `Server error (${res.status}). The uploaded file might be too large or invalid.`;
-            }
-            throw new Error(errMsg);
-          }
-
-          if (!contentType.includes('application/json')) {
-            const text = await res.text();
-            console.error('[Upload] Non-JSON response received:', text);
-            const sample = text.substring(0, 300).trim();
-            if (sample.includes('<!DOCTYPE html>') || sample.includes('<html')) {
-              const titleMatch = text.match(/<title>([\s\S]*?)<\/title>/i);
-              const title = titleMatch ? titleMatch[1].trim() : '';
-              if (title) {
-                throw new Error(`Server returned HTML instead of JSON: "${title}". This may occur if the file is too large or if the request was redirected.`);
-              } else {
-                throw new Error('Server returned an HTML page instead of JSON. The uploaded file might exceed the server or proxy size limit (typically 20MB).');
-              }
-            }
-            throw new Error(`Server returned an invalid response (not JSON): "${sample.substring(0, 80)}...".`);
-          }
-          return res.json();
-        });
-      }
+      setUploadProgress('Uploading securely to media storage...');
+      const uploadPromise = uploadToBlob(processedFile, file.name);
 
        uploadPromise
       .then(data => {
