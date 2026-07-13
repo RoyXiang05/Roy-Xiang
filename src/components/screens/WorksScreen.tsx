@@ -848,7 +848,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
 
           {/* Brand Logos Marquee Scrolling Loop */}
           <div className="w-full border-t border-b border-ink-150 py-4 overflow-hidden select-none relative mb-12 translate-y-1/2 space-y-4">
-            <div className="animate-marquee whitespace-nowrap flex items-center" aria-label="Brand partners moving left">
+            <div className="hidden" aria-hidden="true">
               {[1, 2, 3].map((cycle) => (
                 <div key={cycle} className="flex items-center space-x-16 pr-16 text-ink-400">
                   {/* SINOPEC */}
@@ -992,6 +992,25 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
                         <text x="0" y="26" fontFamily="sans-serif" fontSize="7" fill="currentColor" letterSpacing="0.3em" opacity="0.7">雅诗兰黛</text>
                       </svg>
                     </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="animate-marquee whitespace-nowrap flex items-center" aria-label="Brand partners moving left">
+              {[1, 2, 3].map((cycle) => (
+                <div key={cycle} className="flex items-center space-x-16 pr-16">
+                  {BRAND_LOGOS.map((brand) => (
+                    <React.Fragment key={`${cycle}-${brand.id}`}>
+                      {renderBrandLogo(brand.id, (
+                        <div className="flex h-7 w-[128px] items-center justify-center opacity-70 transition-opacity duration-200 hover:opacity-100">
+                          <img
+                            src={`/brand-logos/${brand.file}`}
+                            alt={brand.label}
+                            className="max-h-7 max-w-[124px] object-contain"
+                          />
+                        </div>
+                      ))}
+                    </React.Fragment>
                   ))}
                 </div>
               ))}
