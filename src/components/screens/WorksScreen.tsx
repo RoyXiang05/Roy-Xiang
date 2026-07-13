@@ -52,6 +52,22 @@ const isVideoUrl = (url?: string) => {
   );
 };
 
+const BRAND_LOGOS = [
+  { id: 'anton', label: 'Anton & Andong', file: 'image2_01_anton-andong.svg' },
+  { id: 'sinopec', label: 'Sinopec', file: 'image2_02_sinopec.svg' },
+  { id: 'hyundai', label: 'Hyundai', file: 'image2_03_hyundai.svg' },
+  { id: 'baccarat', label: 'Baccarat', file: 'image2_04_baccarat.svg' },
+  { id: 'john_lobb', label: 'John Lobb', file: 'image2_05_john-lobb.svg' },
+  { id: 'oppo', label: 'OPPO', file: 'image2_06_oppo.svg' },
+  { id: 'vivo', label: 'vivo', file: 'image2_07_vivo.svg' },
+  { id: 'douyin', label: 'Douyin', file: 'image2_08_douyin.svg' },
+  { id: 'red', label: 'Xiaohongshu', file: 'image2_09_xiaohongshu.svg' },
+  { id: 'tencent', label: 'Tencent', file: 'image2_10_tencent.svg' },
+  { id: 'tencent_ad', label: 'Tencent Ads', file: 'image2_11_tencent-ads.svg' },
+  { id: 'kuaishou', label: 'Kuaishou', file: 'image2_12_kuaishou.svg' },
+  { id: 'ocean_engine', label: 'Ocean Engine', file: 'image2_13_ocean-engine.svg' },
+] as const;
+
 export default function WorksScreen({ onSelectProject, isViewActive = true, onNavigate }: WorksScreenProps) {
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
   const [selectedTag, setSelectedTag] = useState<string>('All');
@@ -831,8 +847,8 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
           </div>
 
           {/* Brand Logos Marquee Scrolling Loop */}
-          <div className="w-full border-t border-b border-ink-150 py-6 overflow-hidden select-none relative mb-12 translate-y-1/2">
-            <div className="animate-marquee whitespace-nowrap flex items-center">
+          <div className="w-full border-t border-b border-ink-150 py-4 overflow-hidden select-none relative mb-12 translate-y-1/2 space-y-4">
+            <div className="animate-marquee whitespace-nowrap flex items-center" aria-label="Brand partners moving left">
               {[1, 2, 3].map((cycle) => (
                 <div key={cycle} className="flex items-center space-x-16 pr-16 text-ink-400">
                   {/* SINOPEC */}
@@ -976,6 +992,25 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
                         <text x="0" y="26" fontFamily="sans-serif" fontSize="7" fill="currentColor" letterSpacing="0.3em" opacity="0.7">雅诗兰黛</text>
                       </svg>
                     </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+            <div className="animate-marquee-reverse whitespace-nowrap flex items-center" aria-label="Brand partners moving right">
+              {[1, 2, 3].map((cycle) => (
+                <div key={cycle} className="flex items-center space-x-16 pr-16">
+                  {BRAND_LOGOS.map((brand) => (
+                    <React.Fragment key={`${cycle}-${brand.id}`}>
+                      {renderBrandLogo(brand.id, (
+                        <div className="flex h-7 w-[128px] items-center justify-center opacity-70 transition-opacity duration-200 hover:opacity-100">
+                          <img
+                            src={`/brand-logos/${brand.file}`}
+                            alt={brand.label}
+                            className="max-h-7 max-w-[124px] object-contain"
+                          />
+                        </div>
+                      ))}
+                    </React.Fragment>
                   ))}
                 </div>
               ))}
