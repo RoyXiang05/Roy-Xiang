@@ -962,6 +962,30 @@ export default function WorkDetailScreen({
           url,
           link: finalLinks[url] || ''
         })));
+      } else if (isAdmin && localImages.length > 0) {
+        // One-time migration for configurations created by older AI Studio builds.
+        // Those builds only wrote to this browser, so move them into the shared
+        // database the next time the administrator opens the project.
+        const migratedLinks = localLinks;
+        apiFetch('/api/gallery', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            projectId: project.id,
+            galleryImages: localImages,
+            galleryLinks: migratedLinks,
+            videoPosters: localPostersMerged,
+            galleryColumns: localColumns,
+          }),
+        })
+          .then(res => {
+            if (!res.ok) throw new Error('Gallery migration failed');
+            project.galleryImages = localImages;
+            (project as any).galleryLinks = migratedLinks;
+            setGalleryItems(localImages.map(url => ({ url, link: migratedLinks[url] || '' })));
+            console.info('[Gallery] Migrated legacy local configuration to the shared database.');
+          })
+          .catch(error => console.warn('[Gallery] Legacy migration failed:', error));
       }
     };
 
@@ -996,7 +1020,7 @@ export default function WorkDetailScreen({
             console.warn('[Gallery] Both API and static config fallback failed, using local fallback:', staticErr);
           });
       });
-  }, [project]);
+  }, [project, isAdmin]);
 
   const syncToProject = (items: GalleryItem[], updatedPosters: Record<string, string> = videoPosters) => {
     // Filter out transient blob URLs to prevent storing them persistently
