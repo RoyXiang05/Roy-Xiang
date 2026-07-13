@@ -90,12 +90,11 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col bg-paper-50 selection:bg-klein selection:text-paper-0">
       {/* Global NavBar */}
-      {showGlobalNavBar && (
-        <NavBar 
-          active={currentView === 'Detail' ? 'Works' : currentView} 
-          onSelect={handleSelectNav} 
-        />
-      )}
+      <NavBar
+        active={currentView === 'Detail' ? 'Works' : currentView}
+        onSelect={handleSelectNav}
+        visible={showGlobalNavBar}
+      />
 
       {/* Main Content Area */}
       <main className={`flex-grow ${currentView !== 'Works' ? 'pt-24' : ''}`}>

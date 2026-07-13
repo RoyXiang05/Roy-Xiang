@@ -77,7 +77,7 @@ export default function LandingPage({ onNavigate, onScrollDown }: LandingPagePro
       </header>
 
       {/* 2. Side Margins Text (Pointer events none so they don't block 3D hover) */}
-      <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-[10px] tracking-[0.3em] text-[#666666] whitespace-nowrap hidden sm:block pointer-events-none z-10 select-none">
+      <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 -rotate-90 origin-center text-[10px] tracking-[0.3em] text-[#666666] whitespace-nowrap hidden sm:block pointer-events-none z-10 select-none">
         APPLIED AI WORKFLOW PORTFOLIO
       </div>
 

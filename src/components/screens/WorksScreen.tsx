@@ -783,36 +783,8 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             </div>
           </div>
 
-          {/* 6 Capability Marquee Navigation (Continuous scrolling ticker) - PLACED IN THE BLANK AREA ABOVE CABINET DOSSIERS */}
-          <div className="w-full border-t border-b border-ink-150 py-6 overflow-hidden mb-5 select-none relative translate-y-1/2">
-            <div className="animate-marquee-reverse whitespace-nowrap flex items-center italic">
-              {[1, 2, 3].map((cycle) => (
-                <div key={cycle} className="flex items-center space-x-12 pr-12">
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[01] APPLIED AI WORKFLOWS</span>
-                  </div>
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[02] CREATIVE AUTOMATION</span>
-                  </div>
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[03] VIBE-CODED PROTOTYPES</span>
-                  </div>
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[04] CONTENT OPERATIONS</span>
-                  </div>
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[05] PRODUCT COMMUNICATION</span>
-                  </div>
-                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none">
-                    <span className="font-bold text-ink-900">[06] HUMAN-IN-THE-LOOP QA</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Cabinet Dossiers grid (placed above the scrollbar) */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16 animate-fade-in">
+          {/* Cabinet Dossiers grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-5 animate-fade-in">
             {categories.map((cat) => {
               const isActive = selectedCategory === cat.title;
               return (
@@ -831,6 +803,22 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
                 </div>
               );
             })}
+          </div>
+
+          {/* Capability marquee follows the folder dossiers. */}
+          <div className="w-full border-t border-b border-ink-150 py-6 overflow-hidden mb-16 select-none relative">
+            <div className="animate-marquee-reverse whitespace-nowrap flex items-center italic">
+              {[1, 2, 3].map((cycle) => (
+                <div key={cycle} className="flex items-center space-x-12 pr-12">
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[01] APPLIED AI WORKFLOWS</span></div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[02] CREATIVE AUTOMATION</span></div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[03] VIBE-CODED PROTOTYPES</span></div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[04] CONTENT OPERATIONS</span></div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[05] PRODUCT COMMUNICATION</span></div>
+                  <div className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-ink-600 flex items-center space-x-2 select-none"><span className="font-bold text-ink-900">[06] HUMAN-IN-THE-LOOP QA</span></div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Brand Logos Marquee Scrolling Loop */}

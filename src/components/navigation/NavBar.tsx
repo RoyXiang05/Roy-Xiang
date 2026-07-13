@@ -5,13 +5,15 @@ export interface NavBarProps {
   active?: string;
   onSelect?: (item: string) => void;
   sticky?: boolean;
+  visible?: boolean;
 }
 
 export default function NavBar({
   items = ['Works', 'About', 'Contact'],
   active,
   onSelect,
-  sticky = true
+  sticky = true,
+  visible = true
 }: NavBarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -34,7 +36,10 @@ export default function NavBar({
 
   return (
     <nav
-      className={`top-0 left-0 right-0 z-50 transition-editorial border-b border-transparent fixed py-5 ${
+      aria-hidden={!visible}
+      className={`top-0 left-0 right-0 z-50 fixed py-5 border-b border-transparent transition-[opacity,background-color,border-color,box-shadow] duration-300 ease-out ${
+        visible ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+      } ${
         isScrolled 
           ? 'bg-paper-50/92 backdrop-blur-md border-ink-150 shadow-sm' 
           : 'bg-transparent'
