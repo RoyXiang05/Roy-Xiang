@@ -93,6 +93,17 @@ export default function WorkDetailScreen({
   const [imageAspect, setImageAspect] = useState(1);
   const previewCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
+  const uploadToBlob = async (file: Blob, fileName: string) => {
+    const formData = new FormData();
+    formData.append('file', file, fileName);
+    const response = await apiFetch('/api/upload', { method: 'POST', body: formData });
+    const payload = await response.json().catch(() => ({}));
+    if (!response.ok || !payload?.url) {
+      throw new Error(payload?.error || 'Media upload failed. Nothing was saved.');
+    }
+    return payload as { url: string; poster?: string };
+  };
+
   const openCropper = (src: string, index: number | null) => {
     setCropImageSrc(src);
     setCroppingItemIndex(index);
@@ -194,59 +205,32 @@ export default function WorkDetailScreen({
       );
 
       const isPng = cropImageSrc.startsWith('data:image/png') || cropImageSrc.toLowerCase().includes('.png');
-      const croppedDataUrl = isPng 
-        ? cropCanvas.toDataURL('image/png') 
+      const croppedDataUrl = isPng
+        ? cropCanvas.toDataURL('image/png')
         : cropCanvas.toDataURL('image/jpeg', 0.80);
       const fileExt = isPng ? 'png' : 'jpg';
 
       if (croppingItemIndex === -1) {
         setIsUploading(true);
-        apiFetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fileName: `cropped_draft.${fileExt}`,
-            fileData: croppedDataUrl
-          })
-        })
-        .then(res => {
-          if (!res.ok) throw new Error('Upload failed');
-          const contentType = res.headers.get('content-type') || '';
-          if (!contentType.includes('application/json')) throw new Error('Invalid content type');
-          return res.json();
-        })
+        fetch(croppedDataUrl).then(res => res.blob()).then(file => uploadToBlob(file, `cropped_draft.${fileExt}`))
         .then(data => {
           if (data && data.url) {
             const markedUrl = data.url + '#image';
             setNewUrl(markedUrl);
             setMediaBackup(markedUrl, croppedDataUrl);
-          } else {
-            setNewUrl(croppedDataUrl);
-          }
+          } else throw new Error('No uploaded media URL returned');
           setIsUploading(false);
         })
-        .catch(() => {
-          setNewUrl(croppedDataUrl);
+        .catch(error => {
+          setUploadError(error.message || 'Cropped image could not be uploaded.');
           setIsUploading(false);
         });
       } else if (croppingItemIndex !== null) {
         setIsUploading(true);
-        apiFetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fileName: `cropped_gallery_${croppingItemIndex}.${fileExt}`,
-            fileData: croppedDataUrl
-          })
-        })
-        .then(res => {
-          if (!res.ok) throw new Error('Upload failed');
-          const contentType = res.headers.get('content-type') || '';
-          if (!contentType.includes('application/json')) throw new Error('Invalid content type');
-          return res.json();
-        })
+        fetch(croppedDataUrl).then(res => res.blob()).then(file => uploadToBlob(file, `cropped_gallery_${croppingItemIndex}.${fileExt}`))
         .then(data => {
-          const finalUrl = (data && data.url) ? data.url : croppedDataUrl;
+          if (!data?.url) throw new Error('No uploaded media URL returned');
+          const finalUrl = data.url;
           setMediaBackup(finalUrl, croppedDataUrl);
           const updated = [...galleryItems];
           updated[croppingItemIndex] = { ...updated[croppingItemIndex], url: finalUrl };
@@ -254,11 +238,8 @@ export default function WorkDetailScreen({
           syncToProject(updated);
           setIsUploading(false);
         })
-        .catch(() => {
-          const updated = [...galleryItems];
-          updated[croppingItemIndex] = { ...updated[croppingItemIndex], url: croppedDataUrl };
-          setGalleryItems(updated);
-          syncToProject(updated);
+        .catch(error => {
+          setUploadError(error.message || 'Cropped image could not be uploaded.');
           setIsUploading(false);
         });
       }
@@ -378,7 +359,7 @@ export default function WorkDetailScreen({
     setIsUploading(true);
     setUploadProgress(null);
     setUploadError(null);
-    
+
     // Server proxy has a body size limit (usually around 20MB).
     // Validate file size upfront to avoid 413 Payload Too Large error.
     const MAX_ALLOWED_SIZE = 20 * 1024 * 1024; // 20MB
@@ -388,38 +369,38 @@ export default function WorkDetailScreen({
       setIsUploading(false);
       return;
     }
-    
-    const isVideo = file.type.startsWith('video/') || 
+
+    const isVideo = file.type.startsWith('video/') ||
                     /\.(mp4|webm|mov|ogg|m4v)$/i.test(file.name);
-    const isPdf = file.type === 'application/pdf' || 
+    const isPdf = file.type === 'application/pdf' ||
                   /\.pdf$/i.test(file.name);
-    
+
     const uploadFileInChunks = (
-      fileToUpload: File | Blob, 
+      fileToUpload: File | Blob,
       originalFileName: string
     ): Promise<any> => {
       return new Promise((resolve, reject) => {
         const CHUNK_SIZE = 4 * 1024 * 1024; // 4MB chunks
         const totalChunks = Math.ceil(fileToUpload.size / CHUNK_SIZE);
         const uploadId = `${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
-        
+
         let currentChunk = 0;
-        
+
         const uploadNextChunk = () => {
           const start = currentChunk * CHUNK_SIZE;
           const end = Math.min(start + CHUNK_SIZE, fileToUpload.size);
           const chunkBlob = fileToUpload.slice(start, end);
-          
+
           const progressPercent = Math.round((currentChunk / totalChunks) * 100);
           setUploadProgress(`Uploading: ${progressPercent}% (Chunk ${currentChunk + 1}/${totalChunks})`);
-          
+
           const formData = new FormData();
           formData.append('chunk', chunkBlob, originalFileName);
           formData.append('chunkIndex', currentChunk.toString());
           formData.append('totalChunks', totalChunks.toString());
           formData.append('uploadId', uploadId);
           formData.append('fileName', originalFileName);
-          
+
           apiFetch('/api/upload-chunk', {
             method: 'POST',
             body: formData
@@ -459,14 +440,14 @@ export default function WorkDetailScreen({
             reject(err);
           });
         };
-        
+
         uploadNextChunk();
       });
     };
 
     compressImageFile(file).then((processedFile) => {
       const isLargeFile = processedFile.size > 4 * 1024 * 1024; // Files > 4MB uploaded in chunks
-      
+
       let uploadPromise: Promise<any>;
       if (isLargeFile) {
         uploadPromise = uploadFileInChunks(processedFile, file.name);
@@ -474,7 +455,7 @@ export default function WorkDetailScreen({
         setUploadProgress('Uploading...');
         const formData = new FormData();
         formData.append('file', processedFile);
-        
+
         uploadPromise = apiFetch('/api/upload', {
           method: 'POST',
           body: formData
@@ -495,7 +476,7 @@ export default function WorkDetailScreen({
             }
             throw new Error(errMsg);
           }
-          
+
           if (!contentType.includes('application/json')) {
             const text = await res.text();
             console.error('[Upload] Non-JSON response received:', text);
@@ -521,7 +502,7 @@ export default function WorkDetailScreen({
           const suffix = isVideo ? '#video' : (isPdf ? '#pdf' : '#image');
           const markedUrl = data.url + suffix;
           setNewUrl(markedUrl);
-          
+
           // Save Base64 backup of this uploaded file
           const reader = new FileReader();
           reader.onloadend = () => {
@@ -545,21 +526,8 @@ export default function WorkDetailScreen({
       })
       .catch(err => {
         console.error('[Upload] Backend upload failed:', err);
-        setUploadError(`${err.message || 'Upload failed'}. File processed and stored locally as Base64.`);
+        setUploadError(`${err.message || 'Upload failed'}. The media was not added, so it cannot disappear after refresh.`);
         setUploadProgress(null);
-        try {
-          // Fallback to reading processedFile as Base64 Data URL for completely persistent local storage!
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            if (typeof reader.result === 'string') {
-              const suffix = isVideo ? '#video' : (isPdf ? '#pdf' : '#image');
-              setNewUrl(reader.result + suffix);
-            }
-          };
-          reader.readAsDataURL(processedFile);
-        } catch (e) {
-          console.error('[Upload] Base64 fallback failed:', e);
-        }
         setIsUploading(false);
       });
     });
@@ -576,7 +544,7 @@ export default function WorkDetailScreen({
   const addFilesToBatch = (files: FileList | File[]) => {
     const list = Array.from(files);
     const maxAllowedSize = 20 * 1024 * 1024; // 20MB limit
-    
+
     const newBatchItems = list.map(file => {
       const isTooLarge = file.size > maxAllowedSize;
       return {
@@ -618,21 +586,21 @@ export default function WorkDetailScreen({
 
     for (const bf of filesToUpload) {
       // Set status to compressing
-      setBatchFiles(prev => prev.map(item => 
+      setBatchFiles(prev => prev.map(item =>
         item.id === bf.id ? { ...item, status: 'compressing', progress: 0, error: undefined } : item
       ));
 
       const file = bf.file;
-      const isVideo = file.type.startsWith('video/') || 
+      const isVideo = file.type.startsWith('video/') ||
                       /\.(mp4|webm|mov|ogg|m4v)$/i.test(file.name);
-      const isPdf = file.type === 'application/pdf' || 
+      const isPdf = file.type === 'application/pdf' ||
                     /\.pdf$/i.test(file.name);
 
       let processedFile: File | Blob = file;
       try {
         processedFile = await compressImageFile(file);
 
-        setBatchFiles(prev => prev.map(item => 
+        setBatchFiles(prev => prev.map(item =>
           item.id === bf.id ? { ...item, status: 'uploading' } : item
         ));
 
@@ -652,7 +620,7 @@ export default function WorkDetailScreen({
               const chunkBlob = processedFile.slice(start, end);
               const progressPercent = Math.round((currentChunk / totalChunks) * 100);
 
-              setBatchFiles(prev => prev.map(item => 
+              setBatchFiles(prev => prev.map(item =>
                 item.id === bf.id ? { ...item, progress: progressPercent } : item
               ));
 
@@ -767,19 +735,19 @@ export default function WorkDetailScreen({
           };
           reader.readAsDataURL(processedFile);
 
-          setBatchFiles(prev => prev.map(item => 
+          setBatchFiles(prev => prev.map(item =>
             item.id === bf.id ? { ...item, status: 'completed', progress: 100 } : item
           ));
 
           setVideoPosters(prevPosters => {
             const nextPosters = uploadResult.poster ? { ...prevPosters, [markedUrl]: uploadResult.poster } : prevPosters;
-            
+
             setGalleryItems(prevItems => {
               const updated = [...prevItems, { url: markedUrl, link: '' }];
               syncToProject(updated, nextPosters);
               return updated;
             });
-            
+
             return nextPosters;
           });
         } else {
@@ -788,39 +756,9 @@ export default function WorkDetailScreen({
 
       } catch (err: any) {
         console.error(`[Batch Upload] Error uploading ${bf.name}:`, err);
-        
-        // Dynamic Fallback directly to client-side Base64 Data URL for persistence
-        try {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            if (typeof reader.result === 'string') {
-              const suffix = isVideo ? '#video' : (isPdf ? '#pdf' : '#image');
-              const localUrl = reader.result + suffix;
-              
-              setBatchFiles(prev => prev.map(item => 
-                item.id === bf.id ? { 
-                  ...item, 
-                  status: 'completed', 
-                  progress: 100, 
-                  error: `Processed locally (Base64): ${err.message || 'Server check redirect'}` 
-                } : item
-              ));
-
-              setGalleryItems(prevItems => {
-                const cleanPrev = prevItems.filter(p => !p.url.startsWith('blob:'));
-                const updated = [...cleanPrev, { url: localUrl, link: '' }];
-                syncToProject(updated);
-                return updated;
-              });
-            }
-          };
-          reader.readAsDataURL(processedFile);
-        } catch (localErr) {
-          console.error('[Batch Upload] Local fallback failed:', localErr);
-          setBatchFiles(prev => prev.map(item => 
-            item.id === bf.id ? { ...item, status: 'failed', error: err.message || 'Upload failed' } : item
-          ));
-        }
+        setBatchFiles(prev => prev.map(item =>
+          item.id === bf.id ? { ...item, status: 'failed', error: err.message || 'Upload failed' } : item
+        ));
       }
     }
 
@@ -897,14 +835,14 @@ export default function WorkDetailScreen({
     let localLinks: Record<string, string> = {};
     let localPostersMerged: Record<string, string> = { ...localPosters };
     let localColumns: 2 | 3 = 2;
-    
+
     if (typeof window !== 'undefined' && window.localStorage) {
       try {
         const storedImagesStr = window.localStorage.getItem(`project_gallery_images_${project.id}`);
         const storedLinksStr = window.localStorage.getItem(`project_gallery_links_${project.id}`);
         const storedPostersStr = window.localStorage.getItem(`project_gallery_posters_${project.id}`);
         const storedColumns = window.localStorage.getItem(`project_gallery_columns_${project.id}`);
-        
+
         if (storedImagesStr) {
           localImages = JSON.parse(storedImagesStr).filter((url: string) => !url.startsWith('blob:') && !isBrokenUrl(url));
         }
@@ -941,23 +879,23 @@ export default function WorkDetailScreen({
         const savedLinks = config[project.id].galleryLinks || {};
         const savedPosters = config[project.id].videoPosters || {};
         const savedColumns = config[project.id].galleryColumns;
-        
+
         // The deployed database is the source of truth for every visitor.
         const finalImages = savedImages;
         const finalLinks = savedLinks;
         const finalPosters = savedPosters;
-        const finalColumns = (typeof savedColumns === 'number' && (savedColumns === 2 || savedColumns === 3)) 
-          ? savedColumns as 2 | 3 
+        const finalColumns = (typeof savedColumns === 'number' && (savedColumns === 2 || savedColumns === 3))
+          ? savedColumns as 2 | 3
           : localColumns;
 
         project.galleryImages = finalImages;
         (project as any).galleryLinks = finalLinks;
         (project as any).videoPosters = finalPosters;
         (project as any).galleryColumns = finalColumns;
-        
+
         setVideoPosters(finalPosters);
         setGalleryColumns(finalColumns);
-        
+
         setGalleryItems(finalImages.map((url: string) => ({
           url,
           link: finalLinks[url] || ''
@@ -1094,7 +1032,7 @@ export default function WorkDetailScreen({
         console.warn('[Gallery] Failed to save columns to localStorage:', err);
       }
     }
-    
+
     // Sync to backend database/config file via API
     const urls = galleryItems.map(item => item.url);
     const links: Record<string, string> = {};
@@ -1164,57 +1102,9 @@ export default function WorkDetailScreen({
 
   const handleAddImage = (url: string, link: string = '') => {
     if (!url.trim()) return;
-    
-    if (url.startsWith('data:')) {
-      const isVideo = url.startsWith('data:video/') || url.includes('#video');
-      const isPdf = url.startsWith('data:application/pdf') || url.includes('#pdf');
-      const isPng = url.startsWith('data:image/png');
-      const ext = isVideo ? 'mp4' : isPdf ? 'pdf' : isPng ? 'png' : 'jpg';
-      setIsUploading(true);
-      
-      const proceedUpload = (uploadUrl: string) => {
-        apiFetch('/api/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            fileName: `uploaded_fallback.${ext}`,
-            fileData: uploadUrl
-          })
-        })
-        .then(res => {
-          if (!res.ok) throw new Error('Upload failed');
-          const contentType = res.headers.get('content-type') || '';
-          if (!contentType.includes('application/json')) throw new Error('Invalid content type');
-          return res.json();
-        })
-        .then(data => {
-          const finalUrl = (data && data.url) ? data.url : uploadUrl;
-          const updated = [...galleryItems, { url: finalUrl, link: link.trim() }];
-          setGalleryItems(updated);
-          
-          let nextPosters = videoPosters;
-          if (data && data.poster) {
-            nextPosters = { ...videoPosters, [finalUrl]: data.poster };
-            setVideoPosters(nextPosters);
-          }
-          syncToProject(updated, nextPosters);
-          setIsUploading(false);
-        })
-        .catch(() => {
-          const updated = [...galleryItems, { url: uploadUrl.trim(), link: link.trim() }];
-          setGalleryItems(updated);
-          syncToProject(updated);
-          setIsUploading(false);
-        });
-      };
 
-      if (!isVideo && !isPdf && url.startsWith('data:image/')) {
-        compressDataUrl(url).then(compressedUrl => {
-          proceedUpload(compressedUrl);
-        });
-      } else {
-        proceedUpload(url);
-      }
+    if (url.startsWith('data:')) {
+      setUploadError('Local preview data cannot be saved. Please upload the original file again.');
     } else {
       const updated = [...galleryItems, { url: url.trim(), link: link.trim() }];
       setGalleryItems(updated);
@@ -1261,23 +1151,23 @@ export default function WorkDetailScreen({
   const handleResetToOriginal = () => {
     const originalImages = (project as any).originalGalleryImages || [];
     const originalLinks = (project as any).originalGalleryLinks || {};
-    
+
     // Clear localStorage
     if (typeof window !== 'undefined' && window.localStorage) {
       window.localStorage.removeItem(`project_gallery_images_${project.id}`);
       window.localStorage.removeItem(`project_gallery_links_${project.id}`);
     }
-    
+
     // Reset in-memory project values
     project.galleryImages = [...originalImages];
     (project as any).galleryLinks = { ...originalLinks };
-    
+
     // Update local React state
     setGalleryItems(originalImages.map((url: string) => ({
       url,
       link: originalLinks[url] || ''
     })));
-    
+
     // Sync with backend database/config file via API
     apiFetch('/api/save-gallery', {
       method: 'POST',
@@ -1315,12 +1205,12 @@ export default function WorkDetailScreen({
     if (!url) return false;
     if (url.includes('#video')) return true;
     if (url.includes('#image')) return false;
-    
+
     const cleanUrl = url.split('?')[0].split('#')[0].toLowerCase();
     return (
-      cleanUrl.endsWith('.mp4') || 
-      cleanUrl.endsWith('.webm') || 
-      cleanUrl.endsWith('.mov') || 
+      cleanUrl.endsWith('.mp4') ||
+      cleanUrl.endsWith('.webm') ||
+      cleanUrl.endsWith('.mov') ||
       cleanUrl.endsWith('.ogg') ||
       cleanUrl.endsWith('.m4v') ||
       url.toLowerCase().startsWith('data:video/')
@@ -1332,7 +1222,7 @@ export default function WorkDetailScreen({
     if (!url) return false;
     if (url.includes('#pdf')) return true;
     if (url.includes('#image') || url.includes('#video')) return false;
-    
+
     const cleanUrl = url.split('?')[0].split('#')[0].toLowerCase();
     return (
       cleanUrl.endsWith('.pdf') ||
@@ -1390,7 +1280,7 @@ export default function WorkDetailScreen({
           backgroundSize: '24px 24px',
           backgroundPosition: '0 0, 12px 12px'
         }} />
-        
+
         {/* Subtle blueprint lines */}
         <div className="absolute inset-8 border border-dashed border-ink-300 opacity-40 pointer-events-none" />
         <div className="absolute top-1/2 left-0 right-0 h-[1px] border-t border-dashed border-ink-300 opacity-20 pointer-events-none" />
@@ -1409,11 +1299,11 @@ export default function WorkDetailScreen({
           <div className="text-[100px] md:text-[160px] font-sans font-bold leading-none text-klein select-none tracking-tighter opacity-90">
             {pad(item.number)}
           </div>
-          
+
           <div className="mt-2 font-mono text-[10px] md:text-xs text-ink-900 tracking-widest uppercase text-center max-w-md px-4">
             {item.title}
           </div>
-          
+
           <div className="absolute bottom-3 left-4 font-mono text-[8px] text-ink-400">
             SCALE 1:1.75 / PLOT.2025
           </div>
@@ -1435,14 +1325,14 @@ export default function WorkDetailScreen({
         {heroUrl ? (
           <div className="relative w-full overflow-hidden border border-ink-200 bg-paper-100 group">
             {isVideo ? (
-              <video 
+              <video
                 key={heroUrl}
-                src={cleanMediaUrl(resolvedUrls[heroUrl] || heroUrl)} 
+                src={cleanMediaUrl(resolvedUrls[heroUrl] || heroUrl)}
                 poster={videoPosters[heroUrl] ? cleanMediaUrl(videoPosters[heroUrl]) : undefined}
-                autoPlay 
-                loop 
-                muted 
-                playsInline 
+                autoPlay
+                loop
+                muted
+                playsInline
                 onError={() => {
                   const backup = getMediaBackup(heroUrl);
                   if (backup && resolvedUrls[heroUrl] !== backup) {
@@ -1454,15 +1344,15 @@ export default function WorkDetailScreen({
             ) : (
               <div className="relative w-full overflow-hidden">
                 {videoPosters[heroUrl] && (
-                  <img 
-                    src={getSafeUrl(resolvedUrls[videoPosters[heroUrl]] || videoPosters[heroUrl])} 
+                  <img
+                    src={getSafeUrl(resolvedUrls[videoPosters[heroUrl]] || videoPosters[heroUrl])}
                     alt=""
                     className="absolute inset-0 w-full h-full object-cover opacity-65 filter blur-[1px] transition-opacity duration-300 pointer-events-none"
                   />
                 )}
-                <img 
-                  src={getSafeUrl(resolvedUrls[heroUrl] || heroUrl)} 
-                  alt={item.title} 
+                <img
+                  src={getSafeUrl(resolvedUrls[heroUrl] || heroUrl)}
+                  alt={item.title}
                   onLoad={(e) => {
                     const target = e.currentTarget;
                     const prev = target.previousElementSibling as HTMLElement;
@@ -1480,7 +1370,7 @@ export default function WorkDetailScreen({
                       if (prev) prev.style.opacity = '0';
                     }
                   }}
-                  className="w-full h-auto max-h-[600px] object-cover relative z-10 transition-transform duration-500 group-hover:scale-[1.01]" 
+                  className="w-full h-auto max-h-[600px] object-cover relative z-10 transition-transform duration-500 group-hover:scale-[1.01]"
                 />
               </div>
             )}
@@ -1816,14 +1706,14 @@ export default function WorkDetailScreen({
         {/* Navigation Selector Tabs */}
         <div className="flex border-b border-ink-200 justify-between items-center bg-paper-100 p-1 rounded-sm">
           <div className="flex space-x-1 font-mono text-[10px] tracking-wider uppercase">
-            <button 
-              onClick={() => setViewMode('slides')} 
+            <button
+              onClick={() => setViewMode('slides')}
               className={`px-3 py-1.5 font-bold cursor-pointer transition-all duration-300 rounded-xs ${viewMode === 'slides' ? 'bg-paper-0 text-klein shadow-sm border border-ink-150' : 'text-ink-500 hover:text-ink-950'}`}
             >
               📊 WORKFLOW SLIDESHOW (PDF)
             </button>
-            <button 
-              onClick={() => setViewMode('schematic')} 
+            <button
+              onClick={() => setViewMode('schematic')}
               className={`px-3 py-1.5 font-bold cursor-pointer transition-all duration-300 rounded-xs ${viewMode === 'schematic' ? 'bg-paper-0 text-klein shadow-sm border border-ink-150' : 'text-ink-500 hover:text-ink-950'}`}
             >
               📁 BLUEPRINT SCHEMATIC
@@ -1843,7 +1733,7 @@ export default function WorkDetailScreen({
 
             {/* Bottom Playback Controls */}
             <div className="bg-paper-0 border-t border-ink-200 px-4 py-3 flex items-center justify-between font-mono text-[11px] shrink-0 select-none">
-              <button 
+              <button
                 onClick={prevSlide}
                 className="px-2.5 py-1.5 border border-ink-200 hover:border-klein hover:text-klein transition-colors duration-300 font-bold rounded-xs cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-klein"
               >
@@ -1864,7 +1754,7 @@ export default function WorkDetailScreen({
                 </span>
               </div>
 
-              <button 
+              <button
                 onClick={nextSlide}
                 className="px-2.5 py-1.5 border border-ink-200 hover:border-klein hover:text-klein transition-colors duration-300 font-bold rounded-xs cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-klein"
               >
@@ -1953,9 +1843,9 @@ export default function WorkDetailScreen({
               Schematic Plates Gallery
             </h3>
           </div>
-          
+
           {isAdmin ? (
-            <button 
+            <button
               onClick={() => setIsEditOpen(!isEditOpen)}
               className="flex items-center gap-2 px-3 py-1.5 border border-ink-900 font-mono text-[10px] uppercase tracking-wider text-ink-900 hover:bg-ink-900 hover:text-paper-50 transition-all duration-300 rounded-sm cursor-pointer"
             >
@@ -1963,7 +1853,7 @@ export default function WorkDetailScreen({
               {isEditOpen ? 'Close Editor' : 'Edit Gallery'}
             </button>
           ) : (
-            <button 
+            <button
               onClick={() => onNavigate && onNavigate('Admin')}
               className="flex items-center gap-2 px-3 py-1.5 border border-dashed border-ink-300 font-mono text-[10px] uppercase tracking-wider text-ink-400 hover:text-ink-900 hover:border-ink-900 transition-all duration-300 rounded-sm cursor-pointer bg-paper-100"
               title="Click to authenticate as Admin and manage images/videos"
@@ -1983,14 +1873,14 @@ export default function WorkDetailScreen({
               </span>
               <div className="flex items-center gap-3">
                 <span className="text-ink-400 text-[10px]">TOTAL ITEMS: {galleryItems.length}</span>
-                
+
                 <div className="flex items-center gap-1 border border-ink-150 rounded-xs p-0.5 bg-paper-200">
                   <button
                     type="button"
                     onClick={() => handleSetColumns(2)}
                     className={`px-1.5 py-0.5 font-bold uppercase text-[8px] rounded-xs transition-all cursor-pointer ${
-                      galleryColumns === 2 
-                        ? 'bg-klein text-paper-50 shadow-xs' 
+                      galleryColumns === 2
+                        ? 'bg-klein text-paper-50 shadow-xs'
                         : 'text-ink-500 hover:text-ink-800'
                     }`}
                   >
@@ -2000,8 +1890,8 @@ export default function WorkDetailScreen({
                     type="button"
                     onClick={() => handleSetColumns(3)}
                     className={`px-1.5 py-0.5 font-bold uppercase text-[8px] rounded-xs transition-all cursor-pointer ${
-                      galleryColumns === 3 
-                        ? 'bg-klein text-paper-50 shadow-xs' 
+                      galleryColumns === 3
+                        ? 'bg-klein text-paper-50 shadow-xs'
                         : 'text-ink-500 hover:text-ink-800'
                     }`}
                   >
@@ -2036,13 +1926,13 @@ export default function WorkDetailScreen({
                         {/* Mini Thumbnail */}
                         <div className="w-12 h-12 shrink-0 bg-paper-100 border border-ink-200 overflow-hidden flex items-center justify-center relative rounded-xs">
                           {isVideo ? (
-                            <video 
-                              key={imgUrl} 
-                              src={getSafeUrl(resolvedUrls[imgUrl] || imgUrl)} 
-                              poster={videoPosters[imgUrl] ? cleanMediaUrl(videoPosters[imgUrl]) : undefined} 
-                              className="w-full h-full object-cover" 
-                              muted 
-                              playsInline 
+                            <video
+                              key={imgUrl}
+                              src={getSafeUrl(resolvedUrls[imgUrl] || imgUrl)}
+                              poster={videoPosters[imgUrl] ? cleanMediaUrl(videoPosters[imgUrl]) : undefined}
+                              className="w-full h-full object-cover"
+                              muted
+                              playsInline
                               onError={() => {
                                 const backup = getMediaBackup(imgUrl);
                                 if (backup && resolvedUrls[imgUrl] !== backup) {
@@ -2053,10 +1943,10 @@ export default function WorkDetailScreen({
                           ) : isPdfUrl(imgUrl) ? (
                             <div className="w-full h-full bg-rose-50 flex items-center justify-center text-rose-600 font-bold text-[10px]">PDF</div>
                           ) : (
-                            <img 
-                              src={getSafeUrl(resolvedUrls[imgUrl] || videoPosters[imgUrl] || imgUrl)} 
-                              className="w-full h-full object-cover" 
-                              alt="" 
+                            <img
+                              src={getSafeUrl(resolvedUrls[imgUrl] || videoPosters[imgUrl] || imgUrl)}
+                              className="w-full h-full object-cover"
+                              alt=""
                               onError={() => {
                                 const backup = getMediaBackup(imgUrl);
                                 if (backup && resolvedUrls[imgUrl] !== backup) {
@@ -2137,7 +2027,7 @@ export default function WorkDetailScreen({
             {/* Add new image form */}
             <div className="bg-paper-0 p-4 border border-ink-150 rounded-xs">
               <span className="font-bold text-ink-900 block mb-3 uppercase text-[10px] tracking-wider">Add New Gallery Media (Images, GIFs, Videos, PDFs)</span>
-              
+
               {/* Tab Headers */}
               <div className="flex border-b border-ink-150 mb-4">
                 <button
@@ -2177,15 +2067,15 @@ export default function WorkDetailScreen({
                     {/* Local File Upload Zone */}
                     <div className="flex flex-col gap-1">
                       <label className="text-[9px] text-ink-400 font-bold uppercase">Local Computer Upload (Drag & Drop or Click)</label>
-                      <div 
+                      <div
                         onDragEnter={handleDrag}
                         onDragOver={handleDrag}
                         onDragLeave={handleDrag}
                         onDrop={handleDrop}
                         onClick={() => !isUploading && document.getElementById('local-file-picker')?.click()}
                         className={`border-2 border-dashed rounded-xs p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all h-[110px] ${
-                          dragActive 
-                            ? 'border-klein bg-klein/5 text-klein' 
+                          dragActive
+                            ? 'border-klein bg-klein/5 text-klein'
                             : isUploading
                               ? 'border-amber-400 bg-amber-50/10 text-amber-600'
                               : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
@@ -2193,27 +2083,27 @@ export default function WorkDetailScreen({
                                 : 'border-ink-200 hover:border-klein/50 hover:bg-paper-100 text-ink-500'
                         }`}
                       >
-                        <input 
+                        <input
                           id="local-file-picker"
-                          type="file" 
-                          accept="image/*,video/*,application/pdf" 
-                          className="hidden" 
+                          type="file"
+                          accept="image/*,video/*,application/pdf"
+                          className="hidden"
                           onChange={handleFileChange}
                           disabled={isUploading}
                         />
                         <Upload className={`w-5 h-5 mb-1.5 ${isUploading ? 'animate-bounce text-amber-500' : ''}`} />
                         <span className="font-mono text-[10px] font-bold uppercase">
-                          {isUploading 
-                            ? (uploadProgress || 'Uploading File...') 
-                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/')) 
-                              ? '✓ File Saved Online' 
+                          {isUploading
+                            ? (uploadProgress || 'Uploading File...')
+                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
+                              ? '✓ File Saved Online'
                               : 'Choose Local File or Drop'}
                         </span>
                         <span className="text-[8px] text-ink-400 mt-0.5 max-w-[180px] truncate">
-                          {isUploading 
-                            ? (uploadProgress ? 'Processing chunks securely' : 'Processing media chunk') 
-                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/')) 
-                              ? 'Ready to add to gallery' 
+                          {isUploading
+                            ? (uploadProgress ? 'Processing chunks securely' : 'Processing media chunk')
+                            : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
+                              ? 'Ready to add to gallery'
                               : 'Supports JPG, PNG, GIF, MP4'}
                         </span>
                       </div>
@@ -2261,13 +2151,13 @@ export default function WorkDetailScreen({
                       <div className="flex items-center gap-3 min-w-0">
                         <div className="w-14 h-14 bg-paper-200 border border-ink-200 overflow-hidden flex items-center justify-center relative rounded-xs shrink-0">
                           {isVideoUrl(newUrl) ? (
-                            <video 
-                              key={newUrl} 
-                              src={getSafeUrl(resolvedUrls[newUrl] || newUrl)} 
-                              poster={videoPosters[newUrl] ? cleanMediaUrl(videoPosters[newUrl]) : undefined} 
-                              className="w-full h-full object-cover" 
-                              muted 
-                              playsInline 
+                            <video
+                              key={newUrl}
+                              src={getSafeUrl(resolvedUrls[newUrl] || newUrl)}
+                              poster={videoPosters[newUrl] ? cleanMediaUrl(videoPosters[newUrl]) : undefined}
+                              className="w-full h-full object-cover"
+                              muted
+                              playsInline
                               onError={() => {
                                 const backup = getMediaBackup(newUrl);
                                 if (backup && resolvedUrls[newUrl] !== backup) {
@@ -2278,10 +2168,10 @@ export default function WorkDetailScreen({
                           ) : isPdfUrl(newUrl) ? (
                             <div className="w-full h-full bg-rose-50 flex items-center justify-center text-rose-600 font-bold text-[10px]">PDF</div>
                           ) : (
-                            <img 
-                              src={getSafeUrl(resolvedUrls[newUrl] || videoPosters[newUrl] || newUrl)} 
-                              className="w-full h-full object-cover" 
-                              alt="Draft Preview" 
+                            <img
+                              src={getSafeUrl(resolvedUrls[newUrl] || videoPosters[newUrl] || newUrl)}
+                              className="w-full h-full object-cover"
+                              alt="Draft Preview"
                               onError={() => {
                                 const backup = getMediaBackup(newUrl);
                                 if (backup && resolvedUrls[newUrl] !== backup) {
@@ -2297,10 +2187,10 @@ export default function WorkDetailScreen({
                         <div className="min-w-0 flex-grow">
                           <span className="font-mono text-[9px] text-ink-400 font-bold uppercase block mb-0.5">DRAFT MEDIA PREVIEW</span>
                           <div className="truncate text-[10px] text-ink-800 font-mono select-all" title={newUrl}>
-                            {newUrl.startsWith('data:') 
-                              ? 'Loaded Local Base64 Resource' 
-                              : newUrl.startsWith('blob:') 
-                                ? 'Loaded Local Blob Stream' 
+                            {newUrl.startsWith('data:')
+                              ? 'Loaded Local Base64 Resource'
+                              : newUrl.startsWith('blob:')
+                                ? 'Loaded Local Blob Stream'
                                 : (newUrl.startsWith('/uploads/') || newUrl.startsWith('/portfolio_assets/'))
                                   ? '✓ Saved & Hosted on Server'
                                   : newUrl}
@@ -2335,25 +2225,25 @@ export default function WorkDetailScreen({
                   {/* Local Batch Files Upload Zone */}
                   <div className="flex flex-col gap-1">
                     <label className="text-[9px] text-ink-400 font-bold uppercase">Local Computer Batch Upload (Select multiple or Drop files)</label>
-                    <div 
+                    <div
                       onDragEnter={handleDrag}
                       onDragOver={handleDrag}
                       onDragLeave={handleDrag}
                       onDrop={handleDrop}
                       onClick={() => !isUploading && document.getElementById('batch-file-picker')?.click()}
                       className={`border-2 border-dashed rounded-xs p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all h-[120px] ${
-                        dragActive 
-                          ? 'border-klein bg-klein/5 text-klein' 
+                        dragActive
+                          ? 'border-klein bg-klein/5 text-klein'
                           : isUploading
                             ? 'border-amber-400 bg-amber-50/10 text-amber-600 animate-pulse'
                             : 'border-ink-200 hover:border-klein/50 hover:bg-paper-100 text-ink-500'
                       }`}
                     >
-                      <input 
+                      <input
                         id="batch-file-picker"
-                        type="file" 
-                        accept="image/*,video/*,application/pdf" 
-                        className="hidden" 
+                        type="file"
+                        accept="image/*,video/*,application/pdf"
+                        className="hidden"
                         onChange={handleFileChange}
                         disabled={isUploading}
                         multiple
@@ -2401,7 +2291,7 @@ export default function WorkDetailScreen({
                           const isCompleted = bf.status === 'completed';
                           const isFailed = bf.status === 'failed';
                           const isProcessing = bf.status === 'compressing' || bf.status === 'uploading';
-                          
+
                           return (
                             <div key={bf.id} className="bg-paper-0 border border-ink-150 rounded-xs p-2.5 flex flex-col gap-1.5">
                               <div className="flex items-center justify-between gap-3">
@@ -2461,7 +2351,7 @@ export default function WorkDetailScreen({
                               {/* Custom subtle progress bar */}
                               {(isProcessing || bf.progress > 0) && (
                                 <div className="w-full bg-ink-100 h-1 rounded-full overflow-hidden mt-0.5">
-                                  <div 
+                                  <div
                                     className={`h-full transition-all duration-300 ${
                                       bf.status === 'compressing' ? 'bg-amber-400 animate-pulse' :
                                       isCompleted ? 'bg-emerald-500' : 'bg-klein'
@@ -2540,7 +2430,7 @@ export default function WorkDetailScreen({
 
         {(() => {
           const isThreeCol = galleryColumns === 3;
-          const columnsData = isThreeCol 
+          const columnsData = isThreeCol
             ? [
                 plateIndices.filter((_, i) => i % 3 === 0),
                 plateIndices.filter((_, i) => i % 3 === 1),
@@ -2562,14 +2452,14 @@ export default function WorkDetailScreen({
              const mediaContent = (
                <div className="relative w-full overflow-hidden bg-transparent">
                  {isVideo ? (
-                   <video 
+                   <video
                      key={mediaUrl}
-                     src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)} 
+                     src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)}
                      poster={videoPosters[mediaUrl] ? cleanMediaUrl(videoPosters[mediaUrl]) : undefined}
-                     autoPlay 
-                     loop 
-                     muted 
-                     playsInline 
+                     autoPlay
+                     loop
+                     muted
+                     playsInline
                      onError={() => {
                        const backup = getMediaBackup(mediaUrl);
                        if (backup && resolvedUrls[mediaUrl] !== backup) {
@@ -2584,9 +2474,9 @@ export default function WorkDetailScreen({
                    />
                  ) : isPdf ? (
                    <div className="w-full h-[360px] md:h-[480px] bg-paper-100 border border-ink-200 relative">
-                     <iframe 
-                       src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)} 
-                       className="w-full h-full border-0" 
+                     <iframe
+                       src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)}
+                       className="w-full h-full border-0"
                        title={`PDF Preview ${idx}`}
                      />
                      <div className="absolute top-2 right-2 bg-paper-0/90 border border-ink-200 px-2 py-1 text-[9px] font-mono text-ink-600 rounded-sm pointer-events-none z-10 flex items-center gap-1 shadow-sm">
@@ -2597,8 +2487,8 @@ export default function WorkDetailScreen({
                  ) : (
                    <>
                      {videoPosters[mediaUrl] && (
-                       <img 
-                         src={getSafeUrl(resolvedUrls[videoPosters[mediaUrl]] || videoPosters[mediaUrl])} 
+                       <img
+                         src={getSafeUrl(resolvedUrls[videoPosters[mediaUrl]] || videoPosters[mediaUrl])}
                          alt=""
                          onError={() => {
                            console.warn(`Failed to load video poster: ${videoPosters[mediaUrl]}`);
@@ -2606,9 +2496,9 @@ export default function WorkDetailScreen({
                          className="absolute inset-0 w-full h-full object-cover opacity-65 filter blur-[1px] transition-opacity duration-300 pointer-events-none"
                        />
                      )}
-                     <img 
-                       src={getSafeUrl(resolvedUrls[mediaUrl] || mediaUrl)} 
-                       alt={`Plate ${idx}`} 
+                     <img
+                       src={getSafeUrl(resolvedUrls[mediaUrl] || mediaUrl)}
+                       alt={`Plate ${idx}`}
                        onError={() => {
                          const backup = getMediaBackup(mediaUrl);
                          if (backup && resolvedUrls[mediaUrl] !== backup) {
@@ -2627,20 +2517,20 @@ export default function WorkDetailScreen({
              );
 
             return (
-              <div 
-                key={idx} 
+              <div
+                key={idx}
                 className={`gallery-item group relative overflow-hidden flex flex-col justify-between ${
-                  hasRealImage 
-                    ? 'bg-transparent border-0 p-0 h-auto' 
+                  hasRealImage
+                    ? 'bg-transparent border-0 p-0 h-auto'
                     : 'bg-paper-100 border border-ink-150 h-[220px] md:h-[280px] p-4 hover:border-klein/30'
                 } transition-all duration-300`}
               >
                 {hasRealImage ? (
                   linkUrl ? (
-                    <a 
-                      href={linkUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
+                    <a
+                      href={linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="block w-full cursor-pointer relative"
                     >
                       {mediaContent}
@@ -2737,9 +2627,9 @@ export default function WorkDetailScreen({
     <article className="work-detail max-w-[1440px] mx-auto px-6 md:px-12 py-12" id="work-detail-container">
       {/* Back Link */}
       <div className="mb-8" id="back-link-wrapper">
-        <button 
+        <button
           id="back-to-works-btn"
-          onClick={onNavigateBack} 
+          onClick={onNavigateBack}
           className="back-link font-mono text-[11px] uppercase tracking-[0.2em] text-ink-900 hover:text-klein transition-colors duration-300 cursor-pointer focus:outline-none focus-visible:ring-1 focus-visible:ring-klein"
         >
           ← Back to Works
@@ -2793,7 +2683,7 @@ export default function WorkDetailScreen({
       {cropImageSrc && (
         <div className="fixed inset-0 bg-ink-950/70 backdrop-blur-xs z-[999] flex items-center justify-center p-4">
           <div className="bg-paper-0 border-2 border-ink-900 shadow-2xl max-w-4xl w-full rounded-sm overflow-hidden flex flex-col max-h-[90vh] text-ink-900 font-sans">
-            
+
             {/* Terminal Header */}
             <div className="bg-ink-900 text-paper-50 px-4 py-3 flex items-center justify-between border-b border-ink-900 select-none">
               <div className="flex items-center gap-2">
@@ -2802,7 +2692,7 @@ export default function WorkDetailScreen({
                   IMAGE EDITING PROTOCOL // PROCESS: PRECISION_CROP
                 </span>
               </div>
-              <button 
+              <button
                 onClick={() => { setCropImageSrc(null); setCroppingItemIndex(null); }}
                 className="text-paper-300 hover:text-white transition-colors cursor-pointer"
               >
@@ -2812,20 +2702,20 @@ export default function WorkDetailScreen({
 
             {/* Modal Work area */}
             <div className="p-5 md:p-6 overflow-y-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
-              
+
               {/* Left Column: Visual Editor workspace */}
               <div className="lg:col-span-7 flex flex-col gap-3">
                 <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-ink-400 block">
                   1. Visual Workspace Frame
                 </span>
-                
+
                 <div className="relative border border-ink-200 bg-paper-50 rounded-xs overflow-hidden flex items-center justify-center h-[280px] md:h-[350px] select-none">
                   {/* Image with rotation */}
-                  <img 
-                    src={cropImageSrc} 
-                    style={{ 
-                      transform: `rotate(${rotation}deg)`, 
-                      maxWidth: '100%', 
+                  <img
+                    src={cropImageSrc}
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      maxWidth: '100%',
                       maxHeight: '100%',
                     }}
                     className="object-contain transition-transform duration-300"
@@ -2833,7 +2723,7 @@ export default function WorkDetailScreen({
                   />
 
                   {/* Precise high-contrast overlay bounding box */}
-                  <div 
+                  <div
                     className="absolute border-2 border-dashed border-klein shadow-[0_0_0_9999px_rgba(0,0,0,0.65)] pointer-events-none"
                     style={{
                       left: `${cropX}%`,
@@ -2880,8 +2770,8 @@ export default function WorkDetailScreen({
                       2. Live Processed Preview
                     </span>
                     <div className="bg-paper-100 border border-ink-200 rounded-xs p-3 flex justify-center items-center h-[180px] relative overflow-hidden">
-                      <canvas 
-                        ref={previewCanvasRef} 
+                      <canvas
+                        ref={previewCanvasRef}
                         className="max-w-full max-h-full object-contain shadow-md rounded-xs border border-ink-150 bg-paper-0"
                       />
                       <div className="absolute bottom-1.5 right-1.5 bg-ink-900 text-paper-50 px-1 text-[7px] font-mono leading-tight tracking-widest rounded-xs">
@@ -2943,18 +2833,18 @@ export default function WorkDetailScreen({
                     <span className="font-mono text-[9px] uppercase tracking-wider font-bold text-ink-400 block mb-2">
                       3. Precision Sliders
                     </span>
-                    
+
                     {/* Slider X */}
                     <div className="space-y-1">
                       <div className="flex justify-between text-[10px] font-mono">
                         <span className="text-ink-600 font-bold uppercase">Horizontal Position</span>
                         <span className="text-ink-900 font-bold">{cropX}%</span>
                       </div>
-                      <input 
-                        type="range" 
-                        min="0" 
-                        max={100 - cropW} 
-                        value={cropX} 
+                      <input
+                        type="range"
+                        min="0"
+                        max={100 - cropW}
+                        value={cropX}
                         onChange={(e) => updateCropValues(parseInt(e.target.value), cropY, cropW, cropH)}
                         className="w-full accent-klein bg-paper-100 h-1.5 rounded-lg appearance-none cursor-pointer"
                       />
@@ -2966,11 +2856,11 @@ export default function WorkDetailScreen({
                         <span className="text-ink-600 font-bold uppercase">Vertical Position</span>
                         <span className="text-ink-900 font-bold">{cropY}%</span>
                       </div>
-                      <input 
-                        type="range" 
-                        min="0" 
-                        max={100 - cropH} 
-                        value={cropY} 
+                      <input
+                        type="range"
+                        min="0"
+                        max={100 - cropH}
+                        value={cropY}
                         onChange={(e) => updateCropValues(cropX, parseInt(e.target.value), cropW, cropH)}
                         className="w-full accent-klein bg-paper-100 h-1.5 rounded-lg appearance-none cursor-pointer"
                       />
@@ -2982,11 +2872,11 @@ export default function WorkDetailScreen({
                         <span className="text-ink-600 font-bold uppercase">Crop Width</span>
                         <span className="text-ink-900 font-bold">{cropW}%</span>
                       </div>
-                      <input 
-                        type="range" 
-                        min="5" 
-                        max={100 - cropX} 
-                        value={cropW} 
+                      <input
+                        type="range"
+                        min="5"
+                        max={100 - cropX}
+                        value={cropW}
                         onChange={(e) => updateCropValues(cropX, cropY, parseInt(e.target.value), cropH)}
                         className="w-full accent-klein bg-paper-100 h-1.5 rounded-lg appearance-none cursor-pointer"
                       />
@@ -2998,11 +2888,11 @@ export default function WorkDetailScreen({
                         <span className="text-ink-600 font-bold uppercase">Crop Height</span>
                         <span className="text-ink-900 font-bold">{cropH}%</span>
                       </div>
-                      <input 
-                        type="range" 
-                        min="5" 
-                        max={100 - cropY} 
-                        value={cropH} 
+                      <input
+                        type="range"
+                        min="5"
+                        max={100 - cropY}
+                        value={cropH}
                         disabled={cropAspect !== 'free'}
                         onChange={(e) => updateCropValues(cropX, cropY, cropW, parseInt(e.target.value))}
                         className="w-full accent-klein bg-paper-100 h-1.5 rounded-lg appearance-none cursor-pointer disabled:opacity-40"
