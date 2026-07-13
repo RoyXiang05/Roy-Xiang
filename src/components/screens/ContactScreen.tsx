@@ -1,5 +1,4 @@
 import RevealText from '../core/RevealText';
-import IndexLabel from '../core/IndexLabel';
 import { PROFILE } from '../../data';
 
 export default function ContactScreen() {
@@ -14,10 +13,12 @@ export default function ContactScreen() {
     <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-12">
       {/* Page Header */}
       <div className="mb-16">
-        <IndexLabel number={3} text="Secure Connection" tone="klein" className="mb-4 inline-block" />
+        <span className="mb-4 inline-block font-mono text-[11px] uppercase tracking-wide text-klein">
+          NO.03 - CONTACT ROY
+        </span>
         <RevealText
           as="h1"
-          lines={["Establish Contact", "Direct Channels"]}
+          lines={["CONTACT ME"]}
           className="font-sans font-bold text-4xl md:text-6xl tracking-tighter text-ink-900 leading-none"
         />
         <p className="font-sans text-sm text-ink-500 max-w-lg mt-6 leading-relaxed">
@@ -55,14 +56,8 @@ export default function ContactScreen() {
               </a>
             ))}
           </div>
-
-          {/* Secure signature footer */}
-          <div className="p-6 border border-dashed border-ink-150 font-mono text-[10px] text-ink-500 leading-relaxed">
-            All correspondence is confidential and structured directly under legal framework standards. Operational offices based in Dubai Media City.
-          </div>
         </div>
       </div>
     </div>
   );
 }
-
