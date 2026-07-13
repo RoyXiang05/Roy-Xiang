@@ -47,7 +47,15 @@ function PdfPageViewer({ src, title }: { src: string; title: string }) {
       try {
         const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
         pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
-        const documentTask = pdfjs.getDocument(src);
+        // Blob responses are public and CORS-enabled, but their range responses
+        // are not consistently accepted by every PDF.js worker/browser pair.
+        // Reading the document as one stream keeps page rendering deterministic.
+        const documentTask = pdfjs.getDocument({
+          url: src,
+          disableRange: true,
+          disableStream: true,
+          disableAutoFetch: true,
+        });
         const pdf = await documentTask.promise;
         if (cancelled) return;
         setTotalPages(pdf.numPages);
