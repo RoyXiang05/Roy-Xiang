@@ -221,7 +221,9 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
 
   // Lock body scroll when floating overlay is active to keep parent scroll position pristine and avoid layout shift
   useEffect(() => {
-    if (activeCategoryPage && isViewActive) {
+    // Lock before the zoom begins so the scrollbar cannot change the card's
+    // measured position midway through its transition.
+    if (animatingCat && isViewActive) {
       // Calculate exact scrollbar width
       const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
       document.body.style.overflow = 'hidden';
@@ -236,7 +238,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
       document.body.style.overflow = '';
       document.body.style.paddingRight = '';
     };
-  }, [activeCategoryPage, isViewActive]);
+  }, [animatingCat, isViewActive]);
 
   const categories = useMemo(() => [
     { 
@@ -337,16 +339,17 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     setAnimatingCat(cat);
     setAnimPhase('tucked');
     
-    // Step 2: Slide up from tucked position
+    // Let the browser paint the tucked frame before moving to the next phase.
+    // The old 15ms handoff often merged both frames into one dropped frame.
     setTimeout(() => {
       setAnimPhase('pull');
       
-      // Step 3: Zoom up to fill viewport beautifully
+      // Zoom only after the paper has fully cleared the folder.
       setTimeout(() => {
         setAnimPhase('zoom');
         setActiveCategoryPage(cat.title);
       }, 350);
-    }, 15);
+    }, 180);
   };
 
   // Triggers return back to general layout
@@ -389,25 +392,36 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     // The total height of the FolderCover is 368px.
     // So paper insert top is: folder top + (368 - 12 - 208) = folder top + 148px
     const cardTop = clickRect.top + 148;
+    const targetWidth = Math.min(cardWidth * 3, window.innerWidth - 32);
+    const targetHeight = Math.min(cardHeight * 4.5, window.innerHeight - 48);
+    const targetLeft = (window.innerWidth - targetWidth) / 2;
+    const targetTop = (window.innerHeight - targetHeight) / 2;
+    const scaleX = cardWidth / targetWidth;
+    const scaleY = cardHeight / targetHeight;
+    const startX = cardLeft - targetLeft;
+    const startY = cardTop - targetTop;
+    const paperTransform = (offsetY: number) =>
+      `translate3d(${startX}px, ${startY + offsetY}px, 0) scale(${scaleX}, ${scaleY}) rotate(-1.5deg)`;
 
     const initialStyle: React.CSSProperties = {
       position: 'fixed',
-      left: `${cardLeft}px`,
-      top: `${cardTop}px`,
-      width: `${cardWidth}px`,
-      height: `${cardHeight}px`,
+      left: `${targetLeft}px`,
+      top: `${targetTop}px`,
+      width: `${targetWidth}px`,
+      height: `${targetHeight}px`,
       zIndex: 40,
       pointerEvents: 'none',
-      transformOrigin: 'center center',
+      transformOrigin: 'top left',
       borderRadius: '4px',
       opacity: 0,
       transition: 'none',
+      willChange: 'transform, opacity',
     };
 
     if (animPhase === 'tucked') {
       return {
         ...initialStyle,
-        transform: 'translateY(-70px) rotate(-1.5deg)',
+        transform: paperTransform(-70),
         opacity: 0,
         transition: 'none',
       };
@@ -416,29 +430,20 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     if (animPhase === 'pull') {
       return {
         ...initialStyle,
-        transform: 'translateY(-210px) rotate(-1.5deg)',
+        transform: paperTransform(-210),
         opacity: 0,
         transition: 'none',
       };
     }
 
     if (animPhase === 'zoom') {
-      const targetWidth = Math.min(cardWidth * 3, window.innerWidth - 32);
-      const targetHeight = Math.min(cardHeight * 4.5, window.innerHeight - 48);
-      const targetLeft = (window.innerWidth - targetWidth) / 2;
-      const targetTop = (window.innerHeight - targetHeight) / 2;
-
       return {
         ...initialStyle,
-        left: `${targetLeft}px`,
-        top: `${targetTop}px`,
-        width: `${targetWidth}px`,
-        height: `${targetHeight}px`,
-        transform: 'translateY(0px) rotate(0deg)',
+        transform: 'translate3d(0, 0, 0) scale(1) rotate(0deg)',
         borderRadius: '8px',
         pointerEvents: 'auto',
         opacity: 1,
-        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), left 0.5s cubic-bezier(0.16, 1, 0.3, 1), top 0.5s cubic-bezier(0.16, 1, 0.3, 1), width 0.5s cubic-bezier(0.16, 1, 0.3, 1), height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
+        transition: 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.15s cubic-bezier(0.16, 1, 0.3, 1)',
         boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       };
     }
@@ -446,16 +451,16 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     if (animPhase === 'reverse-zoom') {
       return {
         ...initialStyle,
-        transform: 'translateY(-210px) rotate(-1.5deg)',
+        transform: paperTransform(-210),
         opacity: 1,
-        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), left 0.45s cubic-bezier(0.16, 1, 0.3, 1), top 0.45s cubic-bezier(0.16, 1, 0.3, 1), width 0.45s cubic-bezier(0.16, 1, 0.3, 1), height 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
+        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
       };
     }
 
     if (animPhase === 'reverse-pull') {
       return {
         ...initialStyle,
-        transform: 'translateY(-210px) rotate(-1.5deg)',
+        transform: paperTransform(-70),
         opacity: 0,
         transition: 'opacity 0.15s ease-out',
       };
@@ -511,8 +516,11 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             }`}
             style={{
               backgroundColor: 'rgba(10, 10, 10, 0.25)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
+              // Full-viewport blur is costly while the card is still moving.
+              // Enable a lighter blur only once it reaches the detail state.
+              backdropFilter: animPhase === 'zoom' ? 'blur(8px)' : 'none',
+              WebkitBackdropFilter: animPhase === 'zoom' ? 'blur(8px)' : 'none',
+              willChange: 'opacity',
               pointerEvents: 'none',
             }}
           />

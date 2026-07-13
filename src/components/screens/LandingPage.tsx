@@ -1,5 +1,5 @@
-import { useEffect, useState, useRef, MouseEvent } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { useEffect, useState } from 'react';
+import { motion } from 'motion/react';
 
 interface LandingPageProps {
   onNavigate: (view: string) => void;
@@ -7,64 +7,34 @@ interface LandingPageProps {
 }
 
 export default function LandingPage({ onNavigate, onScrollDown }: LandingPageProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
-  const [viewportHeight, setViewportHeight] = useState(800);
+  const [isSceneInteractive, setIsSceneInteractive] = useState(true);
+  const [isSceneVisible, setIsSceneVisible] = useState(true);
+  const [isSceneLoaded, setIsSceneLoaded] = useState(false);
 
   useEffect(() => {
-    setViewportHeight(window.innerHeight);
     const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    const handleResize = () => {
-      setViewportHeight(window.innerHeight);
+      const scrollPosition = window.scrollY;
+      setIsSceneInteractive((current) => {
+        const next = scrollPosition <= 5;
+        return current === next ? current : next;
+      });
+      setIsSceneVisible((current) => {
+        const next = scrollPosition < window.innerHeight;
+        return current === next ? current : next;
+      });
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
     
     // Initial call
     handleScroll();
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  const handleMouseMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    
-    // Normalize coordinates around the center (-0.5 to 0.5)
-    const x = (e.clientX - rect.left) / width - 0.5;
-    const y = (e.clientY - rect.top) / height - 0.5;
-    
-    setCoords({ x, y });
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCoords({ x: 0, y: 0 });
-  };
-
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
-  // Compute 3D rotation based on normalized mouse coords
-  const rotateX = isHovered ? -coords.y * 30 : 0; // max 15 deg tilt
-  const rotateY = isHovered ? coords.x * 30 : 0;
-
   return (
     <div
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       className="relative w-full h-screen bg-[#000000] text-white flex flex-col justify-between overflow-hidden select-none font-mono"
       style={{ perspective: 1000 }}
     >
@@ -120,10 +90,15 @@ export default function LandingPage({ onNavigate, onScrollDown }: LandingPagePro
       <div 
         className="absolute inset-0 w-full h-full z-0 overflow-hidden transition-opacity duration-300"
         style={{ 
-          pointerEvents: scrollY > 5 ? 'none' : 'auto',
-          display: scrollY >= viewportHeight ? 'none' : 'block'
+          pointerEvents: isSceneInteractive ? 'auto' : 'none',
+          display: isSceneVisible ? 'block' : 'none'
         }}
       >
+        {!isSceneLoaded && (
+          <div className="absolute inset-0 z-10 flex items-center justify-center bg-black text-[10px] tracking-[0.24em] text-[#777]">
+            INITIALIZING INTERACTIVE VIEW
+          </div>
+        )}
         <iframe
           src="https://my.spline.design/tvportfoliommw14v2-HcR1nH3U3G55UXEMCQLpsRRV/"
           frameBorder="0"
@@ -131,9 +106,11 @@ export default function LandingPage({ onNavigate, onScrollDown }: LandingPagePro
           className="w-full border-0 block"
           style={{ 
             height: 'calc(100% + 60px)',
-            pointerEvents: scrollY > 5 ? 'none' : 'auto'
+            pointerEvents: isSceneInteractive ? 'auto' : 'none'
           }}
           allow="autoplay; fullscreen"
+          loading="eager"
+          onLoad={() => setIsSceneLoaded(true)}
           title="Interactive 3D Retro TV Portfolio Model"
         />
       </div>
