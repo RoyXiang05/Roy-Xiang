@@ -22,6 +22,7 @@ export default async function handler(request: VercelRequest, response: VercelRe
       onBeforeGenerateToken: async () => ({
         allowedContentTypes: ['image/*', 'video/*', 'application/pdf'],
         maximumSizeInBytes: 100 * 1024 * 1024,
+        addRandomSuffix: true,
       }),
       onUploadCompleted: async () => {},
     });
