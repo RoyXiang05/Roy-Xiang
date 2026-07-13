@@ -847,7 +847,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
           </div>
 
           {/* Brand Logos Marquee Scrolling Loop */}
-          <div className="w-full border-t border-b border-ink-150 py-4 overflow-hidden select-none relative mb-12 translate-y-1/2 space-y-4">
+          <div className="hidden" aria-hidden="true">
             <div className="hidden" aria-hidden="true">
               {[1, 2, 3].map((cycle) => (
                 <div key={cycle} className="flex items-center space-x-16 pr-16 text-ink-400">
