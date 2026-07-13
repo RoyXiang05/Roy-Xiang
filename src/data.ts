@@ -780,8 +780,9 @@ export const isBrokenUrl = (url: string): boolean => {
   // For IMG_7520 to IMG_7525, they are only broken if they are legacy names NOT prefixed by a timestamp
   const legacyImgMatch = url.match(/IMG_752[0-5]/i);
   if (legacyImgMatch) {
-    // If it contains a 13-digit timestamp prefix right before the name, it is a valid newly uploaded file, so NOT broken!
-    const hasTimestampPrefix = /\d{13}_IMG_752[0-5]/i.test(url);
+    // Blob uploads use a hyphen while older local uploads used an underscore.
+    // Both timestamp formats are valid uploaded files, not legacy broken assets.
+    const hasTimestampPrefix = /\d{13}[-_]IMG_752[0-5]/i.test(url);
     if (!hasTimestampPrefix) {
       return true;
     }
@@ -861,4 +862,3 @@ if (typeof window !== 'undefined' && window.localStorage) {
     }
   });
 }
-
