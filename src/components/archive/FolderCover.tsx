@@ -135,7 +135,9 @@ export default function FolderCover({
       };
     } else if (animPhase === 'zoom' || animPhase === 'reverse-zoom') {
       paperStyle = {
-        transform: 'translateY(-210px) rotate(-1.5deg)',
+        // Keep the paper at its normal preview position while the fixed
+        // overlay scales. This avoids the old "pulled out of folder" beat.
+        transform: 'translateY(-70px) rotate(-1.5deg)',
         transition: 'none',
       };
       paperOpacityClass = 'opacity-0 pointer-events-none';

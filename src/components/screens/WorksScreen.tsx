@@ -331,7 +331,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     }
   };
 
-  // Click on a category folder initiates pull-out transition
+  // Click on a category folder scales its preview straight into the work view.
   const handleFolderClick = (cat: any, rect: DOMRect) => {
     setSelectedTag('All');
     setSearchQuery('');
@@ -339,20 +339,15 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     setAnimatingCat(cat);
     setAnimPhase('tucked');
     
-    // Let the browser paint the tucked frame before moving to the next phase.
-    // The old 15ms handoff often merged both frames into one dropped frame.
+    // Keep a single start frame, then scale directly into the work preview.
+    // There is intentionally no intermediate "pull out" movement.
     setTimeout(() => {
-      setAnimPhase('pull');
-      
-      // Zoom only after the paper has fully cleared the folder.
-      setTimeout(() => {
-        setAnimPhase('zoom');
-        setActiveCategoryPage(cat.title);
-      }, 350);
-    }, 180);
+      setAnimPhase('zoom');
+      setActiveCategoryPage(cat.title);
+    }, 50);
   };
 
-  // Triggers return back to general layout
+  // Returns the enlarged preview straight back into its folder position.
   const handleBackToCabinet = () => {
     if (!animatingCat) {
       setActiveCategoryPage(null);
@@ -368,17 +363,12 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     setAnimPhase('reverse-zoom');
     setActiveCategoryPage(null); // Clear selected category
 
-    // Step 2: Transition from zoom down to pulled state, then pull back in
+    // No secondary pull-in phase: the preview simply shrinks back to its origin.
     setTimeout(() => {
-      setAnimPhase('reverse-pull');
-      
-      // Step 3: Tuck completely back in
-      setTimeout(() => {
-        setAnimPhase('idle');
-        setAnimatingCat(null);
-        setClickRect(null);
-      }, 350);
-    }, 400);
+      setAnimPhase('idle');
+      setAnimatingCat(null);
+      setClickRect(null);
+    }, 460);
   };
 
   // Computes precise GPU-accelerated styles for the animating card to prevent layout reflows
@@ -451,7 +441,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     if (animPhase === 'reverse-zoom') {
       return {
         ...initialStyle,
-        transform: paperTransform(-210),
+        transform: paperTransform(-70),
         opacity: 1,
         transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out',
       };
