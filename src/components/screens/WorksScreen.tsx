@@ -100,7 +100,6 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
   }, []);
 
   // Animation and view states
-  const [activeCategoryPage, setActiveCategoryPage] = useState<string | null>(null);
   const [animatingCat, setAnimatingCat] = useState<any | null>(null);
   const [animPhase, setAnimPhase] = useState<'idle' | 'tucked' | 'pull' | 'zoom' | 'reverse-zoom' | 'reverse-pull'>('idle');
   const [clickRect, setClickRect] = useState<DOMRect | null>(null);
@@ -342,25 +341,18 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
     // Leave one paint frame for the folder, then reveal the collection only.
     requestAnimationFrame(() => {
       setAnimPhase('zoom');
-      setActiveCategoryPage(cat.title);
     });
   };
 
   // Fades the collection away without moving the folder preview.
   const handleBackToCabinet = () => {
     if (!animatingCat) {
-      setActiveCategoryPage(null);
       return;
     }
 
-    const folderEl = document.getElementById(`folder-cover-${animatingCat.number}`);
-    if (folderEl) {
-      const rect = folderEl.getBoundingClientRect();
-      setClickRect(rect);
-    }
-
+    // Keep the existing overlay geometry while fading out. Re-reading the
+    // folder position here caused a one-frame resize on return.
     setAnimPhase('reverse-zoom');
-    setActiveCategoryPage(null); // Clear selected category
 
     // The collection only fades out; the dossier underneath never travels.
     setTimeout(() => {
@@ -500,7 +492,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
         >
           {/* Hardware-accelerated smooth backdrop blur element */}
           <div 
-            className={`absolute inset-0 transition-all duration-500 ease-out ${
+            className={`absolute inset-0 transition-opacity duration-[280ms] ease-out ${
               animPhase === 'zoom' ? 'opacity-100' : 'opacity-0'
             }`}
             style={{
@@ -522,7 +514,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
             }`}
             style={{
               ...getAnimatingCardStyle(),
-              backgroundColor: animPhase === 'zoom' ? '#ffffff' : undefined,
+              backgroundColor: '#ffffff',
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -742,7 +734,7 @@ export default function WorksScreen({ onSelectProject, isViewActive = true, onNa
       )}
 
       {/* 3. STANDARD CABINET/FOLDER GRID VIEW & LISTINGS */}
-      <div className={`transition-opacity duration-500 ${activeCategoryPage ? 'opacity-40 pointer-events-none' : ''}`}>
+      <div className={`transition-opacity duration-500 ${animatingCat ? 'opacity-40 pointer-events-none' : ''}`}>
         <div className="max-w-[1440px] mx-auto px-6 md:px-12 py-12">
           
           {/* Editorial Title Section */}
