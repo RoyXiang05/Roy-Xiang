@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Work, WORKS, isBrokenUrl, cleanMediaUrl } from '../../data';
-import { ArrowUp, ArrowDown, Trash2, Plus, Sliders, Image as ImageIcon, Video as VideoIcon, Link as LinkIcon, Upload, Crop, Check, X, RotateCw, Maximize } from 'lucide-react';
+import { ArrowUp, ArrowDown, ArrowLeft, ArrowRight, Trash2, Plus, Sliders, Image as ImageIcon, Video as VideoIcon, Link as LinkIcon, Upload, Crop, Check, X, RotateCw, Maximize } from 'lucide-react';
 import { apiFetch } from '../../lib/api';
+import pdfWorkerUrl from 'pdfjs-dist/legacy/build/pdf.worker.min.mjs?url';
 
 interface GalleryItem {
   url: string;
@@ -24,6 +25,82 @@ interface WorkDetailScreenProps {
   onSelectProject: (project: Work) => void;
   isAdmin?: boolean;
   onNavigate?: (view: string) => void;
+}
+
+function PdfPageViewer({ src, title }: { src: string; title: string }) {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    setPage(1);
+    setTotalPages(0);
+    setError(false);
+  }, [src]);
+
+  useEffect(() => {
+    let cancelled = false;
+    let renderTask: { cancel: () => void } | undefined;
+
+    const renderPage = async () => {
+      try {
+        const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+        pdfjs.GlobalWorkerOptions.workerSrc = pdfWorkerUrl;
+        const documentTask = pdfjs.getDocument(src);
+        const pdf = await documentTask.promise;
+        if (cancelled) return;
+        setTotalPages(pdf.numPages);
+        const pdfPage = await pdf.getPage(Math.min(page, pdf.numPages));
+        const viewport = pdfPage.getViewport({ scale: 1.65 });
+        const canvas = canvasRef.current;
+        if (!canvas || cancelled) return;
+        const context = canvas.getContext('2d');
+        if (!context) return;
+        canvas.width = Math.ceil(viewport.width);
+        canvas.height = Math.ceil(viewport.height);
+        renderTask = pdfPage.render({ canvas, canvasContext: context, viewport });
+        await renderTask;
+      } catch (renderError: any) {
+        if (!cancelled && renderError?.name !== 'RenderingCancelledException') setError(true);
+      }
+    };
+
+    renderPage();
+    return () => {
+      cancelled = true;
+      renderTask?.cancel();
+    };
+  }, [src, page]);
+
+  return (
+    <div className="w-full bg-paper-100 border border-ink-200">
+      <div className="min-h-[360px] md:min-h-[480px] flex items-center justify-center bg-paper-0 overflow-auto">
+        {error ? (
+          <div className="text-[11px] text-rose-600 font-mono p-6">Unable to render this PDF page.</div>
+        ) : (
+          <canvas ref={canvasRef} className="block max-w-full h-auto shadow-sm" aria-label={title} />
+        )}
+      </div>
+      <div className="flex items-center justify-center gap-3 p-2.5 border-t border-ink-200 bg-paper-0">
+        <button
+          type="button"
+          onClick={() => setPage(current => Math.max(1, current - 1))}
+          disabled={page <= 1}
+          aria-label="Previous PDF page"
+          className="p-1.5 border border-ink-200 disabled:opacity-30 hover:border-klein hover:text-klein transition-colors"
+        ><ArrowLeft className="w-3.5 h-3.5" /></button>
+        <span className="text-[10px] font-mono text-ink-600 min-w-[58px] text-center">{page} / {totalPages || '—'}</span>
+        <button
+          type="button"
+          onClick={() => setPage(current => totalPages ? Math.min(totalPages, current + 1) : current)}
+          disabled={!totalPages || page >= totalPages}
+          aria-label="Next PDF page"
+          className="p-1.5 border border-ink-200 disabled:opacity-30 hover:border-klein hover:text-klein transition-colors"
+        ><ArrowRight className="w-3.5 h-3.5" /></button>
+      </div>
+    </div>
+  );
 }
 
 export default function WorkDetailScreen({
@@ -2439,17 +2516,7 @@ export default function WorkDetailScreen({
                      className="w-full h-auto block"
                    />
                  ) : isPdf ? (
-                   <div className="w-full h-[360px] md:h-[480px] bg-paper-100 border border-ink-200 relative">
-                     <iframe
-                       src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)}
-                       className="w-full h-full border-0"
-                       title={`PDF Preview ${idx}`}
-                     />
-                     <div className="absolute top-2 right-2 bg-paper-0/90 border border-ink-200 px-2 py-1 text-[9px] font-mono text-ink-600 rounded-sm pointer-events-none z-10 flex items-center gap-1 shadow-sm">
-                       <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
-                       PDF DOCUMENT PREVIEW
-                     </div>
-                   </div>
+                   <PdfPageViewer src={cleanMediaUrl(resolvedUrls[mediaUrl] || mediaUrl)} title={`PDF Preview ${idx}`} />
                  ) : (
                    <>
                      {videoPosters[mediaUrl] && (
