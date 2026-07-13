@@ -1,15 +1,39 @@
-import { del } from '@vercel/blob';
 import type { VercelRequest, VercelResponse } from '@vercel/node';
-import { ensureSchema, getSql } from './_lib';
+import crypto from 'node:crypto';
 
 function isAdmin(request: VercelRequest) {
-  return Boolean(request.headers.cookie?.includes('portfolio_admin='));
+  const token = request.headers.cookie?.match(/(?:^|; )portfolio_admin=([^;]+)/)?.[1];
+  const secret = process.env.ADMIN_SESSION_SECRET;
+  if (!token || !secret) return false;
+
+  const [expiresAt, signature] = decodeURIComponent(token).split('.');
+  if (!expiresAt || !signature || Number(expiresAt) <= Date.now()) return false;
+  const expected = crypto.createHmac('sha256', secret).update(expiresAt).digest('base64url');
+  return signature.length === expected.length && crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
 }
 
 export default async function handler(request: VercelRequest, response: VercelResponse) {
   try {
-  const sql = getSql();
-  await ensureSchema();
+  // Dynamic imports keep a module-load error inside this handler, so the client
+  // receives a useful JSON error instead of Vercel's opaque invocation failure.
+  const { neon, neonConfig } = await import('@neondatabase/serverless');
+  const databaseUrl = process.env.DATABASE_URL || process.env.DATABASE_POSTGRES_URL;
+  if (!databaseUrl) throw new Error('Database connection is not configured');
+
+  neonConfig.fetchFunction = (url, options) => fetch(url, {
+    ...options,
+    signal: AbortSignal.timeout(8_000),
+  });
+  const sql = neon(databaseUrl);
+  await sql`CREATE TABLE IF NOT EXISTS gallery_items (
+    id BIGSERIAL PRIMARY KEY,
+    project_id TEXT NOT NULL,
+    media_url TEXT NOT NULL,
+    link_url TEXT NOT NULL DEFAULT '',
+    poster_url TEXT NOT NULL DEFAULT '',
+    sort_order INTEGER NOT NULL,
+    UNIQUE(project_id, media_url)
+  )`;
   if (request.method === 'GET') {
     const rows = await sql`SELECT project_id, media_url, link_url, poster_url FROM gallery_items ORDER BY project_id, sort_order`;
     const data: Record<string, any> = {};
@@ -34,7 +58,10 @@ export default async function handler(request: VercelRequest, response: VercelRe
   if (request.method === 'DELETE') {
     const { projectId, mediaUrl } = request.body || {};
     await sql`DELETE FROM gallery_items WHERE project_id = ${projectId} AND media_url = ${mediaUrl}`;
-    if (typeof mediaUrl === 'string' && mediaUrl.includes('.public.blob.vercel-storage.com')) await del(mediaUrl);
+    if (typeof mediaUrl === 'string' && mediaUrl.includes('.public.blob.vercel-storage.com')) {
+      const { del } = await import('@vercel/blob');
+      await del(mediaUrl);
+    }
     return response.status(200).json({ success: true });
   }
   return response.status(405).json({ error: 'Method not allowed' });

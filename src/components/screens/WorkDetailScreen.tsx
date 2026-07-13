@@ -891,7 +891,8 @@ export default function WorkDetailScreen({
     const links = (project as any).galleryLinks || {};
     const localPosters = (project as any).videoPosters || {};
 
-    // Retrieve from localStorage as a fast primary backup
+    // localStorage is only an offline hint. It must never override the server:
+    // doing that made one visitor's stale browser cache hide newer admin edits.
     let localImages: string[] = [];
     let localLinks: Record<string, string> = {};
     let localPostersMerged: Record<string, string> = { ...localPosters };
@@ -924,8 +925,8 @@ export default function WorkDetailScreen({
       }
     }
 
-    const initialImages = localImages.length > 0 ? localImages : rawImages;
-    const initialLinks = localImages.length > 0 ? localLinks : links;
+    const initialImages = rawImages;
+    const initialLinks = links;
 
     setGalleryItems(initialImages.map(url => ({
       url,
@@ -941,10 +942,10 @@ export default function WorkDetailScreen({
         const savedPosters = config[project.id].videoPosters || {};
         const savedColumns = config[project.id].galleryColumns;
         
-        // Only update if we don't have local overrides or if they match
-        const finalImages = localImages.length > 0 ? localImages : savedImages;
-        const finalLinks = localImages.length > 0 ? localLinks : savedLinks;
-        const finalPosters = { ...savedPosters, ...localPostersMerged };
+        // The deployed database is the source of truth for every visitor.
+        const finalImages = savedImages;
+        const finalLinks = savedLinks;
+        const finalPosters = savedPosters;
         const finalColumns = (typeof savedColumns === 'number' && (savedColumns === 2 || savedColumns === 3)) 
           ? savedColumns as 2 | 3 
           : localColumns;
